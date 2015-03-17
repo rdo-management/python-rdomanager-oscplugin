@@ -16,14 +16,8 @@
 """Plugin action implementation"""
 
 import logging
-import six
-import sys
 
 from cliff import command
-
-from openstackclient.common import clientmanager
-
-from rdomanager_oscplugin import exceptions
 
 
 class InstallPlugin(command.Command):
