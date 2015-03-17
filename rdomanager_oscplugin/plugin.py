@@ -22,7 +22,7 @@ from openstackclient.common import utils
 
 LOG = logging.getLogger(__name__)
 
-DEFAULT_RDOMANAGER_OSCPLUGIN_API_VERSION = '1'
+DEFAULT_RDOMANAGER_OSCPLUGIN_API_VERSION = '7'
 
 # Required by the OSC plugin interface
 API_NAME = 'rdomanager_oscplugin'
