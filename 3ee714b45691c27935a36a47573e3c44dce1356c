@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a1371a2_4b2b8782",
+        "filename": "rdomanager_oscplugin/tests/v1/plugin/undercloud.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-03-17T14:16:05Z",
+      "side": 1,
+      "message": "Guess we want to remove these first?",
+      "revId": "3ee714b45691c27935a36a47573e3c44dce1356c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
