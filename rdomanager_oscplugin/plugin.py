@@ -62,15 +62,6 @@ def build_option_parser(parser):
     :param argparse.ArgumentParser parser: The parser object that has been
         initialized by OpenStackShell.
     """
-    parser.add_argument(
-        '--os-rdomanager-oscplugin-api-version',
-        metavar='<rdomanager-oscplugin-api-version>',
-        default=utils.env(
-            'OS_RDOMANAGER_OSCPLUGIN_API_VERSION',
-            default=DEFAULT_RDOMANAGER_OSCPLUGIN_API_VERSION),
-        help='RDO Manager OSC Plugin API version, default=' +
-             DEFAULT_RDOMANAGER_OSCPLUGIN_API_VERSION +
-             ' (Env: OS_RDOMANAGER_OSCPLUGIN_API_VERSION)')
     return parser
 
 
