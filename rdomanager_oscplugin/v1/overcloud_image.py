@@ -16,6 +16,9 @@
 """Plugin action implementation"""
 
 import logging
+import os.path
+from openstackclient.common import utils, exceptions
+import subprocess
 
 from cliff import command
 
@@ -36,6 +39,103 @@ class CreatePlugin(command.Command):
     auth_required = False
     log = logging.getLogger(__name__ + ".CreatePlugin")
 
+    def get_parser(self, prog_name):
+        parser = super(CreatePlugin, self).get_parser(prog_name)
+        parser.add_argument(
+            "--image-path",
+            default='./',
+            help="",
+        )
+        parser.add_argument(
+            "--deploy-name",
+            default='deploy-ramdisk-ironic',
+            help="",
+        )
+        parser.add_argument(
+            "--discovery-name",
+            default='discovery-ramdisk',
+            help="",
+        )
+        parser.add_argument(
+            "--tftp-root",
+            default='/tftpboot',
+            help="",
+        )
+        parser.add_argument(
+            "--os-image",
+            default='openstack-full.qcow2',
+            help="",
+        )
+        return parser
+
+    def _find_by_name(self, list, name):
+        return utils.find_resource(list, name)
+
+    def _read_image_file(self, dir, file):
+        open('{0}{1}'.format(dir, file)).read()
+
     def take_action(self, parsed_args):
         self.log.debug("take_action(%s)" % parsed_args)
-        pass
+        image_files = [
+            '%s.initramfs' % parsed_args.deploy_name,
+            '%s.kernel' % parsed_args.deploy_name,
+            '%s.initramfs' % parsed_args.discovery_name,
+            '%s.kernel' % parsed_args.discovery_name,
+            parsed_args.os_image
+        ]
+
+        image_client = self.app.client_manager.image
+        compute_client = self.app.client_manager.compute
+
+        self.log.debug("check image files")
+
+        for image in image_files:
+            image_path = parsed_args.image_path + image
+            if not os.path.isfile(image_path):
+                print('ERROR: Image file "%s" does not exist' % image_path)
+                # return
+
+        # TODO: subprocess.call("tripleo load-image -d {image_path}{os_image}") # TODO: rewrite too?
+
+        self.log.debug("prepare glance images")
+
+        try:
+            bm_deploy_kernel = utils.find_resource(image_client.images,
+                                                   'bm_deploy_kernel')
+            image_client.images.delete(bm_deploy_kernel.id)
+        except exceptions.CommandError:
+            pass
+        try:
+            bm_deploy_ramdisk = utils.find_resource(image_client.images,
+                                                    'bm_deploy_ramdisk')
+            image_client.images.delete(bm_deploy_ramdisk.id)
+        except exceptions.CommandError:
+            pass
+
+        deploy_kernel_id = image_client.images.create(**{'name': 'bm_deploy_kernel',
+                            'is_public': True, 'disk_format': 'aki', 'data':
+                            self._read_image_file(parsed_args.image_path,
+                                                  '%s.kernel' % parsed_args.deploy_name)}
+        ).id  # TODO: do it better?
+
+        deploy_ramdisk_id = image_client.images.create(**{'name': 'bm_deploy_ramdisk',
+                            'is_public': True, 'disk_format': 'ari', 'data':
+                            self._read_image_file(parsed_args.image_path,
+                                                  '%s.initramfs' % parsed_args.deploy_name)}
+        ).id
+
+        try:
+            utils.find_resource(compute_client.flavors, 'baremetal')
+        except exceptions.CommandError:
+            compute_client.flavors.create('baremetal', 4096, 1, 40, 1)  # flavorid = 1 WTF?
+
+        self.log.debug("prepare flavor")
+
+        # TODO: missing in version of osc?
+
+        self.log.debug("copy images to TFTP")
+
+        subprocess.call('cp -f "{0}/{1}.kernel" "{2}/discovery.kernel"'.format(parsed_args.image_path,
+                        parsed_args.discovery_name, parsed_args.tftp_root))   # TODO: sudo?
+        subprocess.call('cp -f "{0}/{1}.initramfs" "{2}/discovery.ramdisk"'.format(parsed_args.image_path,
+                        parsed_args.discovery_name, parsed_args.tftp_root))   # TODO: sudo?
