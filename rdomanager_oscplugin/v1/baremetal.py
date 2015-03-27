@@ -22,6 +22,7 @@ import logging
 import sys
 
 from ironic_discoverd import client as discoverd_client
+from openstackclient.common import utils
 from os_cloud_config import nodes
 
 from cliff import command
@@ -95,6 +96,14 @@ class IntrospectionAllPlugin(command.Command):
 
     log = logging.getLogger(__name__ + ".IntrospectionAll")
 
+    def get_parser(self, prog_name):
+        parser = super(IntrospectionAllPlugin, self).get_parser(prog_name)
+        parser.add_argument('--discoverd-url',
+                            default=utils.env('DISCOVERD_URL', default=None),
+                            help='discoverd URL, defaults to localhost '
+                            '(env: DISCOVERD_URL).')
+        return parser
+
     def take_action(self, parsed_args):
 
         self.log.debug("take_action(%s)" % parsed_args)
@@ -104,4 +113,7 @@ class IntrospectionAllPlugin(command.Command):
             self.log.debug("Starting introspection of Ironic node {0}".format(
                 node.uuid))
             auth_token = self.app.client_manager.auth_ref.auth_token
-            discoverd_client.introspect(node.uuid, auth_token=auth_token)
+            discoverd_client.introspect(
+                node.uuid,
+                base_url=parsed_args.discoverd_url,
+                auth_token=auth_token)

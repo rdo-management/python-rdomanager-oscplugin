@@ -155,7 +155,8 @@ class TestIntrospectionAll(fakes.TestBaremetal):
         parsed_args = self.check_parser(self.cmd, [], [])
         self.cmd.take_action(parsed_args)
 
-        discoverd_mock.assert_called_once_with('ABCDEFGH', auth_token='TOKEN')
+        discoverd_mock.assert_called_once_with(
+            'ABCDEFGH', base_url=None, auth_token='TOKEN')
 
     @mock.patch('ironic_discoverd.client.introspect')
     def test_introspect_all(self, discoverd_mock):
@@ -171,7 +172,7 @@ class TestIntrospectionAll(fakes.TestBaremetal):
         self.cmd.take_action(parsed_args)
 
         discoverd_mock.assert_has_calls([
-            mock.call('ABCDEFGH', auth_token='TOKEN'),
-            mock.call('IJKLMNOP', auth_token='TOKEN'),
-            mock.call('QRSTUVWX', auth_token='TOKEN'),
+            mock.call('ABCDEFGH', base_url=None, auth_token='TOKEN'),
+            mock.call('IJKLMNOP', base_url=None, auth_token='TOKEN'),
+            mock.call('QRSTUVWX', base_url=None, auth_token='TOKEN'),
         ])
