@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a106d94_eab983ea",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-03-27T15:05:02Z",
+      "side": 1,
+      "message": "Done. Added shell\u003dtrue shoudl work:\n\n$ export FOOVAR\u003d\"1234\"\n$ python\nPython 2.7.9 (default, Feb 19 2015, 11:42:06) \n[GCC 4.9.2 20150212 (Red Hat 4.9.2-6)] on linux2\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n\u003e\u003e\u003e import subprocess\n\u003e\u003e\u003e subprocess.call(\u0027env | grep FOO\u0027, shell\u003dTrue)\nFOOVAR\u003d1234\n0",
+      "parentUuid": "1a106d94_076e9a01",
+      "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a106d94_47b0928b",
         "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-27T13:01:33Z",
       "side": 1,
       "message": "We should probably log the exception we are ignoring.\n\nself.log.exception(\"message\")",
+      "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_caa127ab",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-03-27T15:05:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a106d94_47b0928b",
       "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1a106d94_aaa66bbf",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-03-27T15:05:02Z",
+      "side": 1,
+      "message": "Done. The reason was I got lost in errors with bad amount of arguments, fixed.",
+      "parentUuid": "1a106d94_4777f2d4",
+      "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a106d94_277476ce",
         "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2015-03-27T13:01:33Z",
       "side": 1,
       "message": "find(name\u003d\u0027baremetal\u0027)",
+      "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_2a927b57",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-03-27T15:05:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a106d94_277476ce",
       "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
