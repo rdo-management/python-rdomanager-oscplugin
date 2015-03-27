@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_076e9a01",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-03-27T13:01:33Z",
+      "side": 1,
+      "message": "I\u0027m not sure this will work, will tripleo have all the environment variables that it needs to authenticate with glance etc.? I\u0027m not sure what would happen here :)",
+      "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_47b0928b",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-03-27T13:01:33Z",
+      "side": 1,
+      "message": "We should probably log the exception we are ignoring.\n\nself.log.exception(\"message\")",
+      "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_4777f2d4",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-03-27T13:01:33Z",
+      "side": 1,
+      "message": "Is there a reason you are using **{..} (keyword expansion ) here rather than passing the args like:\n\nkernel_id \u003d image_client.images.create(name\u003d\u0027bm_deploy_kernel\u0027, is_public\u003dTrue ...)",
+      "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_277476ce",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-03-27T13:01:33Z",
+      "side": 1,
+      "message": "find(name\u003d\u0027baremetal\u0027)",
+      "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_a7c186e6",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-03-27T13:01:33Z",
+      "side": 1,
+      "message": "Let\u0027s not use subprocess for these. https://docs.python.org/2/library/shutil.html#shutil.copy",
+      "revId": "bad51bd6c37bc299814c4f68d62b24e7127c7771",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
