@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_6d176dee",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-03-27T20:17:29Z",
+      "side": 1,
+      "message": "I wonder if it would be worth breaking these into methods as this repeats the try/except above and then the image create is repeated and then the subprocess cp is also repeated.",
+      "revId": "2aac1e7fc85cb51cd3e3ac8a13a7350bfd2464f0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
