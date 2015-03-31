@@ -16,6 +16,24 @@
       "revId": "2aac1e7fc85cb51cd3e3ac8a13a7350bfd2464f0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_9ad5b045",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-03-31T13:46:45Z",
+      "side": 1,
+      "message": "Thanks for comments, changes I\u0027ve done:\n- try/except methods were extracted\n- create IMO can stay as it is (one method call, 3 different parameters, but if you feel that it really should be extracted, I will do that)\n- copy methods were extracted, but I am not sure about level of abstraction (eg. copy files vs. copy_tftp_images)",
+      "parentUuid": "1a106d94_6d176dee",
+      "revId": "2aac1e7fc85cb51cd3e3ac8a13a7350bfd2464f0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
