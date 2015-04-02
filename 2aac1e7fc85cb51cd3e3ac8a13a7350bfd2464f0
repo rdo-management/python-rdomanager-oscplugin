@@ -34,6 +34,24 @@
       "revId": "2aac1e7fc85cb51cd3e3ac8a13a7350bfd2464f0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_ce93e5f8",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-04-02T16:21:50Z",
+      "side": 1,
+      "message": "hmm good points, it\u0027s probably not as much repition as I first imagined. It might be worth breaking take_action up into logical steps - I think my primary issue is with the length of the method.",
+      "parentUuid": "1a106d94_9ad5b045",
+      "revId": "2aac1e7fc85cb51cd3e3ac8a13a7350bfd2464f0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
