@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_a2b67d3b",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-04-02T17:01:18Z",
+      "side": 1,
+      "message": "This isn\u0027t actually a problem, but I\u0027d avoid using builtin function names as variable names like \u0027list\u0027. The full list is here: https://docs.python.org/2/library/functions.html",
+      "revId": "aef02a043d9557cf4263992a55c9dcf8525a2b30",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_02831157",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-04-02T17:01:18Z",
+      "side": 1,
+      "message": "Same as above \u0027dir\u0027 and \u0027file\u0027 are global builtins.\n\nWe should also use os.path.join() to connect a dir and filename.",
+      "revId": "aef02a043d9557cf4263992a55c9dcf8525a2b30",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
