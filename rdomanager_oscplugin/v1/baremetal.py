@@ -54,6 +54,23 @@ def _csv_to_nodes_dict(nodes_csv):
 
     return data
 
+class ListBaremetal(lister.Lister):
+    """Baremetal list plugin"""
+
+    log = logging.getLogger(__name__ + ".ListPlugin")
+
+    def take_action(self, parsed_args):
+
+        self.log.debug("take_action(%s)" % parsed_args)
+        client = self.app.client_manager.rdomanager_oscplugin.baremetal()
+
+        return (
+            ("UUID", "Instance UUID", "Power State", "Provisioning State",
+             "Maintenance"),
+            list((node.uuid, node.instance_uuid, node.power_state,
+                  node.provision_state, node.maintenance)
+                 for node in client.node.list())
+        )
 
 class ImportPlugin(command.Command):
     """Baremetal Import plugin"""

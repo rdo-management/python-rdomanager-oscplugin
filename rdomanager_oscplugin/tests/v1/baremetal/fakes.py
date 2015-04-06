@@ -16,6 +16,19 @@
 import mock
 from openstackclient.tests import utils
 
+baremetal_uuid = 'm1.large'
+baremetal_instance_uuid = 'Large'
+baremetal_power_state = None
+baremetal_provision_state = None
+baremetal_maintenance = False
+
+BAREMETAL = {
+    'uuid': baremetal_uuid,
+    'instance_uuid': baremetal_instance_uuid,
+    'power_state': baremetal_power_state,
+    'provision_state': baremetal_provision_state,
+    'maintenance': baremetal_maintenance,
+}
 
 class FakeClientWrapper(object):
 

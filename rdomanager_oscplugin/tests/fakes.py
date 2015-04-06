@@ -13,6 +13,7 @@
 #   under the License.
 #
 
+import six
 import sys
 
 
@@ -34,3 +35,21 @@ class FakeClientManager(object):
     def __init__(self):
         self.identity = None
         self.auth_ref = None
+
+class FakeResource(object):
+    def __init__(self, manager, info, loaded=False):
+        self.__name__ = type(self).__name__
+        self.manager = manager
+        self._info = info
+        self._add_details(info)
+        self._loaded = loaded
+
+    def _add_details(self, info):
+        for (k, v) in six.iteritems(info):
+            setattr(self, k, v)
+
+    def __repr__(self):
+        reprkeys = sorted(k for k in self.__dict__.keys() if k[0] != '_' and
+                          k != 'manager')
+        info = ", ".join("%s=%s" % (k, getattr(self, k)) for k in reprkeys)
+        return "<%s %s>" % (self.__class__.__name__, info)
