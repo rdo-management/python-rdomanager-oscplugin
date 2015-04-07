@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_25ff2aac",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-04-07T12:02:24Z",
+      "side": 1,
+      "message": "Nit pick: Normally the logger matches the class name I think",
+      "revId": "486a03350807906baea564d6784784dc9f1f2555",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
