@@ -62,6 +62,7 @@ class ClientWrapper(object):
     def __init__(self, instace):
         self._instace = instace
         self._baremetal = None
+        self._orchestration = None
 
     def baremetal(self):
         """Returns an baremetal service client"""
