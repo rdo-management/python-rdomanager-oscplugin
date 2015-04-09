@@ -60,8 +60,9 @@ def build_option_parser(parser):
 class ClientWrapper(object):
 
     def __init__(self, instace):
-        self._instace = instace
+        self._instance = instace
         self._baremetal = None
+        self._orchestration = None
 
     def baremetal(self):
         """Returns an baremetal service client"""
@@ -73,12 +74,12 @@ class ClientWrapper(object):
         if self._baremetal is not None:
             return self._baremetal
 
-        endpoint = self._instace.get_endpoint_for_service_type(
+        endpoint = self._instance.get_endpoint_for_service_type(
             "baremetal",
-            region_name=self._instace._region_name,
+            region_name=self._instance._region_name,
         )
 
-        token = self._instace.auth.get_token(self._instace.session)
+        token = self._instance.auth.get_token(self._instance.session)
 
         self._baremetal = ironic_client.get_client(
             1, os_auth_token=token, ironic_url=endpoint)
@@ -101,20 +102,20 @@ class ClientWrapper(object):
 
         heat_client = utils.get_client_class(
             API_NAME,
-            self.instance._api_version[API_NAME],
+            self._instance._api_version[API_NAME],
             API_VERSIONS)
         LOG.debug('Instantiating orchestration client: %s', heat_client)
 
-        endpoint = self.instance.get_endpoint_for_service_type('orchestration')
+        endpoint = self._instance.get_endpoint_for_service_type('orchestration')
 
         client = heat_client(
             endpoint=endpoint,
-            auth_url=self.instance._auth_url,
-            token=self.instance._token,
-            username=self.instance._username,
-            password=self.instance._password,
-            region_name=self.instance._region_name,
-            insecure=self.instance._insecure,
+            auth_url=self._instance._auth_url,
+            token=self._instance.auth.get_token(self._instance.session),
+            username=self._instance._username,
+            password=self._instance._password,
+            region_name=self._instance._region_name,
+            insecure=self._instance._insecure,
         )
 
         self._orchestration = client
