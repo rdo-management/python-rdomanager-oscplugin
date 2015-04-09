@@ -42,3 +42,14 @@ def generate_overcloud_passwords():
     )
 
     return dict((password, _generate_password()) for password in passwords)
+
+
+def wait_for_hypervisor_stats(novaclient, nodes, memory, vcpu):
+
+    while True:
+
+        statistics = novaclient.hypervisor_stats.statistics()
+
+        print dir(statistics)
+        print statistics
+        break
