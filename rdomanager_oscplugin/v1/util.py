@@ -42,3 +42,12 @@ def generate_overcloud_passwords():
     )
 
     return dict((password, _generate_password()) for password in passwords)
+
+
+def wait_for_hypervisor_stats(compute_client, nodes, memory, vcpu):
+
+    while True:
+
+        statistics = compute_client.hypervisors.statistics().to_dict()
+        print statistics
+        break
