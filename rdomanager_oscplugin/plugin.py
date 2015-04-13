@@ -93,6 +93,8 @@ class ClientWrapper(object):
         # and should be removed when it lands:
         # https://review.openstack.org/#/c/111786
 
+        instance = self._instance
+
         if self._orchestration is not None:
             return self._orchestration
 
@@ -102,21 +104,21 @@ class ClientWrapper(object):
 
         heat_client = utils.get_client_class(
             API_NAME,
-            self._instance._api_version[API_NAME],
+            instance._api_version[API_NAME],
             API_VERSIONS)
         LOG.debug('Instantiating orchestration client: %s', heat_client)
 
-        endpoint = self._instance.get_endpoint_for_service_type('orchestration')
-        token = self._instance.auth.get_token(self._instance.session)
+        endpoint = instance.get_endpoint_for_service_type('orchestration')
+        token = instance.auth.get_token(instance.session)
 
         client = heat_client(
             endpoint=endpoint,
-            auth_url=self._instance._auth_url,
+            auth_url=instance._auth_url,
             token=token,
-            username=self._instance._username,
-            password=self._instance._password,
-            region_name=self._instance._region_name,
-            insecure=self._instance._insecure,
+            username=instance._username,
+            password=instance._password,
+            region_name=instance._region_name,
+            insecure=instance._insecure,
         )
 
         self._orchestration = client
