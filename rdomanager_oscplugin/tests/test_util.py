@@ -15,6 +15,8 @@
 
 from unittest import TestCase
 
+import mock
+
 from rdomanager_oscplugin.v1 import util
 
 
@@ -27,3 +29,22 @@ class TestPasswordsUtil(TestCase):
 
         self.assertEqual(len(passwords), 13)
         self.assertNotEqual(passwords, passwords2)
+
+    def test_wait_for_hypervisor_stats(self):
+
+        mock_comute = mock.Mock()
+        mock_stats = mock.Mock()
+
+        return_values = [
+            {'count': 0, 'memory_mb': 0, 'vcpus': 0},
+            {'count': 1, 'memory_mb': 1, 'vcpus': 1},
+        ]
+
+        mock_stats.to_dict.side_effect = return_values
+        mock_comute.hypervisors.statistics.return_value = mock_stats
+
+        stats = util.wait_for_hypervisor_stats(
+            mock_comute, nodes=1, memory=1, vcpu=1, sleep=0.01)
+
+        self.assertEqual(stats, return_values[-1])
+        self.assertEqual(mock_stats.to_dict.call_count, 2)
