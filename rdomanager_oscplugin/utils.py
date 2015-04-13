@@ -14,6 +14,7 @@
 #
 
 import hashlib
+import os
 import six
 import uuid
 
@@ -48,7 +49,15 @@ def generate_overcloud_passwords():
         "OVERCLOUD_SWIFT_PASSWORD",
     )
 
-    return dict((password, _generate_password()) for password in passwords)
+    passwords = dict((password, _generate_password()) for password in passwords)
+
+    pw_file = os.path.expanduser("~/tripleo-overcloud-passwords")
+
+    with open(pw_file, 'w+') as f:
+        for pwd_name, pwd_value in passwords.items():
+            f.write("{0}={1}".format(pwd_name, pwd_value))
+
+    return passwords
 
 
 def check_hypervisor_stats(compute_client, nodes=1, memory=0, vcpu=0):
