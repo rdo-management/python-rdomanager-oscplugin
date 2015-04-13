@@ -15,10 +15,19 @@
 
 import hashlib
 import six
+import time
 import uuid
 
 
 def _generate_password():
+    """
+    Create a random password
+
+    The password is made by taking a uuid and passing it though sha1sum.
+    echo "We may change this in future to gain more entropy.
+
+    This is based on the tripleo command os-make-password
+    """
     uuid_str = six.text_type(uuid.uuid1()).encode("UTF-8")
     return hashlib.sha1(uuid_str).hexdigest()
 
@@ -42,3 +51,46 @@ def generate_overcloud_passwords():
     )
 
     return dict((password, _generate_password()) for password in passwords)
+
+
+def wait_for_hypervisor_stats(compute_client, nodes=1, memory=None, vcpu=None,
+                              sleep=10):
+    """
+    Wait for the Hypervisor stats to meet a minimum value
+
+    Wait for the hypervisor stats to match the required counts. This is an
+    implementation of a command in TripleO with the same name.
+
+    :param compute_client: Instance of Nova client
+    :type  compute_client: novaclient.client.v2.Client
+
+    :param nodes: The number of nodes to wait for, defaults to 1.
+    :type  nodes: int
+
+    :param memory: The amount of memory to wait for in MB, defaults to the
+                   amount of memory for the baremetal flavor times the number
+                   of nodes.
+    :type  memory: int
+
+    :param vcpu: The number of vcpus to wait for, defaults to the number of
+                 vcpus for the baremtal flavor times the number of nodes.
+    :type  vcpu: int
+    """
+
+    # TODO(dmatthews): These shouldn't default to 0 and should do what the
+    # comment above says.
+    if memory is None:
+        memory = 0
+
+    if vcpu is None:
+        vcpu = 0
+
+    while True:
+
+        statistics = compute_client.hypervisors.statistics().to_dict()
+
+        if all([statistics['count'] >= nodes, statistics['memory_mb'] >= memory,
+                statistics['vcpus'] >= vcpu]):
+            return statistics
+
+        time.sleep(sleep)
