@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_301c6f77",
+        "filename": "rdomanager_oscplugin/v1/util.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-13T13:48:31Z",
+      "side": 1,
+      "message": "I think we need a sane timeout here.",
+      "revId": "707c36acf30b1967644ab5e05b7b8f5b8f154aea",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
