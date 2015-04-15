@@ -14,7 +14,10 @@
 #
 
 import hashlib
+import os
+import re
 import six
+import time
 import uuid
 
 
@@ -48,7 +51,15 @@ def generate_overcloud_passwords():
         "OVERCLOUD_SWIFT_PASSWORD",
     )
 
-    return dict((password, _generate_password()) for password in passwords)
+    passwords = dict((password, _generate_password()) for password in passwords)
+
+    pw_file = os.path.expanduser("~/tripleo-overcloud-passwords")
+
+    with open(pw_file, 'w+') as f:
+        for pwd_name, pwd_value in passwords.items():
+            f.write("{0}={1}".format(pwd_name, pwd_value))
+
+    return passwords
 
 
 def check_hypervisor_stats(compute_client, nodes=1, memory=0, vcpu=0):
@@ -78,3 +89,42 @@ def check_hypervisor_stats(compute_client, nodes=1, memory=0, vcpu=0):
         return statistics
     else:
         return None
+
+def wait_for_stack_ready(
+    orchestration_client, stack_name, loops=220, sleep=10):
+    """Check the status of an orchestration stack
+
+    Get the status of an orchestration stack and check whether it is complete
+    or failed.
+
+    :param orchestration_client: Instance of Orchestration client
+    :type  orchestration_client: heatclient.v1.client.Client
+
+    :param stack_name: Name or UUID of stack to retrieve
+    :type  stack_name: string
+
+    :param loops: How many times to loop
+    :type loops: int
+
+    :param sleep: How long to sleep between loops
+    :type sleep: int
+    """
+    SUCCESSFUL_MATCH_OUTPUT="(CREATE|UPDATE)_COMPLETE"
+    FAIL_MATCH_OUTPUT="(CREATE|UPDATE)_FAILED"
+
+    stack = orchestration_client.stacks.get(stack_name)
+
+    if not stack:
+        return False
+
+    for _ in range(0, loops):
+        status = stack['stack_status']
+
+        if re.match(SUCCESSFUL_MATCH_OUTPUT, status):
+            return True
+        if re.match(FAIL_MATCH_OUTPUT, status):
+            return False
+
+        time.sleep(sleep)
+
+        stack = orchestration_client.get(stack_name)
