@@ -21,7 +21,6 @@ from rdomanager_oscplugin import utils
 
 
 class TestPasswordsUtil(TestCase):
-
     def test_generate_passwords(self):
 
         passwords = utils.generate_overcloud_passwords()
@@ -30,6 +29,8 @@ class TestPasswordsUtil(TestCase):
         self.assertEqual(len(passwords), 13)
         self.assertNotEqual(passwords, passwords2)
 
+
+class TestCheckHypervisorUtil(TestCase):
     def test_check_hypervisor_stats(self):
 
         mock_compute = mock.Mock()
@@ -53,3 +54,18 @@ class TestPasswordsUtil(TestCase):
             mock_compute, nodes=1, memory=1, vcpu=1)
         self.assertEqual(stats, return_values[-1])
         self.assertEqual(mock_stats.to_dict.call_count, 2)
+
+
+class TestWaitForStackUtil(TestCase):
+    def test_wait_for_stack_ready(self):
+        mock_orchestration = mock.Mock()
+
+        return_values = [
+            {'stack_status': 'CREATE_COMPLETE'}
+        ]
+
+        mock_orchestration.stacks.get.side_effect = return_values
+
+        complete = utils.wait_for_stack_ready(mock_orchestration, 'stack')
+
+        self.assertEqual(complete, True)
