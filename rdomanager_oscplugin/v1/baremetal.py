@@ -26,8 +26,7 @@ from ironic_discoverd import client as discoverd_client
 from openstackclient.common import utils
 from os_cloud_config import nodes
 
-from rdomanager_oscplugin.utils import wait_for_node_discovery
-from rdomanager_oscplugin.utils import wait_for_provision_state
+from rdomanager_oscplugin import utils
 
 from cliff import command
 
@@ -135,7 +134,8 @@ class IntrospectionAllPlugin(IntrospectionParser, command.Command):
 
                 client.node.set_provision_state(node.uuid, 'manage')
 
-                if not wait_for_provision_state(client, uuid, 'manageable'):
+                if not utils.wait_for_provision_state(client, uuid,
+                                                      'manageable'):
                     print("FAIL: State not updated for Node {0}".format(
                           node.uuid, file=sys.stderr))
 
@@ -147,10 +147,9 @@ class IntrospectionAllPlugin(IntrospectionParser, command.Command):
                 auth_token=auth_token)
 
         print("Waiting for discovery to finish")
-        for uuid, status in wait_for_node_discovery(discoverd_client,
-                                                    auth_token,
-                                                    parsed_args.discoverd_url,
-                                                    node_uuids):
+        for uuid, status in utils.wait_for_node_discovery(
+                discoverd_client, auth_token, parsed_args.discoverd_url,
+                node_uuids):
             print("Discovery for UUID {0} finished (Error: {1}".format(
                 uuid, status['error']))
 
