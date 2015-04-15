@@ -130,7 +130,7 @@ def wait_for_provision_state(baremetal_client, node_uuid, provision_state,
 
         node = baremetal_client.node.get(node_uuid)
 
-        if node.provision_state == provision_state:
+        if node and node.provision_state == provision_state:
             return True
 
         time.sleep(sleep)
