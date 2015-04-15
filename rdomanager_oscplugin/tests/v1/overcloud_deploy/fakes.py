@@ -21,20 +21,22 @@ class FakeClientWrapper(object):
 
     def __init__(self):
         self._instance = mock.Mock()
-        self._orchestration = None
+        self._orchestration = mock.Mock()
+        self._baremetal = mock.Mock()
 
     def orchestration(self):
-
-        if self._orchestration is None:
-            self._orchestration = mock.Mock()
-
         return self._orchestration
 
+    def baremetal(self):
+        return self._baremetal
 
-class TestOrchestration(utils.TestCommand):
+
+class TestDeployOvercloud(utils.TestCommand):
 
     def setUp(self):
-        super(TestOrchestration, self).setUp()
+        super(TestDeployOvercloud, self).setUp()
 
         self.app.client_manager.auth_ref = mock.Mock(auth_token="TOKEN")
         self.app.client_manager.rdomanager_oscplugin = FakeClientWrapper()
+        self.app.client_manager.network = mock.Mock()
+        self.app.client_manager.compute = mock.Mock()
