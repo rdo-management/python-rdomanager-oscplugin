@@ -13,6 +13,9 @@
 #   under the License.
 #
 
+import json
+import os
+import tempfile
 from unittest import TestCase
 
 import mock
@@ -191,3 +194,44 @@ class TestWaitForDiscovery(TestCase):
                                                loops=4, sleep=0.01)
 
         self.assertEqual(list(result), [])
+
+    def test_create_environment_file(self):
+
+        temp_dir = tempfile.mkdtemp()
+        json_file_path = os.path.join(temp_dir, "env.json")
+
+        utils.create_environment_file(path=json_file_path)
+
+        with open(json_file_path, 'r') as f:
+            self.assertEqual(json.load(f)['parameters']['ComputeCount'], 1)
+
+    @mock.patch('rdomanager_oscplugin.utils.wait_for_provision_state')
+    def test_set_nodes_state(self, wait_for_state_mock):
+
+        wait_for_state_mock.return_value = True
+        bm_client = mock.Mock()
+
+        # One node already deployed, one in the manageable state after
+        # introspection.
+        nodes = [
+            mock.Mock(uuid="ABCDEFGH", provision_state="active"),
+            mock.Mock(uuid="IJKLMNOP", provision_state="manageable")
+        ]
+
+        skipped_states = ('active', 'available')
+        utils.set_nodes_state(bm_client, nodes, 'provide', skipped_states)
+
+        bm_client.node.set_provision_state.assert_has_calls([
+            mock.call('IJKLMNOP', 'provide'),
+        ])
+
+    @mock.patch("subprocess.Popen")
+    def test_get_heira_password(self, mock_popen):
+
+        process_mock = mock.Mock()
+        process_mock.communicate.return_value = ["pa$$word", ""]
+        mock_popen.return_value = process_mock
+
+        password = utils.get_heira_password('password_name')
+
+        self.assertEqual(password, "pa$$word")
