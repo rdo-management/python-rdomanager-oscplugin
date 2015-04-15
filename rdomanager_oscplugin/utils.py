@@ -14,11 +14,16 @@
 #
 
 import hashlib
+import json
 import logging
+import os
 import re
-import six
+import subprocess
+import sys
 import time
 import uuid
+
+import six
 
 
 def _generate_password():
@@ -125,12 +130,32 @@ def wait_for_stack_ready(
 
 def wait_for_provision_state(baremetal_client, node_uuid, provision_state,
                              loops=10, sleep=1):
+    """Wait for a given Provisioning state in Ironic Discoverd
+
+    Updating the provisioning state is an async operation, we
+    need to wait for it to be completed.
+
+    :param baremetal_client: Instance of Ironic client
+    :type  baremetal_client: ironicclient.v1.client.Client
+
+    :param node_uuid: The Ironic node UUID
+    :type  node_uuid: str
+
+    :param provision_state: The provisioning state name to wait for
+    :type  provision_state: str
+
+    :param loops: How many times to loop
+    :type loops: int
+
+    :param sleep: How long to sleep between loops
+    :type sleep: int
+    """
 
     for _ in range(0, loops):
 
         node = baremetal_client.node.get(node_uuid)
 
-        if node.provision_state == provision_state:
+        if node and node.provision_state == provision_state:
             return True
 
         time.sleep(sleep)
@@ -144,8 +169,8 @@ def wait_for_node_discovery(discoverd_client, auth_token, discoverd_url,
 
     Gets the status and waits for them to complete.
 
-    :param discoverd_client: Instance of Orchestration client
-    :type  discoverd_client: heatclient.v1.client.Client
+    :param discoverd_client: Ironic Discoverd client
+    :type  discoverd_client: ironic_discoverd.client
 
     :param auth_token: Authorisation token used by discoverd client
     :type auth_token: string
@@ -188,3 +213,94 @@ def wait_for_node_discovery(discoverd_client, auth_token, discoverd_url,
     if len(node_uuids):
         log.error("Discovery didn't finish for nodes {0}".format(
             ','.join(node_uuids)))
+
+
+def create_environment_file(path="~/overcloud-env.json",
+                            control_scale=1, compute_scale=1,
+                            ceph_storage_scale=0, block_storage_scale=0,
+                            swift_storage_scale=0):
+    """Create a heat environment file
+
+    Create the heat environment file with the scale parameters.
+
+    :param control_scale: Scale value for control roles.
+    :type control_scale: int
+
+    :param compute_scale: Scale value for compute roles.
+    :type compute_scale: int
+
+    :param ceph_storage_scale: Scale value for ceph storage roles.
+    :type ceph_storage_scale: int
+
+    :param block_storage_scale: Scale value for block storage roles.
+    :type block_storage_scale: int
+
+    :param swift_storage_scale: Scale value for swift storage roles.
+    :type swift_storage_scale: int
+    """
+
+    env_path = os.path.expanduser(path)
+    with open(env_path, 'w+') as f:
+        f.write(json.dumps({
+            "parameters": {
+                "ControllerCount": control_scale,
+                "ComputeCount": compute_scale,
+                "CephStorageCount": ceph_storage_scale,
+                "BlockStorageCount": block_storage_scale,
+                "ObjectStorageCount": swift_storage_scale}
+        }))
+
+    return env_path
+
+
+def set_nodes_state(bm_client, nodes, target_state, skipped_states=()):
+    """Make all nodes available in Ironic for a deployment
+
+    For each node, make it available unless it is already available or active.
+    Available nodes can be used for a deployment and an active node is already
+    in use.
+
+    :param baremetal_client: Instance of Ironic client
+    :type  baremetal_client: ironicclient.v1.client.Client
+    """
+
+    log = logging.getLogger(__name__ + ".set_nodes_state")
+
+    for node in nodes:
+
+        if node.provision_state in skipped_states:
+            continue
+
+        log.debug(
+            "Setting provision state from {0} to 'available' for Node {1}"
+            .format(node.provision_state, node.uuid))
+
+        bm_client.node.set_provision_state(node.uuid, target_state)
+
+        if not wait_for_provision_state(bm_client, node.uuid, 'available'):
+            print("FAIL: State not updated for Node {0}".format(
+                  node.uuid, file=sys.stderr))
+
+
+def get_hiera_password(password_name):
+    """Retrieve a password from the hiera password store
+
+    :param password_name: Name of the password to retrieve
+    :type  password_name: type
+
+    """
+    command = ["hiera", password_name]
+    p = subprocess.Popen(command, stdout=subprocess.PIPE)
+    out, err = p.communicate()
+    return out
+
+
+def ssh_keygen(overcloud_ip):
+    """For a given IP address create ssh keys"""
+
+    known_hosts = os.path.expanduser("~/.ssh/known_hosts")
+    handle = os.fdopen(os.open(known_hosts, os.O_CREAT, 0o600))
+    handle.close()
+
+    command = ['ssh-keygen', '-R', overcloud_ip]
+    subprocess.check_call(command)
