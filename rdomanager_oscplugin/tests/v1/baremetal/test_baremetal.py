@@ -85,7 +85,7 @@ pxe_ssh,192.168.122.1,root,"KEY2",00:7c:ef:3d:eb:60""")
 
     def tearDown(self):
 
-        super(TestImport, self).tearDown()
+        super(TestImportBaremetal, self).tearDown()
         os.unlink(self.csv_file.name)
         os.unlink(self.json_file.name)
         os.unlink(self.instack_json.name)
