@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_e2783f91",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-16T15:00:36Z",
+      "side": 1,
+      "message": "Please rename this to ScaleOvercloud... I know it is contrary to the rest, but we will be renaming the rest. :)\n\nThe pattern is \u0027ActionObject\u0027, and the command is \u0027object action\u0027",
+      "revId": "a9c39b62a0148f85f7a5bc65d5c374a81fa0a456",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
