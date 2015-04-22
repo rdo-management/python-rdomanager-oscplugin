@@ -84,6 +84,23 @@
       "revId": "8d0f573344c61a22c2a50c97d5ff0a18494c1308",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_93c38cec",
+        "filename": "setup.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:15:05Z",
+      "side": 1,
+      "message": "Should be \u0027overcloud_scale_stack\u0027",
+      "revId": "8d0f573344c61a22c2a50c97d5ff0a18494c1308",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
