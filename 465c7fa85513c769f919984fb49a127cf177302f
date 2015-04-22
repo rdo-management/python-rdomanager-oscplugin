@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_d3a2244a",
+        "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:14:06Z",
+      "side": 1,
+      "message": "Nit: more descriptive or remove",
+      "revId": "465c7fa85513c769f919984fb49a127cf177302f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_338bb8c4",
+        "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:14:06Z",
+      "side": 1,
+      "message": "One-liner describing the command. Like \u0027Updates overcloud stack\u0027",
+      "revId": "465c7fa85513c769f919984fb49a127cf177302f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_7391b0f0",
+        "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:14:06Z",
+      "side": 1,
+      "message": "This should be a positional argument.\n\nFull command would be \u0027openstack overcloud update stack \u003cplan\u003e \u003cstack\u003e\u0027\n\nAnd no default.",
+      "revId": "465c7fa85513c769f919984fb49a127cf177302f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_538e34d1",
+        "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:14:06Z",
+      "side": 1,
+      "message": "This should be a positional argument. And no default.",
+      "revId": "465c7fa85513c769f919984fb49a127cf177302f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_13883cc4",
+        "filename": "setup.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:14:06Z",
+      "side": 1,
+      "message": "Command should be \u0027overcloud_update_stack\u0027",
+      "revId": "465c7fa85513c769f919984fb49a127cf177302f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
