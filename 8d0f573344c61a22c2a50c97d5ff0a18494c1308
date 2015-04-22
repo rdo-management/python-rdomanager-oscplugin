@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_b397a8eb",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:09:26Z",
+      "side": 1,
+      "message": "Nit... Change to something more descriptive or just remove it.",
+      "revId": "8d0f573344c61a22c2a50c97d5ff0a18494c1308",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_f3e640af",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:09:26Z",
+      "side": 1,
+      "message": "This does not seem to be the correct command. It would be \u0027openstack overcloud scale\u0027. I\u0027m even leaning towards the command being \u0027openstack overcloud scale stack \u003cplan\u003e \u003cstack\u003e\u0027, with plan and stack being positional arguments.",
+      "revId": "8d0f573344c61a22c2a50c97d5ff0a18494c1308",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_939c2c11",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:09:26Z",
+      "side": 1,
+      "message": "Are you sure that auth is not required for this operation? That seems a bit risky.",
+      "revId": "8d0f573344c61a22c2a50c97d5ff0a18494c1308",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_33045849",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:09:26Z",
+      "side": 1,
+      "message": "This likely should be a positional argument. I don\u0027t think it should be defaulted either.",
+      "revId": "8d0f573344c61a22c2a50c97d5ff0a18494c1308",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_13015c38",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T17:09:26Z",
+      "side": 1,
+      "message": "This one as well. No default for this as well.",
+      "revId": "8d0f573344c61a22c2a50c97d5ff0a18494c1308",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
