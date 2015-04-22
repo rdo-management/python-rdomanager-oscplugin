@@ -217,8 +217,21 @@ class TestIntrospectionAll(fakes.TestBaremetal):
         discoverd_mock.assert_called_once_with(
             'ABCDEFGH', base_url=None, auth_token='TOKEN')
 
+    @mock.patch('rdomanager_oscplugin.utils.wait_for_node_discovery')
+    @mock.patch('rdomanager_oscplugin.utils.wait_for_provision_state')
+    @mock.patch('ironic_discoverd.client.get_status')
     @mock.patch('ironic_discoverd.client.introspect')
-    def test_introspect_all(self, discoverd_mock):
+    def test_introspect_all(self, introspect_mock, get_status_mock,
+                            wait_for_state_mock, wait_for_discover_mock):
+
+        wait_for_state_mock.return_value = True
+        wait_for_discover_mock.return_value = iter([{
+            'finished': True, 'error': None
+        }, {
+            'finished': True, 'error': None
+        }, {
+            'finished': True, 'error': None
+        }])
 
         client = self.app.client_manager.rdomanager_oscplugin.baremetal()
         client.node.list.return_value = [
@@ -235,7 +248,7 @@ class TestIntrospectionAll(fakes.TestBaremetal):
             mock.call('QRSTUVWX', 'manage'),
         ])
 
-        discoverd_mock.assert_has_calls([
+        introspect_mock.assert_has_calls([
             mock.call('ABCDEFGH', base_url=None, auth_token='TOKEN'),
             mock.call('IJKLMNOP', base_url=None, auth_token='TOKEN'),
             mock.call('QRSTUVWX', base_url=None, auth_token='TOKEN'),
@@ -251,7 +264,7 @@ class TestStatusAll(fakes.TestBaremetal):
         self.cmd = baremetal.StatusAllPlugin(self.app, None)
 
     @mock.patch('ironic_discoverd.client.get_status')
-    def test_introspect_all_one(self, discoverd_mock):
+    def test_status_all_one(self, discoverd_mock):
 
         client = self.app.client_manager.rdomanager_oscplugin.baremetal()
         client.node.list.return_value = [
@@ -273,7 +286,7 @@ class TestStatusAll(fakes.TestBaremetal):
             [('ABCDEFGH', False, None)]))
 
     @mock.patch('ironic_discoverd.client.get_status')
-    def test_introspect_all(self, discoverd_mock):
+    def test_status_all(self, discoverd_mock):
 
         client = self.app.client_manager.rdomanager_oscplugin.baremetal()
         client.node.list.return_value = [

@@ -26,6 +26,9 @@ from ironic_discoverd import client as discoverd_client
 from openstackclient.common import utils
 from os_cloud_config import nodes
 
+from rdomanager_oscplugin.utils import wait_for_node_discovery
+from rdomanager_oscplugin.utils import wait_for_provision_state
+
 from cliff import command
 
 
@@ -115,23 +118,41 @@ class IntrospectionAllPlugin(IntrospectionParser, command.Command):
         self.log.debug("take_action(%s)" % parsed_args)
         client = self.app.client_manager.rdomanager_oscplugin.baremetal()
 
+        auth_token = self.app.client_manager.auth_ref.auth_token
+
+        node_uuids = []
+
         for node in client.node.list():
 
             if node.provision_state == "available":
 
+                uuid = node.uuid
+                node_uuids.append(uuid)
+
                 self.log.debug(("Setting provision state from {0} to "
                                 "'manageable' for Node {1}"
-                                ).format(node.provision_state, node.uuid))
+                                ).format(node.provision_state, uuid))
 
                 client.node.set_provision_state(node.uuid, 'manage')
 
+                if not wait_for_provision_state(client, uuid, 'manageable'):
+                    print("FAIL: State not updated for Node {0}".format(
+                          node.uuid, file=sys.stderr))
+
             self.log.debug("Starting introspection of Ironic node {0}".format(
                 node.uuid))
-            auth_token = self.app.client_manager.auth_ref.auth_token
             discoverd_client.introspect(
                 node.uuid,
                 base_url=parsed_args.discoverd_url,
                 auth_token=auth_token)
+
+        print("Waiting for discovery to finish")
+        for uuid, status in wait_for_node_discovery(discoverd_client,
+                                                    auth_token,
+                                                    parsed_args.discoverd_url,
+                                                    node_uuids):
+            print("Discovery for UUID {0} finished (Error: {1}".format(
+                uuid, status['error']))
 
 
 class StatusAllPlugin(IntrospectionParser, lister.Lister):
