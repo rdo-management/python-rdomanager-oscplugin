@@ -23,8 +23,10 @@ import sys
 
 from cliff import lister
 from ironic_discoverd import client as discoverd_client
-from openstackclient.common import utils
+from openstackclient.common import utils as osc_utils
 from os_cloud_config import nodes
+
+from rdomanager_oscplugin import utils
 
 from cliff import command
 
@@ -55,13 +57,13 @@ def _csv_to_nodes_dict(nodes_csv):
     return data
 
 
-class ImportPlugin(command.Command):
-    """Baremetal Import plugin"""
+class ImportBaremetal(command.Command):
+    """Import baremetal notes from a JSON or CSV file"""
 
     log = logging.getLogger(__name__ + ".ImportPlugin")
 
     def get_parser(self, prog_name):
-        parser = super(ImportPlugin, self).get_parser(prog_name)
+        parser = super(ImportBaremetal, self).get_parser(prog_name)
         parser.add_argument('-s', '--service-host', dest='service_host',
                             help='Nova compute service host to register nodes '
                             'with')
@@ -98,15 +100,15 @@ class IntrospectionParser(object):
 
     def get_parser(self, prog_name):
         parser = super(IntrospectionParser, self).get_parser(prog_name)
-        parser.add_argument('--discoverd-url',
-                            default=utils.env('DISCOVERD_URL', default=None),
-                            help='discoverd URL, defaults to localhost '
-                            '(env: DISCOVERD_URL).')
+        parser.add_argument(
+            '--discoverd-url',
+            default=osc_utils.env('DISCOVERD_URL', default=None),
+            help='discoverd URL, defaults to localhost (env: DISCOVERD_URL).')
         return parser
 
 
-class IntrospectionAllPlugin(IntrospectionParser, command.Command):
-    """Baremetal all introspection plugin"""
+class StartBaremetalIntrospectionAll(IntrospectionParser, command.Command):
+    """Start introspection on all baremetal nodes"""
 
     log = logging.getLogger(__name__ + ".IntrospectionAll")
 
@@ -115,27 +117,45 @@ class IntrospectionAllPlugin(IntrospectionParser, command.Command):
         self.log.debug("take_action(%s)" % parsed_args)
         client = self.app.client_manager.rdomanager_oscplugin.baremetal()
 
+        auth_token = self.app.client_manager.auth_ref.auth_token
+
+        node_uuids = []
+
         for node in client.node.list():
 
             if node.provision_state == "available":
 
+                uuid = node.uuid
+                node_uuids.append(uuid)
+
                 self.log.debug(("Setting provision state from {0} to "
                                 "'manageable' for Node {1}"
-                                ).format(node.provision_state, node.uuid))
+                                ).format(node.provision_state, uuid))
 
                 client.node.set_provision_state(node.uuid, 'manage')
 
+                if not utils.wait_for_provision_state(
+                        client, uuid, 'manageable'):
+                    print("FAIL: State not updated for Node {0}".format(
+                          node.uuid, file=sys.stderr))
+
             self.log.debug("Starting introspection of Ironic node {0}".format(
                 node.uuid))
-            auth_token = self.app.client_manager.auth_ref.auth_token
             discoverd_client.introspect(
                 node.uuid,
                 base_url=parsed_args.discoverd_url,
                 auth_token=auth_token)
 
+        print("Waiting for discovery to finish")
+        for uuid, status in utils.wait_for_node_discovery(
+                discoverd_client, auth_token, parsed_args.discoverd_url,
+                node_uuids):
+            print("Discovery for UUID {0} finished (Error: {1}".format(
+                uuid, status['error']))
 
-class StatusAllPlugin(IntrospectionParser, lister.Lister):
-    """Baremetal all status plugin"""
+
+class StatusBaremetalIntrospectionAll(IntrospectionParser, lister.Lister):
+    """Get the status of all baremetal nodes"""
 
     log = logging.getLogger(__name__ + ".StatusAllPlugin")
 
@@ -162,8 +182,8 @@ class StatusAllPlugin(IntrospectionParser, lister.Lister):
         )
 
 
-class ConfigureBootPlugin(command.Command):
-    """Baremetal configure boot plugin"""
+class ConfigureBaremetalBoot(command.Command):
+    """Configure baremetal note boot for all nodes"""
 
     log = logging.getLogger(__name__ + ".ConfigureBootPlugin")
 
@@ -173,9 +193,9 @@ class ConfigureBootPlugin(command.Command):
         bm_client = self.app.client_manager.rdomanager_oscplugin.baremetal()
 
         image_client = self.app.client_manager.image
-        kernel_id = utils.find_resource(
+        kernel_id = osc_utils.find_resource(
             image_client.images, 'bm-deploy-kernel').id
-        ramdisk_id = utils.find_resource(
+        ramdisk_id = osc_utils.find_resource(
             image_client.images, 'bm-deploy-ramdisk').id
 
         self.log.debug("Using kernel ID: {0} and ramdisk ID: {1}".format(
