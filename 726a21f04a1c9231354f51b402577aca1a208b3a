@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_2f6eae2f",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T13:12:58Z",
+      "side": 1,
+      "message": "Can we go ahead and fix the name? This should be CreateOvercloud (ActionObject)",
+      "revId": "726a21f04a1c9231354f51b402577aca1a208b3a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
