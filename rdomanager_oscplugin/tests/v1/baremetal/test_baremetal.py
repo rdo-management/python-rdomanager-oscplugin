@@ -23,13 +23,13 @@ from rdomanager_oscplugin.tests.v1.baremetal import fakes
 from rdomanager_oscplugin.v1 import baremetal
 
 
-class TestImport(fakes.TestBaremetal):
+class TestImportBaremetal(fakes.TestBaremetal):
 
     def setUp(self):
-        super(TestImport, self).setUp()
+        super(TestImportBaremetal, self).setUp()
 
         # Get the command object to test
-        self.cmd = baremetal.ImportPlugin(self.app, None)
+        self.cmd = baremetal.ImportBaremetal(self.app, None)
 
         self.csv_file = tempfile.NamedTemporaryFile(mode='w', delete=False)
         self.json_file = tempfile.NamedTemporaryFile(mode='w', delete=False)
@@ -85,7 +85,7 @@ pxe_ssh,192.168.122.1,root,"KEY2",00:7c:ef:3d:eb:60""")
 
     def tearDown(self):
 
-        super(TestImport, self).tearDown()
+        super(TestImportBaremetal, self).tearDown()
         os.unlink(self.csv_file.name)
         os.unlink(self.json_file.name)
         os.unlink(self.instack_json.name)
@@ -195,13 +195,13 @@ pxe_ssh,192.168.122.1,root,"KEY2",00:7c:ef:3d:eb:60""")
             keystone_client=None)
 
 
-class TestIntrospectionAll(fakes.TestBaremetal):
+class TestStartBaremetalIntrospectionAll(fakes.TestBaremetal):
 
     def setUp(self):
-        super(TestIntrospectionAll, self).setUp()
+        super(TestStartBaremetalIntrospectionAll, self).setUp()
 
         # Get the command object to test
-        self.cmd = baremetal.IntrospectionAllPlugin(self.app, None)
+        self.cmd = baremetal.StartBaremetalIntrospectionAll(self.app, None)
 
     @mock.patch('ironic_discoverd.client.introspect')
     def test_introspect_all_one(self, discoverd_mock):
@@ -217,8 +217,17 @@ class TestIntrospectionAll(fakes.TestBaremetal):
         discoverd_mock.assert_called_once_with(
             'ABCDEFGH', base_url=None, auth_token='TOKEN')
 
+    @mock.patch('rdomanager_oscplugin.utils.wait_for_node_discovery')
+    @mock.patch('rdomanager_oscplugin.utils.wait_for_provision_state')
+    @mock.patch('ironic_discoverd.client.get_status')
     @mock.patch('ironic_discoverd.client.introspect')
-    def test_introspect_all(self, discoverd_mock):
+    def test_introspect_all(self, introspect_mock, get_status_mock,
+                            wait_for_state_mock, wait_for_discover_mock):
+
+        wait_for_discover_mock.return_value = []
+        wait_for_state_mock.return_value = True
+
+        get_status_mock.return_value = {'finished': True, 'error': None}
 
         client = self.app.client_manager.rdomanager_oscplugin.baremetal()
         client.node.list.return_value = [
@@ -235,23 +244,23 @@ class TestIntrospectionAll(fakes.TestBaremetal):
             mock.call('QRSTUVWX', 'manage'),
         ])
 
-        discoverd_mock.assert_has_calls([
+        introspect_mock.assert_has_calls([
             mock.call('ABCDEFGH', base_url=None, auth_token='TOKEN'),
             mock.call('IJKLMNOP', base_url=None, auth_token='TOKEN'),
             mock.call('QRSTUVWX', base_url=None, auth_token='TOKEN'),
         ])
 
 
-class TestStatusAll(fakes.TestBaremetal):
+class TestStatusBaremetalIntrospectionAll(fakes.TestBaremetal):
 
     def setUp(self):
-        super(TestStatusAll, self).setUp()
+        super(TestStatusBaremetalIntrospectionAll, self).setUp()
 
         # Get the command object to test
-        self.cmd = baremetal.StatusAllPlugin(self.app, None)
+        self.cmd = baremetal.StatusBaremetalIntrospectionAll(self.app, None)
 
     @mock.patch('ironic_discoverd.client.get_status')
-    def test_introspect_all_one(self, discoverd_mock):
+    def test_status_all_one(self, discoverd_mock):
 
         client = self.app.client_manager.rdomanager_oscplugin.baremetal()
         client.node.list.return_value = [
@@ -273,7 +282,7 @@ class TestStatusAll(fakes.TestBaremetal):
             [('ABCDEFGH', False, None)]))
 
     @mock.patch('ironic_discoverd.client.get_status')
-    def test_introspect_all(self, discoverd_mock):
+    def test_status_all(self, discoverd_mock):
 
         client = self.app.client_manager.rdomanager_oscplugin.baremetal()
         client.node.list.return_value = [
@@ -305,13 +314,13 @@ class TestStatusAll(fakes.TestBaremetal):
         ))
 
 
-class TestConfigureBoot(fakes.TestBaremetal):
+class TestConfigureBaremetalBoot(fakes.TestBaremetal):
 
     def setUp(self):
-        super(TestConfigureBoot, self).setUp()
+        super(TestConfigureBaremetalBoot, self).setUp()
 
         # Get the command object to test
-        self.cmd = baremetal.ConfigureBootPlugin(self.app, None)
+        self.cmd = baremetal.ConfigureBaremetalBoot(self.app, None)
 
     @mock.patch('openstackclient.common.utils.find_resource')
     def test_configure_boot(self, find_resource_mock):
