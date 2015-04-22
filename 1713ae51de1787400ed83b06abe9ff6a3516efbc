@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_0f08122c",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T13:48:26Z",
+      "side": 1,
+      "message": "Please make this usable help text. This will be print when \u0027openstack -h\u0027 is run.",
+      "revId": "1713ae51de1787400ed83b06abe9ff6a3516efbc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_731b7073",
+        "filename": "setup.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-22T13:48:26Z",
+      "side": 1,
+      "message": "Please move this up so it is at least alphabetical with the other overcloud commands. We will fix the others soon.",
+      "revId": "1713ae51de1787400ed83b06abe9ff6a3516efbc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
