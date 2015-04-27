@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_cbc6db67",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-04-27T06:59:09Z",
+      "side": 1,
+      "message": "This could do with being a bit more descriptive. These changes don\u0027t mean much to me.",
+      "revId": "3b69173548cb95c773fa5fdfe32ca7c981ebf775",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
