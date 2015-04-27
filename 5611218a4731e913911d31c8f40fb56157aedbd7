@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a106d94_f99d6dbd",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-04-27T13:47:32Z",
+      "side": 1,
+      "message": "I think this example is missing \u0027plan\u0027",
+      "revId": "5611218a4731e913911d31c8f40fb56157aedbd7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a106d94_197209ad",
         "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
         "patchSetId": 7
