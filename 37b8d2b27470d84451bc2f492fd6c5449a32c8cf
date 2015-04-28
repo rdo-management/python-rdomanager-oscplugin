@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_ee1be070",
+        "filename": "rdomanager_oscplugin/tests/v1/baremetal/test_baremetal.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-04-28T12:07:33Z",
+      "side": 1,
+      "message": "Something is wrong with my mocking here as we enter the retry loop of one of the util methods and the test passes but takes 30 seconds.",
+      "revId": "37b8d2b27470d84451bc2f492fd6c5449a32c8cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
