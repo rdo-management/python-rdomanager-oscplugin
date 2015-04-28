@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_2466b92a",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 28
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-28T18:23:04Z",
+      "side": 1,
+      "message": "needs plan and stack positional arguments. Defaulted via env var.",
+      "revId": "7ca2ee790241be941c23597dbd353e5ef7cc841f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
