@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_e2a81122",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-29T00:50:19Z",
+      "side": 1,
+      "message": "nodes",
+      "revId": "33a0e3a26ab30c9c90bc080d69a629b94c7c5f8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
