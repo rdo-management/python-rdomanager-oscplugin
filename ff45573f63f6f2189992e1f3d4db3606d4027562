@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_026badf2",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-29T00:52:15Z",
+      "side": 1,
+      "message": "Use default as an env var.",
+      "revId": "ff45573f63f6f2189992e1f3d4db3606d4027562",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_626c2109",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-29T00:52:15Z",
+      "side": 1,
+      "message": "Same",
+      "revId": "ff45573f63f6f2189992e1f3d4db3606d4027562",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
