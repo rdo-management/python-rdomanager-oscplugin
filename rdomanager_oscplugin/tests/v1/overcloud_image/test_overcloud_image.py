@@ -14,16 +14,9 @@
 #
 
 import mock
+
 from rdomanager_oscplugin.tests.v1.test_plugin import TestPluginV1
-
-# Load the plugin init module for the plugin list and show commands
 from rdomanager_oscplugin.v1 import overcloud_image
-
-
-class FakePluginV1Client(object):
-    def __init__(self, **kwargs):
-        self.auth_token = kwargs['token']
-        self.management_url = kwargs['endpoint']
 
 
 class TestOvercloudImageBuild(TestPluginV1):
@@ -32,7 +25,37 @@ class TestOvercloudImageBuild(TestPluginV1):
         super(TestOvercloudImageBuild, self).setUp()
 
         # Get the command object to test
-        self.cmd = overcloud_image.BuildPlugin(self.app, None)
+        self.cmd = overcloud_image.BuildOvercloudImage(self.app, None)
+        self.cmd._disk_image_create = mock.Mock()
+        self.cmd._ramdisk_image_create = mock.Mock()
+
+    @mock.patch.object(overcloud_image.BuildOvercloudImage,
+                       '_build_image_fedora_user')
+    def test_overcloud_image_build_all(self, mock_fedora_user):
+        arglist = ['--all']
+        verifylist = [('all', True)]
+
+        parsed_args = self.check_parser(self.cmd, arglist, verifylist)
+
+        self.cmd.take_action(parsed_args)
+
+        self.assertEqual(2, self.cmd._ramdisk_image_create.call_count)
+        self.assertEqual(1, self.cmd._disk_image_create.call_count)
+        self.assertEqual(1, mock_fedora_user.call_count)
+
+    @mock.patch('subprocess.call')
+    @mock.patch.object(overcloud_image.BuildOvercloudImage,
+                       '_build_image_fedora_user')
+    def test_overcloud_image_build_fedora_user(
+            self,
+            mock_fedora_user,
+            mock_subprocess_call):
+        arglist = ['--type', 'fedora-user']
+        verifylist = [('image_types', ['fedora-user'])]
+
+        parsed_args = self.check_parser(self.cmd, arglist, verifylist)
+
+        self.cmd.take_action(parsed_args)
 
 
 class TestOvercloudImageCreate(TestPluginV1):
