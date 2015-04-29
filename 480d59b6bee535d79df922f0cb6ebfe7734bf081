@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_3a06c91d",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-29T11:58:34Z",
+      "side": 1,
+      "message": "this runs together in the help...\nopenstack help overcloud scale stack",
+      "revId": "480d59b6bee535d79df922f0cb6ebfe7734bf081",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_7a0cc13b",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-04-29T11:58:34Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "480d59b6bee535d79df922f0cb6ebfe7734bf081",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
