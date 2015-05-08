@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_0293685b",
+        "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004937
+      },
+      "writtenOn": "2015-05-08T18:14:35Z",
+      "side": 1,
+      "message": "Per previous discussion on (internal) mailing list, I\u0027d like to think that we could make the stack the first argument and then make the plan argument optional - defaulting it to the same name as the stack. But I\u0027ll defer to Brad \u0026 co for a final verdict.",
+      "revId": "5dec3b37d2d525931aa20b55694286fd5526c311",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
