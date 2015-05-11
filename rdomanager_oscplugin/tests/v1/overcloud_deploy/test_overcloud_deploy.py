@@ -39,11 +39,16 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
     @mock.patch('rdomanager_oscplugin.utils.create_environment_file')
     @mock.patch('rdomanager_oscplugin.utils.get_hiera_password')
     @mock.patch('rdomanager_oscplugin.utils.check_hypervisor_stats')
-    def test_deploy(self, mock_check_hypervisor_stats, mock_get_password,
-                    mock_create_env, generate_certs_mock,
-                    mock_get_templte_contents, mock_process_multiple_env,
-                    set_nodes_state_mock, wait_for_stack_ready_mock,
-                    mock_ssh_keygen):
+    def test_tht_deploy(self, mock_check_hypervisor_stats, mock_get_password,
+                        mock_create_env, generate_certs_mock,
+                        mock_get_templte_contents, mock_process_multiple_env,
+                        set_nodes_state_mock, wait_for_stack_ready_mock,
+                        mock_ssh_keygen):
+
+        arglist = ['--use-tripleo-heat-templates', ]
+        verifylist = [
+            ('use_tht', True),
+        ]
 
         clients = self.app.client_manager
         orchestration_client = clients.rdomanager_oscplugin.orchestration()
@@ -63,7 +68,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
         mock_get_templte_contents.return_value = [{}, "template"]
         wait_for_stack_ready_mock.return_value = True
 
-        parsed_args = self.check_parser(self.cmd, [], [])
+        parsed_args = self.check_parser(self.cmd, arglist, verifylist)
 
         self.cmd.take_action(parsed_args)
 
@@ -79,3 +84,23 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
         self.assertEqual(kwargs['template'], 'template')
         self.assertEqual(kwargs['environment'], 'env')
         self.assertEqual(kwargs['stack_name'], 'overcloud')
+
+    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
+                '_get_stack')
+    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
+                '_pre_heat_deploy')
+    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
+                '_post_heat_deploy')
+    def test_tuskar_deploy(self, mock_post_deploy, most_pre_deploy,
+                           mock_get_stack):
+
+        arglist = ['--plan-uuid', 'UUID']
+        verifylist = [
+            ('use_tht', False),
+            ('plan_uuid', 'UUID'),
+            ('output_dir', None),
+        ]
+
+        parsed_args = self.check_parser(self.cmd, arglist, verifylist)
+
+        self.cmd.take_action(parsed_args)
