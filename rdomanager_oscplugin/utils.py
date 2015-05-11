@@ -24,7 +24,7 @@ import time
 import uuid
 
 import six
-
+from os_cloud_config import keystone
 
 def _generate_password():
     """Create a random password
@@ -293,3 +293,19 @@ def get_hiera_password(password_name):
     p = subprocess.Popen(command, stdout=subprocess.PIPE)
     out, err = p.communicate()
     return out
+
+
+def ssh_keygen(self, overcloud_ip):
+
+    known_hosts = os.path.expanduser("~/.ssh/known_hosts")
+    handle = os.fdopen(os.open(known_hosts, os.O_CREAT, 0o600))
+    handle.close()
+
+    command = ['ssh-keygen', '-R', overcloud_ip]
+    subprocess.check_call(command)
+
+
+def setup_all_endpoints(overcloud_ip, passwords):
+
+
+    keystone.setup_endpoints()
