@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_2e0f6b38",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-05-11T12:25:19Z",
+      "side": 1,
+      "message": "Is this method used somewhere?",
+      "range": {
+        "startLine": 226,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 59
+      },
+      "revId": "5915e61132a88224e325a994511a494eb29b3d80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
