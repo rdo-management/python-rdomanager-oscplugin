@@ -18,6 +18,7 @@ import logging
 import os
 import six
 import sys
+import tempfile
 import uuid
 
 from cliff import command
@@ -230,6 +231,52 @@ class DeployOvercloud(command.Command):
         self._heat_deploy(stack, OVERCLOUD_YAML_PATH, parameters,
                           [RESOURCE_REGISTRY_PATH, env_path])
 
+    def _deploy_tuskar(self, stack, parsed_args):
+
+        clients = self.app.client_manager
+        management = clients.rdomanager_oscplugin.management()
+
+        # TODO(dmatthews): The Tuskar client has very similar code to this. It
+        # should be refactored upstream so we can use it.
+
+        if parsed_args.output_dir:
+            output_dir = parsed_args.output_dir
+        else:
+            output_dir = tempfile.mkdtemp()
+
+        if not os.path.isdir(output_dir):
+            os.mkdir(output_dir)
+
+        # retrieve templates
+        templates = management.plans.templates(parsed_args.plan_uuid)
+
+        # write file for each key-value in templates
+        print("The following templates will be written:")
+        for template_name, template_content in templates.items():
+
+            # It's possible to organize the role templates and their dependent
+            # files into directories, in which case the template_name will
+            # carry the directory information. If that's the case, first
+            # create the directory structure (if it hasn't already been
+            # created by another file in the templates list).
+            template_dir = os.path.dirname(template_name)
+            output_template_dir = os.path.join(output_dir, template_dir)
+            if template_dir and not os.path.exists(output_template_dir):
+                os.makedirs(output_template_dir)
+
+            filename = os.path.join(output_dir, template_name)
+            with open(filename, 'w+') as template_file:
+                template_file.write(template_content)
+            print(filename)
+
+        overcloud_yaml = os.path.join(output_dir, 'plan.yaml')
+        environment_yaml = os.path.join(output_dir, 'environment.yaml')
+
+        self._heat_deploy(stack, overcloud_yaml, None, [environment_yaml, ])
+
+        # Download from Tuskar/management
+        # Send to Heat
+
     def _post_heat_deploy(self):
         """Setup after the Heat stack create or update has been done."""
 
@@ -246,6 +293,20 @@ class DeployOvercloud(command.Command):
         parser.add_argument('--ceph-storage-scale', type=int, default=0)
         parser.add_argument('--block-storage-scale', type=int, default=0)
         parser.add_argument('--swift-storage-scale', type=int, default=0)
+        parser.add_argument('--use-tripleo-heat-templates',
+                            dest='use_tht', action='store_true')
+
+        parser.add_argument(
+            '--plan-uuid',
+            help="The UUID of the Tuskar plan to deploy."
+        )
+        parser.add_argument(
+            '-O', '--output-dir', metavar='<OUTPUT DIR>',
+            help=('Directory to write Tuskar template files into. It will be '
+                  'created if it does not exist. If not provided a temporary '
+                  'directory will be used.')
+        )
+
         return parser
 
     def take_action(self, parsed_args):
@@ -257,6 +318,10 @@ class DeployOvercloud(command.Command):
         stack = self._get_stack(orchestration_client)
 
         self._pre_heat_deploy()
-        self._deploy_tripleo_heat_templates(stack, parsed_args)
+
+        if parsed_args.use_tht:
+            self._deploy_tripleo_heat_templates(stack, parsed_args)
+        else:
+            self._deploy_tuskar(stack, parsed_args)
 
         self._post_heat_deploy()
