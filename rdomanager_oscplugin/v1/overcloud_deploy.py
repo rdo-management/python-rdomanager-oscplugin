@@ -119,7 +119,7 @@ class DeployOvercloud(command.Command):
         parameters['SwiftHashSuffix'] = passwords['OVERCLOUD_SWIFT_HASH']
         parameters['SwiftPassword'] = passwords['OVERCLOUD_SWIFT_PASSWORD']
 
-    def _get_stack_id(self, orchestration_client):
+    def _get_stack(self, orchestration_client):
 
         try:
             stack = orchestration_client.stacks.get('overcloud')
@@ -153,6 +153,11 @@ class DeployOvercloud(command.Command):
                 'NovaEnableRbdBackend': True,
             })
 
+    def _get_overcloud_endpoint(self, stack):
+        for output in stack.to_dict().get('outputs', []):
+            if output['output_key'] == 'KeystoneURL':
+                return output['output_value']
+
     def take_action(self, parsed_args):
         self.log.debug("take_action(%s)" % parsed_args)
 
@@ -162,7 +167,7 @@ class DeployOvercloud(command.Command):
         network_client = clients.network
         orchestration_client = clients.rdomanager_oscplugin.orchestration()
 
-        stack_id = self._get_stack_id(orchestration_client)
+        stack = self._get_stack(orchestration_client)
 
         self.log.debug("Checking hypervisor stats")
         if utils.check_hypervisor_stats(compute_client) is None:
@@ -174,7 +179,7 @@ class DeployOvercloud(command.Command):
         self.log.debug("Creating Environment file")
         env_path = utils.create_environment_file()
 
-        if stack_id is None:
+        if stack is None:
             self.log.debug("Creating Keystone certificates")
             keystone_pki.generate_certs_into_json(env_path, False)
 
@@ -202,15 +207,27 @@ class DeployOvercloud(command.Command):
             ),
         }
 
-        if stack_id is None:
+        if stack is None:
             self.log.debug("Perform Heat stack create")
             orchestration_client.stacks.create(**stack_args)
         else:
             self.log.debug("Perform Heat stack update")
-            orchestration_client.stacks.update(stack_id, **stack_args)
+            orchestration_client.stacks.update(stack.id, **stack_args)
 
         create_result = utils.wait_for_stack_ready(
             orchestration_client, "overcloud")
 
         if not create_result:
             print("Heat Stack create failed", file=sys.stderr)
+            return
+
+        # Get a new stack object
+        stack = self._get_stack(orchestration_client)
+
+        overcloud_endpoint = self._get_overcloud_endpoint(stack)
+
+        print(overcloud_endpoint)
+        print(type(overcloud_endpoint))
+        print(dir(overcloud_endpoint))
+
+        utils.ssh_keygen()
