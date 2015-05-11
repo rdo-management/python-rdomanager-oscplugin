@@ -214,6 +214,14 @@ class DeployOvercloud(command.Command):
         self._heat_deploy(stack, OVERCLOUD_YAML_PATH, parameters,
                           [RESOURCE_REGISTRY_PATH, env_path])
 
+    def _deploy_tuskar(self):
+
+        clients = self.app.client_manager
+        management = clients.rdomanager_oscplugin.management()
+
+        # Download from Tuskar/management
+        # Send to Heat
+
     def _post_heat_deploy(self):
         """Setup after the Heat stack create or update has been done."""
         utils.ssh_keygen()
@@ -225,6 +233,8 @@ class DeployOvercloud(command.Command):
         parser.add_argument('--ceph-storage-scale', type=int, default=0)
         parser.add_argument('--block-storage-scale', type=int, default=0)
         parser.add_argument('--swift-storage-scale', type=int, default=0)
+        parser.add_argument('--use-tripleo-heat-templates',
+                            dest='use_tht', action='store_true')
         return parser
 
     def take_action(self, parsed_args):
@@ -236,7 +246,11 @@ class DeployOvercloud(command.Command):
         stack = self._get_stack(orchestration_client)
 
         self._pre_heat_deploy()
-        self._deploy_tripleo_heat_templates(stack, parsed_args)
+
+        if parsed_args.use_tht:
+            self._deploy_tripleo_heat_templates(stack, parsed_args)
+        else:
+            self._deploy_tuskar()
 
         create_result = utils.wait_for_stack_ready(
             orchestration_client, "overcloud")
