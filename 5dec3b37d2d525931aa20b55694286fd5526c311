@@ -16,6 +16,24 @@
       "revId": "5dec3b37d2d525931aa20b55694286fd5526c311",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_97614bab",
+        "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-12T11:42:37Z",
+      "side": 1,
+      "message": "Agreed. Make it \u0027overcloud scale stack \u003cstack name\u003e --plan \u003cplan name\u003e\u0027 with the default --plan \u003d\u003d \u0027overcloud\u0027",
+      "parentUuid": "1a106d94_0293685b",
+      "revId": "5dec3b37d2d525931aa20b55694286fd5526c311",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
