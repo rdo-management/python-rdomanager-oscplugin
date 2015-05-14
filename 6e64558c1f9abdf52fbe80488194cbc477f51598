@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_73113503",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-14T17:40:58Z",
+      "side": 1,
+      "message": "What\u0027s the point of all this? Is .ssh/known_hosts required for ssh-keygen to work?",
+      "revId": "6e64558c1f9abdf52fbe80488194cbc477f51598",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
