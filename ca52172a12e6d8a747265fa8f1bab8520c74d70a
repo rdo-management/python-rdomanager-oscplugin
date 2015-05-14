@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_13bd6102",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-14T17:34:23Z",
+      "side": 1,
+      "message": "Should probably use \u0027baremetal service\u0027 instead of Ironic.",
+      "revId": "ca52172a12e6d8a747265fa8f1bab8520c74d70a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_b3c1ed81",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-14T17:34:23Z",
+      "side": 1,
+      "message": "These don\u0027t match the signature. I would prefer that the signature use the long form.",
+      "revId": "ca52172a12e6d8a747265fa8f1bab8520c74d70a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
