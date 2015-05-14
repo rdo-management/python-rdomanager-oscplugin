@@ -13,6 +13,9 @@
 #   under the License.
 #
 
+import json
+import os
+import tempfile
 from unittest import TestCase
 
 import mock
@@ -191,3 +194,14 @@ class TestWaitForDiscovery(TestCase):
                                                loops=4, sleep=0.01)
 
         self.assertEqual(list(result), [])
+
+    def test_create_environment_file(self):
+
+        temp_dir = tempfile.mkdtemp()
+        json_file_path = os.path.join(temp_dir, "env.json")
+
+        utils.create_environment_file(path=json_file_path)
+
+        with open(json_file_path, 'r') as f:
+            self.assertEqual(json.load(f)['parameters']['ComputeCount'], 1)
+
