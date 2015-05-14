@@ -205,3 +205,22 @@ class TestWaitForDiscovery(TestCase):
         with open(json_file_path, 'r') as f:
             self.assertEqual(json.load(f)['parameters']['ComputeCount'], 1)
 
+    @mock.patch('rdomanager_oscplugin.utils.wait_for_provision_state')
+    def test_set_nodes_state(self, wait_for_state_mock):
+
+        wait_for_state_mock.return_value = True
+        bm_client = mock.Mock()
+
+        # One node already deployed, one in the manageable state after
+        # introspection.
+        nodes = [
+            mock.Mock(uuid="ABCDEFGH", provision_state="active"),
+            mock.Mock(uuid="IJKLMNOP", provision_state="manageable")
+        ]
+
+        skipped_states = ('active', 'available')
+        utils.set_nodes_state(bm_client, nodes, 'provide', skipped_states)
+
+        bm_client.node.set_provision_state.assert_has_calls([
+            mock.call('IJKLMNOP', 'provide'),
+        ])
