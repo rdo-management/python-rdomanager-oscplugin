@@ -315,3 +315,10 @@ def get_hiera_key(key_name):
     p = subprocess.Popen(command, stdout=subprocess.PIPE)
     out, err = p.communicate()
     return out
+
+
+def ssh_keygen(overcloud_ip):
+    """For a given IP address create ssh keys"""
+
+    command = ['ssh-keygen', '-R', overcloud_ip]
+    subprocess.check_call(command)
