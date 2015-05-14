@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a106d94_70112b03",
+        "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-14T15:26:31Z",
+      "side": 1,
+      "message": "Tests claim this can\u0027t be imported",
+      "revId": "ccdeda35878e80e9e3eb23eca389413b33b919c9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a106d94_50086fd9",
         "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
         "patchSetId": 3
