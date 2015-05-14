@@ -249,3 +249,32 @@ def create_environment_file(path="~/overcloud-env.json",
 
     return env_path
 
+
+def set_nodes_state(bm_client, nodes, target_state, skipped_states=()):
+    """Make all nodes available in Ironic for a deployment
+
+    For each node, make it available unless it is already available or active.
+    Available nodes can be used for a deployment and an active node is already
+    in use.
+
+    :param baremetal_client: Instance of Ironic client
+    :type  baremetal_client: ironicclient.v1.client.Client
+    """
+
+    log = logging.getLogger(__name__ + ".set_nodes_state")
+
+    for node in nodes:
+
+        if node.provision_state in skipped_states:
+            continue
+
+        log.debug(
+            "Setting provision state from {0} to 'available' for Node {1}"
+            .format(node.provision_state, node.uuid))
+
+        bm_client.node.set_provision_state(node.uuid, target_state)
+
+        if not wait_for_provision_state(bm_client, node.uuid, 'available'):
+            print("FAIL: State not updated for Node {0}".format(
+                  node.uuid, file=sys.stderr))
+
