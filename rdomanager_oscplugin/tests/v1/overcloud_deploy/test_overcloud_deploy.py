@@ -84,3 +84,23 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
         self.assertEqual(kwargs['template'], 'template')
         self.assertEqual(kwargs['environment'], 'env')
         self.assertEqual(kwargs['stack_name'], 'overcloud')
+
+    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
+                '_get_stack')
+    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
+                '_pre_heat_deploy')
+    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
+                '_post_heat_deploy')
+    def test_tuskar_deploy(self, mock_post_deploy, most_pre_deploy,
+                           mock_get_stack):
+
+        arglist = ['--plan-uuid', 'UUID']
+        verifylist = [
+            ('use_tht', False),
+            ('plan_uuid', 'UUID'),
+            ('output_dir', None),
+        ]
+
+        parsed_args = self.check_parser(self.cmd, arglist, verifylist)
+
+        self.cmd.take_action(parsed_args)
