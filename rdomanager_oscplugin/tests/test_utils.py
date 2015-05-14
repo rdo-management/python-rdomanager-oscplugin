@@ -273,3 +273,10 @@ class TestWaitForDiscovery(TestCase):
                                                 sleep=0.01)
 
         self.assertEqual(result, False)
+
+    @mock.patch('subprocess.check_call')
+    def test_ssh_keygen(self, mock_check_call):
+
+        utils.ssh_keygen('192.168.0.1')
+
+        mock_check_call.assert_called_with(['ssh-keygen', '-R', '192.168.0.1'])
