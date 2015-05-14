@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_532fd93e",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-14T17:41:58Z",
+      "side": 1,
+      "message": "Indentation is whack.",
+      "revId": "51bf5d333d338eb51c58cd3472c253cd784c941e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
