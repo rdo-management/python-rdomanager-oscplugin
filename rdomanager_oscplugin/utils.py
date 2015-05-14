@@ -19,6 +19,7 @@ import logging
 import os
 import re
 import six
+import subprocess
 import sys
 import time
 import uuid
@@ -289,3 +290,16 @@ def set_nodes_state(baremetal_client, nodes, target_state, result,
         if not wait_for_provision_state(baremetal_client, node.uuid, result):
             print("FAIL: State not updated for Node {0}".format(
                   node.uuid, file=sys.stderr))
+
+
+def get_hiera_key(key_name):
+    """Retrieve a key from the hiera store
+
+    :param password_name: Name of the key to retrieve
+    :type  password_name: type
+
+    """
+    command = ["hiera", key_name]
+    p = subprocess.Popen(command, stdout=subprocess.PIPE)
+    out, err = p.communicate()
+    return out
