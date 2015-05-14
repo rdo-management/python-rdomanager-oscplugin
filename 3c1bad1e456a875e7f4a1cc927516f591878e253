@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_735ad5f2",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-14T17:37:34Z",
+      "side": 1,
+      "message": "Should this refer to \u0027baremetal\u0027 instead of \u0027ironic\u0027?",
+      "revId": "3c1bad1e456a875e7f4a1cc927516f591878e253",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
