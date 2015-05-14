@@ -153,7 +153,7 @@ def wait_for_provision_state(baremetal_client, node_uuid, provision_state,
 
         node = baremetal_client.node.get(node_uuid)
 
-        if node.provision_state == provision_state:
+        if node and node.provision_state == provision_state:
             return True
 
         time.sleep(sleep)
@@ -167,8 +167,8 @@ def wait_for_node_discovery(discoverd_client, auth_token, discoverd_url,
 
     Gets the status and waits for them to complete.
 
-    :param discoverd_client: Instance of Orchestration client
-    :type  discoverd_client: heatclient.v1.client.Client
+    :param discoverd_client: Ironic Discoverd client
+    :type  discoverd_client: ironic_discoverd.client
 
     :param auth_token: Authorisation token used by discoverd client
     :type auth_token: string
