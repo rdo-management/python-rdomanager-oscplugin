@@ -326,3 +326,7 @@ def ssh_keygen(overcloud_ip):
 
     command = ['ssh-keygen', '-R', overcloud_ip]
     subprocess.check_call(command)
+
+
+def setup_endpoints(overcloud_ip, passwords):
+    pass
