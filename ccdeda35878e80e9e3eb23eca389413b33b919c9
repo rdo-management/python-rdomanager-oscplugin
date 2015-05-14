@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_50086fd9",
+        "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-14T15:25:29Z",
+      "side": 1,
+      "message": "Line too long",
+      "revId": "ccdeda35878e80e9e3eb23eca389413b33b919c9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_300b33d7",
+        "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-14T15:25:29Z",
+      "side": 1,
+      "message": "continuation line over-indented for hanging indent",
+      "revId": "ccdeda35878e80e9e3eb23eca389413b33b919c9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
