@@ -18,14 +18,16 @@ import logging
 from cliff import command
 
 
-class DeployPlugin(command.Command):
-    """Overcloud Image Build plugin"""
 
-    auth_required = False
-    log = logging.getLogger(__name__ + ".BuildPlugin")
+
+
+class DeployOvercloud(command.Command):
+    """Deploy Overcloud"""
+
+    log = logging.getLogger(__name__ + ".DeployOvercloud")
 
     def get_parser(self, prog_name):
-        parser = super(DeployPlugin, self).get_parser(prog_name)
+        parser = super(DeployOvercloud, self).get_parser(prog_name)
         return parser
 
     def take_action(self, parsed_args):
