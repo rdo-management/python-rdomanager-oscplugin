@@ -16,6 +16,24 @@
       "revId": "3c1bad1e456a875e7f4a1cc927516f591878e253",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_e9d416ea",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-05-15T09:14:19Z",
+      "side": 1,
+      "message": "Honestly, I don\u0027t know. When we are talking about a specific client that isn\u0027t part of Ironic, I think it could be confusing to call it \"Baremetal Discoverd\"",
+      "parentUuid": "1a106d94_735ad5f2",
+      "revId": "3c1bad1e456a875e7f4a1cc927516f591878e253",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
