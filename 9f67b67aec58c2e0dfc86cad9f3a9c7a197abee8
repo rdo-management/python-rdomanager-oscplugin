@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_69002666",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-05-15T09:08:03Z",
+      "side": 1,
+      "message": "The states seem to be strings, not Client.",
+      "revId": "9f67b67aec58c2e0dfc86cad9f3a9c7a197abee8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_89fda270",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-05-15T09:08:03Z",
+      "side": 1,
+      "message": "The result parameter is missing from this list, and the explanation for skipped_states isn\u0027t very helpful. Also the type seems wrong, shouldn\u0027t it be a list of state strings?",
+      "revId": "9f67b67aec58c2e0dfc86cad9f3a9c7a197abee8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
