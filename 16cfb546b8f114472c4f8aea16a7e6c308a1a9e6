@@ -22,6 +22,30 @@
       "revId": "16cfb546b8f114472c4f8aea16a7e6c308a1a9e6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_0457d926",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-15T11:35:46Z",
+      "side": 1,
+      "message": "What is needed is a check for .ssh/known_hosts, and only run the command if it exists.",
+      "parentUuid": "1a106d94_24665551",
+      "range": {
+        "startLine": 323,
+        "startChar": 14,
+        "endLine": 323,
+        "endChar": 48
+      },
+      "revId": "16cfb546b8f114472c4f8aea16a7e6c308a1a9e6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
