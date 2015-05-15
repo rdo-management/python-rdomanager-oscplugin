@@ -16,6 +16,24 @@
       "revId": "6e64558c1f9abdf52fbe80488194cbc477f51598",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_690e668d",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-05-15T09:13:11Z",
+      "side": 1,
+      "message": "Not sure. Instack does this, I just replicated it.",
+      "parentUuid": "1a106d94_73113503",
+      "revId": "6e64558c1f9abdf52fbe80488194cbc477f51598",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
