@@ -15,8 +15,10 @@
 
 from unittest import TestCase
 
+from collections import namedtuple
 import mock
 
+from rdomanager_oscplugin import exceptions
 from rdomanager_oscplugin import utils
 
 
@@ -293,3 +295,60 @@ class TestWaitForDiscovery(TestCase):
         utils.remove_known_hosts('192.168.0.1')
 
         mock_check_call.assert_not_called()
+
+
+class TestRegisterEndpoint(TestCase):
+    def setUp(self):
+        self.mock_identity = mock.Mock()
+
+    def test_unknown_service(self):
+        self.assertRaises(exceptions.UnknownService,
+                          utils.register_endpoint,
+                          'unknown_name',
+                          'unknown_endpoint_type',
+                          'unknown_url',
+                          self.mock_identity)
+
+    def test_no_admin_role(self):
+        self.mock_identity.roles.list.return_value = []
+        self.assertRaises(exceptions.NotFound,
+                          utils.register_endpoint,
+                          'name',
+                          'compute',
+                          'url',
+                          self.mock_identity)
+
+    def test_endpoint_is_dashboard(self):
+        services_create_mock = mock.Mock()
+        self.mock_identity.services.create.return_value = services_create_mock
+
+        endpoints_create_mock = mock.Mock()
+        self.mock_identity.endpoints.create.return_value = endpoints_create_mock
+
+        Roles = namedtuple('Roles', 'id name')
+        self.mock_identity.roles.list.return_value = [
+            Roles(id='123', name='admin'),
+            Roles(id='345', name='ResellerAdmin'),
+        ]
+
+        utils.register_endpoint(
+            'name',
+            'dashboard',
+            'url',
+            self.mock_identity,
+            description='description')
+
+        self.mock_identity.services.create.assert_called_once_with(
+            name='name',
+            type='dashboard',
+            description='description',
+            enabled=True
+        )
+
+        self.mock_identity.endpoints.create.assert_called_once_with(
+            'regionOne',
+            services_create_mock.id,
+            "url/",
+            "url/admin",
+            "url/"
+        )
