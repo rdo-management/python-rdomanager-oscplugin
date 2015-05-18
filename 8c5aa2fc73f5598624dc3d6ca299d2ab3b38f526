@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a106d94_ac77c23a",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-05-18T15:12:56Z",
+      "side": 1,
+      "message": "nit: .get returns None by default.",
+      "revId": "8c5aa2fc73f5598624dc3d6ca299d2ab3b38f526",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_4c8e0e29",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-05-18T15:12:56Z",
+      "side": 1,
+      "message": "I don\u0027t think args is ever used after this.",
+      "revId": "8c5aa2fc73f5598624dc3d6ca299d2ab3b38f526",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_6c9dca59",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-05-18T15:12:56Z",
+      "side": 1,
+      "message": "next? Do you mean continue?",
+      "revId": "8c5aa2fc73f5598624dc3d6ca299d2ab3b38f526",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
