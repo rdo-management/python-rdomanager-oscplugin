@@ -15,8 +15,10 @@
 
 from unittest import TestCase
 
+from collections import namedtuple
 import mock
 
+from rdomanager_oscplugin import exceptions
 from rdomanager_oscplugin import utils
 
 
@@ -293,3 +295,175 @@ class TestWaitForDiscovery(TestCase):
         utils.remove_known_hosts('192.168.0.1')
 
         mock_check_call.assert_not_called()
+
+
+class TestRegisterEndpoint(TestCase):
+    def setUp(self):
+        self.mock_identity = mock.Mock()
+
+        Project = namedtuple('Project', 'id name')
+        self.mock_identity.projects.list.return_value = [
+            Project(id='123', name='service'),
+            Project(id='234', name='admin')
+        ]
+
+        def _role_list_side_effect(*args, **kwargs):
+            Role = namedtuple('Role', 'id name')
+            user = kwargs.get('user')
+            project = kwargs.get('project')
+
+            if user and project:
+                return Role(id='123', name='admin')
+            else:
+                return [
+                    Role(id='123', name='admin'),
+                    Role(id='345', name='ResellerAdmin'),
+                ]
+        self.mock_identity.roles.list.side_effect = _role_list_side_effect
+
+        User = namedtuple('User', 'id name')
+        self.mock_identity.users.list.return_value = [
+            User(id='123', name='nova')
+        ]
+
+        self.services_create_mock = mock.Mock()
+        self.mock_identity.services.create.return_value = (
+            self.services_create_mock)
+
+        self.endpoints_create_mock = mock.Mock()
+        self.mock_identity.endpoints.create.return_value = (
+            self.endpoints_create_mock)
+
+        self.users_create_mock = mock.Mock()
+        self.mock_identity.users.create.return_value = (
+            self.users_create_mock)
+
+    def test_unknown_service(self):
+        self.mock_identity.reset_mock()
+
+        self.assertRaises(exceptions.UnknownService,
+                          utils.register_endpoint,
+                          'unknown_name',
+                          'unknown_endpoint_type',
+                          'unknown_url',
+                          self.mock_identity)
+
+    def test_no_admin_role(self):
+        local_mock_identity = mock.Mock()
+        local_mock_identity.roles.list.return_value = []
+        self.assertRaises(exceptions.NotFound,
+                          utils.register_endpoint,
+                          'name',
+                          'compute',
+                          'url',
+                          local_mock_identity)
+
+    def test_endpoint_is_dashboard(self):
+        self.mock_identity.reset_mock()
+
+        utils.register_endpoint(
+            'name',
+            'dashboard',
+            'url',
+            self.mock_identity,
+            description='description'
+        )
+
+        self.mock_identity.roles.list.assert_called_once_with()
+
+        self.mock_identity.services.create.assert_called_once_with(
+            name='name',
+            type='dashboard',
+            description='description',
+            enabled=True
+        )
+
+        self.mock_identity.endpoints.create.assert_called_once_with(
+            'regionOne',
+            self.services_create_mock.id,
+            "url/",
+            "url/admin",
+            "url/"
+        )
+
+    def test_endpoint_is_not_dashboard(self):
+        self.mock_identity.reset_mock()
+
+        utils.register_endpoint(
+            'nova',
+            'compute',
+            'url',
+            self.mock_identity,
+            description='description'
+        )
+
+        assert not self.mock_identity.users.create.called
+        self.mock_identity.users.list.assert_called_once_with()
+
+        self.mock_identity.projects.list.assert_called_once_with()
+
+        self.mock_identity.roles.list.assert_has_calls([
+            mock.call(),
+            mock.call(user='123', project='123')
+        ])
+
+        self.mock_identity.services.create.assert_called_once_with(
+            name='nova',
+            type='compute',
+            description='description',
+            enabled=True
+        )
+
+        self.mock_identity.endpoints.create.assert_called_once_with(
+            'regionOne',
+            self.services_create_mock.id,
+            "url/v2/$(tenant_id)s",
+            "url/v2/$(tenant_id)s",
+            "url/v2/$(tenant_id)s"
+        )
+
+    def test_endpoint_is_metering(self):
+        self.mock_identity.reset_mock()
+
+        utils.register_endpoint(
+            'ceilometer',
+            'metering',
+            'url',
+            self.mock_identity,
+            description='description',
+            password='password'
+        )
+
+        self.mock_identity.users.list.assert_called_once_with()
+
+        self.mock_identity.users.create.assert_called_once_with(
+            name='ceilometer',
+            domain=None,
+            default_project='123',
+            password='password',
+            email='nobody@example.com',
+            description=None,
+            enabled=True
+        )
+        self.mock_identity.services.create.assert_called_once_with(
+            name='ceilometer',
+            type='metering',
+            description='description',
+            enabled=True
+        )
+
+        self.mock_identity.endpoints.create.assert_called_once_with(
+            'regionOne',
+            self.services_create_mock.id,
+            "url/",
+            "url/",
+            "url/"
+        )
+
+        self.mock_identity.roles.list.assert_has_calls([
+            mock.call(),
+            mock.call(user=self.users_create_mock.id, project='123'),
+            mock.call(user=self.users_create_mock.id, project='234'),
+        ])
+
+        self.mock_identity.projects.list.assert_called_once_with()
