@@ -17,6 +17,7 @@ from unittest import TestCase
 
 import mock
 
+from rdomanager_oscplugin import exceptions
 from rdomanager_oscplugin import utils
 
 
@@ -293,3 +294,25 @@ class TestWaitForDiscovery(TestCase):
         utils.remove_known_hosts('192.168.0.1')
 
         mock_check_call.assert_not_called()
+
+
+class TestRegisterEndpoint(TestCase):
+    def setUp(self):
+        self.mock_identity = mock.Mock()
+
+    def test_unknown_service(self):
+        self.assertRaises(exceptions.UnknownService,
+                          utils.register_endpoint,
+                          'unknown_name',
+                          'unknown_endpoint_type',
+                          'unknown_url',
+                          self.mock_identity)
+
+    def test_no_admin_role(self):
+        self.mock_identity.roles.list.return_value = []
+        self.assertRaises(exceptions.NotFound,
+                          utils.register_endpoint,
+                          'name',
+                          'compute',
+                          'url',
+                          self.mock_identity)
