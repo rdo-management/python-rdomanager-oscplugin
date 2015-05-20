@@ -14,6 +14,7 @@
 #
 from __future__ import print_function
 
+import glob
 import logging
 import os
 import six
@@ -161,7 +162,11 @@ class DeployOvercloud(command.Command):
         self.log.debug("Verifying that Baremetal nodes to available or active")
         utils.set_nodes_state(
             baremetal_client, baremetal_client.node.list(),
+<<<<<<< HEAD
             'provide', 'available', skipped_states=("available", "active"))
+=======
+            'provide', 'active', skipped_states=("available", "active"))
+>>>>>>> 8a1602a... Add an option to pull in extra configuration via heat
 
         stack_name = "overcloud"
 
@@ -223,8 +228,10 @@ class DeployOvercloud(command.Command):
             self.log.debug("Creating Keystone certificates")
             keystone_pki.generate_certs_into_json(env_path, False)
 
-        self._heat_deploy(stack, OVERCLOUD_YAML_PATH, parameters,
-                          [RESOURCE_REGISTRY_PATH, env_path])
+        environments = [RESOURCE_REGISTRY_PATH, env_path]
+        environments.extend(self._get_extra_config(parsed_args.extra_dir))
+
+        self._heat_deploy(stack, OVERCLOUD_YAML_PATH, parameters, environments)
 
     def _deploy_tuskar(self, stack, parsed_args):
 
@@ -268,6 +275,13 @@ class DeployOvercloud(command.Command):
         environment_yaml = os.path.join(output_dir, 'environment.yaml')
 
         self._heat_deploy(stack, overcloud_yaml, None, [environment_yaml, ])
+
+    def _get_extra_config(self, extra_dir):
+        """Gather any extra environment files for customizations."""
+
+        extra_registries = glob.glob(extra_dir + '/*/*registry*yaml')
+        extra_envs = glob.glob(extra_dir + '/*/*environment*yaml')
+        return extra_registries + extra_envs
 
     def _post_heat_deploy(self):
         """Setup after the Heat stack create or update has been done."""
@@ -326,6 +340,12 @@ class DeployOvercloud(command.Command):
             help=('Directory to write Tuskar template files into. It will be '
                   'created if it does not exist. If not provided a temporary '
                   'directory will be used.')
+        )
+        parser.add_argument(
+            '-e', '--extra-dir', metavar='<EXTRA DIR>',
+            default='/etc/tripleo/extra_config.d',
+            help=('Directory containing any extra environment files to pass '
+                  'heat. (Defaults to /etc/tripleo/extra_config.d)')
         )
 
         return parser
