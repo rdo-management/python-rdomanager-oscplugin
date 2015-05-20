@@ -13,12 +13,14 @@
 #   under the License.
 #
 
+import base64
 import hashlib
 import json
 import logging
 import os
 import re
 import six
+import struct
 import subprocess
 import sys
 import time
@@ -566,3 +568,11 @@ def setup_endpoints(overcloud_ip,
                           identity_client, description="OpenStack Dashboard",
                           internal_url=internal_host,
                           region=region)
+
+
+def create_cephx_key():
+    # NOTE(gfidente): Taken from
+    # https://github.com/ceph/ceph-deploy/blob/master/ceph_deploy/new.py#L21
+    key = os.urandom(16)
+    header = struct.pack("<hiih", 1, int(time.time()), 0, len(key))
+    return base64.b64encode(header + key)
