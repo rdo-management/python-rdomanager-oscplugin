@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_973af634",
+        "filename": "rdomanager_oscplugin/tests/v1/baremetal/test_baremetal.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-20T17:42:44Z",
+      "side": 1,
+      "message": "Indentation off. PEP8",
+      "revId": "3c59d6174d06f15c1d1763cd17a55af96180d052",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_f748a2ce",
+        "filename": "rdomanager_oscplugin/tests/v1/baremetal/test_baremetal.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-20T17:42:44Z",
+      "side": 1,
+      "message": "Indentation off. PEP8.",
+      "revId": "3c59d6174d06f15c1d1763cd17a55af96180d052",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_d73b9e36",
+        "filename": "rdomanager_oscplugin/tests/v1/baremetal/test_baremetal.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-20T17:42:44Z",
+      "side": 1,
+      "message": "Indentation off. PEP8.",
+      "revId": "3c59d6174d06f15c1d1763cd17a55af96180d052",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
