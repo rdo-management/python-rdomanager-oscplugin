@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_f1fb5245",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-20T13:27:31Z",
+      "side": 1,
+      "message": "What are these two comments? TODOs?",
+      "revId": "19f01d366d8f603676f992509c8d0919d7209749",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
