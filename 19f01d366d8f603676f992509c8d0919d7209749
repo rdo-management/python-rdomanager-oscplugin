@@ -33,6 +33,24 @@
       "revId": "19f01d366d8f603676f992509c8d0919d7209749",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_178d067c",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-05-20T17:38:18Z",
+      "side": 1,
+      "message": "These should be removed. I think they are all completed, but I got distracted by the general deploy command that I\u0027m unsure about the state of this.",
+      "parentUuid": "facab960_f1fb5245",
+      "revId": "19f01d366d8f603676f992509c8d0919d7209749",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
