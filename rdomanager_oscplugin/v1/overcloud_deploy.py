@@ -25,6 +25,7 @@ from cliff import command
 from heatclient.common import template_utils
 from heatclient.exc import HTTPNotFound
 from keystoneclient import exceptions as ksc_exc
+from openstackclient.i18n import _
 from os_cloud_config import keystone
 from os_cloud_config import keystone_pki
 
@@ -82,7 +83,7 @@ class DeployOvercloud(command.Command):
 
     log = logging.getLogger(__name__ + ".DeployOvercloud")
 
-    def set_overcloud_passwords(self, parameters):
+    def set_overcloud_passwords(self, parameters, parsed_args):
         """Add passwords to the parameters dictionary
 
         :param parameters: A dictionary for the passwords to be added to
@@ -90,19 +91,109 @@ class DeployOvercloud(command.Command):
         """
 
         self.passwords = passwords = utils.generate_overcloud_passwords()
-        parameters['AdminPassword'] = passwords['OVERCLOUD_ADMIN_PASSWORD']
-        parameters['AdminToken'] = passwords['OVERCLOUD_ADMIN_TOKEN']
-        cielometer_pass = passwords['OVERCLOUD_CEILOMETER_PASSWORD']
+        ceilometer_pass = passwords['OVERCLOUD_CEILOMETER_PASSWORD']
         ceilometer_secret = passwords['OVERCLOUD_CEILOMETER_SECRET']
-        parameters['CeilometerPassword'] = cielometer_pass
-        parameters['CeilometerMeteringSecret'] = ceilometer_secret
-        parameters['CinderPassword'] = passwords['OVERCLOUD_CINDER_PASSWORD']
-        parameters['GlancePassword'] = passwords['OVERCLOUD_GLANCE_PASSWORD']
-        parameters['HeatPassword'] = passwords['OVERCLOUD_HEAT_PASSWORD']
-        parameters['NeutronPassword'] = passwords['OVERCLOUD_NEUTRON_PASSWORD']
-        parameters['NovaPassword'] = passwords['OVERCLOUD_NOVA_PASSWORD']
-        parameters['SwiftHashSuffix'] = passwords['OVERCLOUD_SWIFT_HASH']
-        parameters['SwiftPassword'] = passwords['OVERCLOUD_SWIFT_PASSWORD']
+        if parsed_args.use_tht:
+            parameters['AdminPassword'] = passwords['OVERCLOUD_ADMIN_PASSWORD']
+            parameters['AdminToken'] = passwords['OVERCLOUD_ADMIN_TOKEN']
+            parameters['CeilometerPassword'] = ceilometer_pass
+            parameters['CeilometerMeteringSecret'] = ceilometer_secret
+            parameters['CinderPassword'] = passwords[
+                'OVERCLOUD_CINDER_PASSWORD']
+            parameters['GlancePassword'] = passwords[
+                'OVERCLOUD_GLANCE_PASSWORD']
+            parameters['HeatPassword'] = passwords['OVERCLOUD_HEAT_PASSWORD']
+            parameters['NeutronPassword'] = passwords[
+                'OVERCLOUD_NEUTRON_PASSWORD']
+            parameters['NovaPassword'] = passwords['OVERCLOUD_NOVA_PASSWORD']
+            parameters['SwiftHashSuffix'] = passwords['OVERCLOUD_SWIFT_HASH']
+            parameters['SwiftPassword'] = passwords['OVERCLOUD_SWIFT_PASSWORD']
+        else:
+            parameters['Controller-1::AdminPassword'] = passwords[
+                'OVERCLOUD_ADMIN_PASSWORD']
+            parameters['Controller-1::AdminToken'] = passwords[
+                'OVERCLOUD_ADMIN_TOKEN']
+            parameters['Compute-1::AdminPassword'] = passwords[
+                'OVERCLOUD_ADMIN_PASSWORD']
+            parameters['Controller-1::SnmpdReadonlyUserPassword'] = (
+                parsed_args.undercloud_ceilometer_snmpd_password)
+            parameters['Cinder-Storage-1::SnmpdReadonlyUserPassword'] = (
+                parsed_args.undercloud_ceilometer_snmpd_password)
+            parameters['Swift-Storage-1::SnmpdReadonlyUserPassword'] = (
+                parsed_args.undercloud_ceilometer_snmpd_password)
+            parameters['Compute-1::SnmpdReadonlyUserPassword'] = (
+                parsed_args.undercloud_ceilometer_snmpd_password)
+            parameters['Controller-1::CeilometerPassword'] = ceilometer_pass
+            parameters[
+                'Controller-1::CeilometerMeteringSecret'] = ceilometer_secret
+            parameters['Compute-1::CeilometerPassword'] = ceilometer_pass
+            parameters[
+                'Compute-1::CeilometerMeteringSecret'] = ceilometer_secret
+            parameters['Controller-1::CinderPassword'] = (
+                passwords['OVERCLOUD_CINDER_PASSWORD'])
+            parameters['Controller-1::GlancePassword'] = (
+                passwords['OVERCLOUD_GLANCE_PASSWORD'])
+            parameters['Controller-1::HeatPassword'] = (
+                passwords['OVERCLOUD_HEAT_PASSWORD'])
+            parameters['Controller-1::NeutronPassword'] = (
+                passwords['OVERCLOUD_NEUTRON_PASSWORD'])
+            parameters['Compute-1::NeutronPassword'] = (
+                passwords['OVERCLOUD_NEUTRON_PASSWORD'])
+            parameters['Controller-1::NovaPassword'] = (
+                passwords['OVERCLOUD_NOVA_PASSWORD'])
+            parameters['Compute-1::NovaPassword'] = (
+                passwords['OVERCLOUD_NOVA_PASSWORD'])
+            parameters['Controller-1::SwiftHashSuffix'] = (
+                passwords['OVERCLOUD_SWIFT_HASH'])
+            parameters['Controller-1::SwiftPassword'] = (
+                passwords['OVERCLOUD_SWIFT_PASSWORD'])
+            parameters['Controller-1::CinderISCSIHelper'] = 'lioadm'
+            parameters['Cinder-Storage-1::CinderISCSIHelper'] = 'lioadm'
+            parameters['Controller-1::CloudName'] = 'overcloud'
+            parameters['Controller-1::NeutronPublicInterface'] = (
+                parsed_args.neutron_public_interface)
+            parameters['Controller-1::NeutronBridgeMappings'] = (
+                parsed_args.neutron_bridge_mappings)
+            parameters['Compute-1::NeutronBridgeMappings'] = (
+                parsed_args.neutron_bridge_mappings)
+            parameters['Controller-1::NeutronFlatNetworks'] = (
+                parsed_args.neutron_flat_networks)
+            parameters['Compute-1::NeutronFlatNetworks'] = (
+                parsed_args.neutron_flat_networks)
+            parameters['Compute-1::NeutronPhysicalBridge'] = (
+                parsed_args.neutron_physical_bridge)
+            parameters['Compute-1::NeutronPublicInterface'] = (
+                parsed_args.neutron_public_interface)
+            parameters['Compute-1::NovaComputeLibvirtType'] = (
+                parsed_args.libvirt_type)
+            parameters['Controller-1::NtpServer'] = parsed_args.ntp_server
+            parameters['Compute-1::NtpServer'] = parsed_args.ntp_server
+            parameters['Controller-1::NeutronNetworkType'] = (
+                parsed_args.neutron_network_type)
+            parameters['Compute-1::NeutronNetworkType'] = (
+                parsed_args.neutron_network_type)
+            parameters['Controller-1::NeutronTunnelTypes'] = (
+                parsed_args.neutron_tunnel_types)
+            parameters['Compute-1::NeutronTunnelTypes'] = (
+                parsed_args.neutron_tunnel_types)
+            parameters['Controller-1::count'] = parsed_args.control_scale
+            parameters['Compute-1::count'] = parsed_args.compute_scale
+            parameters['Swift-Storage-1::count'] = (
+                parsed_args.swift_storage_scale)
+            parameters['Cinder-Storage-1::count'] = (
+                parsed_args.block_storage_scale)
+            parameters['Ceph-Storage-1::count'] = (
+                parsed_args.ceph_storage_scale)
+            parameters['Cinder-Storage-1::Flavor'] = 'baremetal'
+            parameters['Compute-1::Flavor'] = 'baremetal'
+            parameters['Controller-1::Flavor'] = 'baremetal'
+            parameters['Swift-Storage-1::Flavor'] = 'baremetal'
+            parameters['Ceph-Storage-1::Flavor'] = 'baremetal'
+            parameters['Swift-Storage-1::Image'] = 'overcloud-full'
+            parameters['Cinder-Storage-1::Image'] = 'overcloud-full'
+            parameters['Ceph-Storage-1::Image'] = 'overcloud-full'
+            parameters['Controller-1::Image'] = 'overcloud-full'
+            parameters['Compute-1::Image'] = 'overcloud-full'
 
     def _get_stack(self, orchestration_client):
         """Get the ID for the current deployed overcloud stack if it exists."""
@@ -122,7 +213,7 @@ class DeployOvercloud(command.Command):
         parameters['SnmpdReadonlyUserPassword'] = snmp_pass
 
         self.log.debug("Generating overcloud passwords")
-        self.set_overcloud_passwords(parameters)
+        self.set_overcloud_passwords(parameters, args)
 
         self.log.debug("Getting ctlplane from Neutron")
 
@@ -130,14 +221,35 @@ class DeployOvercloud(command.Command):
         parameters['NeutronControlPlaneID'] = net['id']
 
         if args.control_scale > 1:
-            parameters['NeutronL3HA'] = True
+            if args.use_tht:
+                parameters['NeutronL3HA'] = True
+            else:
+                parameters.update({
+                    'Controller-1::NeutronL3HA': True,
+                    'Controller-1::NeutronAllowL3AgentFailover': False,
+                    'Compute-1::NeutronL3HA': True,
+                    'Controller-1::NeutronAllowL3AgentFailover': False,
+                })
 
         if args.ceph_storage_scale > 0:
             parameters.update({
                 'CephClusterFSID': six.text_type(uuid.uuid1()),
-                'CinderEnableRbdBackend': True,
-                'NovaEnableRbdBackend': True,
+                'CephMonKey': utils.create_cephx_key(),
+                'CephAdminKey': utils.create_cephx_key()
             })
+
+            if args.use_tht:
+                parameters.update({
+                    'CinderEnableRbdBackend': True,
+                    'NovaEnableRbdBackend': True,
+                })
+            else:
+                parameters.update({
+                    'Controller-1::CinderEnableRbdBackend': True,
+                    'Controller-1::GlanceBackend': 'rbd',
+                    'Compute-1::NovaEnableRbdBackend': True,
+                    'Controller-1::CinderEnableIscsiBackend': True
+                })
 
         return parameters
 
@@ -145,8 +257,9 @@ class DeployOvercloud(command.Command):
         """Verify the Baremetal nodes are available and do a stack update"""
 
         self.log.debug("Processing environment files")
-        env_files, env = template_utils.\
-            process_multiple_environments_and_files(environments)
+        env_files, env = (
+            template_utils.process_multiple_environments_and_files(
+                environments))
 
         self.log.debug("Getting template contents")
         template_files, template = template_utils.get_template_contents(
@@ -325,16 +438,34 @@ class DeployOvercloud(command.Command):
         parser.add_argument('--swift-storage-scale', type=int, default=0)
         parser.add_argument('--use-tripleo-heat-templates',
                             dest='use_tht', action='store_true')
+        parser.add_argument('--neutron-flat-networks', default='datacentre')
+        parser.add_argument('--neutron-physical-bridge', default='br-ex')
+        parser.add_argument('--neutron-bridge-mappings',
+                            default='datacentre:br-ex')
+        parser.add_argument('--neutron-public-interface', default='nic1')
+        parser.add_argument('--hypervisor-neutron-public-interface',
+                            default='nic1')
+        parser.add_argument('--neutron-network-type', default='gre')
+        parser.add_argument('--neutron-tunnel-types', default='gre')
 
+        parser.add_argument('--libvirt-type', default='qemu')
+        parser.add_argument('--ntp-server', default='')
+        parser.add_argument(
+            '--undercloud-ceilometer-snmpd-password',
+            default=os.environ.get('UNDERCLOUD_CEILOMETER_SNMPD_PASSWORD'),
+            help=_('Password for undercloud Ceilometer SNMPD. Defaults to '
+                   'UNDERCLOUD_CEILOMETER_SNMPD_PASSWORD environment '
+                   'variable')
+        )
         parser.add_argument(
             '--plan-uuid',
-            help="The UUID of the Tuskar plan to deploy."
+            help=_("The UUID of the Tuskar plan to deploy.")
         )
         parser.add_argument(
             '-O', '--output-dir', metavar='<OUTPUT DIR>',
-            help=('Directory to write Tuskar template files into. It will be '
-                  'created if it does not exist. If not provided a temporary '
-                  'directory will be used.')
+            help=_('Directory to write Tuskar template files into. It will be '
+                   'created if it does not exist. If not provided a temporary '
+                   'directory will be used.')
         )
 
         return parser
