@@ -55,4 +55,6 @@ class ScaleOvercloud(command.Command):
             heatclient=orchestration,
             plan_id=parsed_args.plan,
             stack_id=parsed_args.stack)
-        scale_manager.scaleup(parsed_args.role, parsed_args.num)
+        print("Scaling out role {0} in stack {1} to {2} nodes".format(
+            parsed_args.role, parsed_args.stack, parsed_args.num))
+        scale_manager.scaleup(parsed_args.role, int(parsed_args.num))
