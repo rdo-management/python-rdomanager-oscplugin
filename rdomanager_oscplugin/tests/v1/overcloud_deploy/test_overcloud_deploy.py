@@ -14,6 +14,8 @@
 #
 
 import mock
+import os
+import tempfile
 
 from rdomanager_oscplugin.tests.v1.overcloud_deploy import fakes
 from rdomanager_oscplugin.v1 import overcloud_deploy
@@ -91,3 +93,19 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
         self.assertEqual(kwargs['template'], 'template')
         self.assertEqual(kwargs['environment'], 'env')
         self.assertEqual(kwargs['stack_name'], 'overcloud')
+
+    def test_get_extra_config(self):
+        # Create a fake extra config dir and populate it with some fake files
+        # including one file that should not be picked up by the glob
+        fake_conf_dir = tempfile.mkdtemp()
+        fake_reg_file = fake_conf_dir + '/cool_config/cool.registry.yaml'
+        fake_env_file = fake_conf_dir + '/cool_config/environment.yaml'
+        fake_extra_file = fake_conf_dir + '/cool_config/meow.tar.gz'
+        os.mkdir(fake_conf_dir + '/cool_config')
+        open(fake_reg_file, 'a').close()
+        open(fake_env_file, 'a').close()
+        open(fake_extra_file, 'a').close()
+
+        extra_list = self.cmd._get_extra_config(fake_conf_dir)
+        self.assertEqual([fake_reg_file, fake_env_file], extra_list)
+        self.assertNotIn(fake_extra_file, extra_list)
