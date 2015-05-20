@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "facab960_7741f20a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-05-20T16:29:14Z",
+      "side": 1,
+      "message": "I missed this misspelling last time.",
+      "revId": "19f01d366d8f603676f992509c8d0919d7209749",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_f1fb5245",
         "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
         "patchSetId": 23
