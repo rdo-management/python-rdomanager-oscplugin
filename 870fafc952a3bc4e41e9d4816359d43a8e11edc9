@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_b8460622",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-05-21T14:42:12Z",
+      "side": 1,
+      "message": "Is this method called also from tuskar deployment? It looks it is used only with tht.",
+      "revId": "870fafc952a3bc4e41e9d4816359d43a8e11edc9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
