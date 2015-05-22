@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_f3398cd9",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-05-22T11:26:10Z",
+      "side": 1,
+      "message": "This should be enforced in get_parser, instead of casting here.",
+      "revId": "5b4ffcb8327b78b932b3a36db82dc6e78d75c92a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
