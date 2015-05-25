@@ -1,0 +1,9 @@
+Verified+1: Dougal Matthews <dougal@redhat.com>
+Code-Review+1: Lennart Regebro <regebro@gmail.com>
+Code-Review+1: Marek Aufart <maufart@redhat.com>
+Code-Review+2: Dougal Matthews <dougal@redhat.com>
+Submitted-by: Dougal Matthews <dougal@redhat.com>
+Submitted-at: Mon, 25 May 2015 15:55:04 +0200
+Reviewed-on: https://review.gerrithub.io/233674
+Project: rdo-management/python-rdomanager-oscplugin
+Branch: refs/heads/master
