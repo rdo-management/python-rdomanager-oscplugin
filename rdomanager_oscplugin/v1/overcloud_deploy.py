@@ -16,7 +16,9 @@ from __future__ import print_function
 
 import logging
 import os
+import shutil
 import six
+import subprocess
 import sys
 import tempfile
 import uuid
@@ -200,6 +202,30 @@ class DeployOvercloud(command.Command):
             else:
                 raise Exception("Heat Stack update failed.")
 
+    def _satellite_prepare_scripts(self):
+        RESOURCE_REGISTRY_PATH = os.path.join(
+            TRIPLEO_HEAT_TEMPLATES,
+            "overcloud-resource-registry-puppet-satellite.yaml")
+
+        post_deploy_dir = 'tuskar_templates/extraconfig/post_deploy'
+        if not os.path.exists(post_deploy_dir):
+            os.mkdir(post_deploy_dir)
+
+        shutil.copytree('/usr/share/openstack-tripleo-heat-templates/'
+                        'extraconfig/post_deploy/scripts',
+                        'tuskar_templates/extraconfig/post_deploy')
+
+    def _satellite_registration_parameters(self, parsed_args):
+        parameters = []
+        parameters.append('parameter_defaults:')
+        parameters.append('  rhel_reg_activation_key: %s' %
+                          parsed_args.reg_activation_key)
+        parameters.append('  rhel_reg_sat_url: %s' % parsed_args.reg_sat_url)
+        parameters.append('  rhel_reg_org: %s' % parsed_args.reg_org)
+        parameters.append('  rhel_reg_method: %s' % parsed_args.reg_method)
+        parameters.append('  rhel_reg_force: %s' % parsed_args.reg_force)
+        return '\n'.join(parameters)
+
     def _get_overcloud_endpoint(self, stack):
         for output in stack.to_dict().get('outputs', {}):
             if output['output_key'] == 'KeystoneURL':
@@ -236,6 +262,7 @@ class DeployOvercloud(command.Command):
 
         clients = self.app.client_manager
         management = clients.rdomanager_oscplugin.management()
+        parameters = ''
 
         # TODO(dmatthews): The Tuskar client has very similar code to this. It
         # should be refactored upstream so we can use it.
@@ -273,7 +300,14 @@ class DeployOvercloud(command.Command):
         overcloud_yaml = os.path.join(output_dir, 'plan.yaml')
         environment_yaml = os.path.join(output_dir, 'environment.yaml')
 
-        self._heat_deploy(stack, overcloud_yaml, None, [environment_yaml, ])
+        if parsed_args.reg_method == 'satellite':
+            self._satellite_prepare_scripts
+            subprocess.check_call('sudo -E /usr/libexec/os-refresh-config/'
+                                  'configure.d/90-tuskar-db-sync', shell=True)
+            parameters += self._satellite_registration_parameters(parsed_args)
+
+        self._heat_deploy(stack, overcloud_yaml, parameters,
+                          [environment_yaml, ])
 
     def _post_heat_deploy(self):
         """Setup after the Heat stack create or update has been done."""
@@ -322,7 +356,6 @@ class DeployOvercloud(command.Command):
         parser.add_argument('--swift-storage-scale', type=int, default=0)
         parser.add_argument('--use-tripleo-heat-templates',
                             dest='use_tht', action='store_true')
-
         parser.add_argument(
             '--plan-uuid',
             help="The UUID of the Tuskar plan to deploy."
@@ -332,6 +365,32 @@ class DeployOvercloud(command.Command):
             help=('Directory to write Tuskar template files into. It will be '
                   'created if it does not exist. If not provided a temporary '
                   'directory will be used.')
+        )
+        parser.add_argument(
+            '--reg-activation-key',
+            default=os.environ.get('REG_ACTIVATION_KEY', ''),
+            help='Activation key for registration'
+        )
+        parser.add_argument(
+            '--reg-org',
+            default=os.environ.get('REG_ORG', ''),
+            help='Registration organization'
+        )
+        parser.add_argument(
+            '--reg-force',
+            action='store_true',
+            default=(os.environ.get('REG_FORCE', '0') == '1'),
+            help='Force registration'
+        )
+        parser.add_argument(
+            '--reg-sat-url',
+            default=os.environ.get('REG_SAT_URL', ''),
+            help='Satellite registration URL'
+        )
+        parser.add_argument(
+            '--reg-method',
+            default=os.environ.get('REG_METHOD', ''),
+            help='Registration method (e.g. satellite)'
         )
 
         return parser

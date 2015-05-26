@@ -130,6 +130,40 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
         mock_heat_deploy.assert_called_with(
             mock_get_stack(),
             'fake/plan.yaml',
-            None,
+            '',
             ['fake/environment.yaml']
         )
+
+    @mock.patch('shutil.copytree')
+    @mock.patch('os.mkdir')
+    @mock.patch('os.path.exists')
+    def test_satellite_prepare_scripts(self, mock_os_path_exists,
+                                       mock_os_mkdir, mock_shutil_copytree):
+
+        self.cmd._satellite_prepare_scripts()
+
+        self.assertEqual(mock_os_path_exists.call_args_list, [
+            mock.call('tuskar_templates/extraconfig/post_deploy')])
+        self.assertEqual(mock_os_mkdir.call_args_list, [])
+        self.assertEqual(mock_shutil_copytree.call_args_list, [
+            mock.call('/usr/share/openstack-tripleo-heat-templates/'
+                      'extraconfig/post_deploy/scripts',
+                      'tuskar_templates/extraconfig/post_deploy')])
+
+    def test_satellite_registration_parameters(self):
+        reg_args = mock.Mock(reg_activation_key='asd123456',
+                             reg_sat_url='http://satellitehost.tld',
+                             reg_org='my_org',
+                             reg_method='satellite',
+                             reg_force=False)
+
+        expected_parameters = '''\
+parameter_defaults:
+  rhel_reg_activation_key: asd123456
+  rhel_reg_sat_url: http://satellitehost.tld
+  rhel_reg_org: my_org
+  rhel_reg_method: satellite
+  rhel_reg_force: False'''
+
+        self.assertEqual(expected_parameters,
+                         self.cmd._satellite_registration_parameters(reg_args))
