@@ -149,7 +149,7 @@ class StartBaremetalIntrospectionBulk(IntrospectionParser, command.Command):
             for uuid, status in utils.wait_for_node_discovery(
                     discoverd_client, auth_token, parsed_args.discoverd_url,
                     node_uuids):
-                print("Discovery for UUID {0} finished (Error: {1}".format(
+                print("Discovery for UUID {0} finished (Error: {1})".format(
                     uuid, status['error']))
 
 
