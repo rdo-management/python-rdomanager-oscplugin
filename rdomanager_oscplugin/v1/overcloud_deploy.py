@@ -91,6 +91,9 @@ class DeployOvercloud(command.Command):
         :type parameters: dict
         """
 
+        undercloud_ceilometer_snmpd_password = utils.get_config_value(
+            "auth", "undercloud_ceilometer_snmpd_password")
+
         self.passwords = passwords = utils.generate_overcloud_passwords()
         ceilometer_pass = passwords['OVERCLOUD_CEILOMETER_PASSWORD']
         ceilometer_secret = passwords['OVERCLOUD_CEILOMETER_SECRET']
@@ -109,6 +112,8 @@ class DeployOvercloud(command.Command):
             parameters['NovaPassword'] = passwords['OVERCLOUD_NOVA_PASSWORD']
             parameters['SwiftHashSuffix'] = passwords['OVERCLOUD_SWIFT_HASH']
             parameters['SwiftPassword'] = passwords['OVERCLOUD_SWIFT_PASSWORD']
+            parameters['SnmpdReadonlyUserPassword'] = (
+                undercloud_ceilometer_snmpd_password)
         else:
             parameters['Controller-1::AdminPassword'] = passwords[
                 'OVERCLOUD_ADMIN_PASSWORD']
@@ -117,13 +122,13 @@ class DeployOvercloud(command.Command):
             parameters['Compute-1::AdminPassword'] = passwords[
                 'OVERCLOUD_ADMIN_PASSWORD']
             parameters['Controller-1::SnmpdReadonlyUserPassword'] = (
-                parsed_args.undercloud_ceilometer_snmpd_password)
+                undercloud_ceilometer_snmpd_password)
             parameters['Cinder-Storage-1::SnmpdReadonlyUserPassword'] = (
-                parsed_args.undercloud_ceilometer_snmpd_password)
+                undercloud_ceilometer_snmpd_password)
             parameters['Swift-Storage-1::SnmpdReadonlyUserPassword'] = (
-                parsed_args.undercloud_ceilometer_snmpd_password)
+                undercloud_ceilometer_snmpd_password)
             parameters['Compute-1::SnmpdReadonlyUserPassword'] = (
-                parsed_args.undercloud_ceilometer_snmpd_password)
+                undercloud_ceilometer_snmpd_password)
             parameters['Controller-1::CeilometerPassword'] = ceilometer_pass
             parameters[
                 'Controller-1::CeilometerMeteringSecret'] = ceilometer_secret
@@ -165,9 +170,6 @@ class DeployOvercloud(command.Command):
             parameters = PARAMETERS.copy()
         else:
             parameters = {}
-
-        snmp_pass = utils.get_hiera_key("snmpd_readonly_user_password")
-        parameters['SnmpdReadonlyUserPassword'] = snmp_pass
 
         self.log.debug("Generating overcloud passwords")
         self.set_overcloud_passwords(parameters, args)
@@ -453,13 +455,6 @@ class DeployOvercloud(command.Command):
 
         parser.add_argument('--libvirt-type', default='qemu')
         parser.add_argument('--ntp-server', default='')
-        parser.add_argument(
-            '--undercloud-ceilometer-snmpd-password',
-            default=os.environ.get('UNDERCLOUD_CEILOMETER_SNMPD_PASSWORD'),
-            help=_('Password for undercloud Ceilometer SNMPD. Defaults to '
-                   'UNDERCLOUD_CEILOMETER_SNMPD_PASSWORD environment '
-                   'variable')
-        )
         parser.add_argument(
             '--plan-uuid',
             help=_("The UUID of the Tuskar plan to deploy.")

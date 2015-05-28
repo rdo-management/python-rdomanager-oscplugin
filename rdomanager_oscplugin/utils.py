@@ -321,6 +321,13 @@ def get_hiera_key(key_name):
     return out
 
 
+def get_config_value(section, option):
+
+    p = six.moves.configparser.ConfigParser()
+    p.read(os.path.expanduser("~/undercloud-passwords.conf"))
+    return p.get(section, option)
+
+
 def remove_known_hosts(overcloud_ip):
     """For a given IP address remove SSH keys from the known_hosts file"""
 
