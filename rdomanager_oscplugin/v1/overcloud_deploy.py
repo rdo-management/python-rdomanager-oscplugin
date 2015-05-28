@@ -196,17 +196,20 @@ class DeployOvercloud(command.Command):
                 'CephAdminKey': utils.create_cephx_key()
             })
 
+            cinder_iscsi = True if args.cinder_iscsi else False
+
             if args.use_tht:
                 parameters.update({
                     'CinderEnableRbdBackend': True,
                     'NovaEnableRbdBackend': True,
+                    'CinderEnableIscsiBackend': cinder_iscsi,
                 })
             else:
                 parameters.update({
                     'Controller-1::CinderEnableRbdBackend': True,
                     'Controller-1::GlanceBackend': 'rbd',
                     'Compute-1::NovaEnableRbdBackend': True,
-                    'Controller-1::CinderEnableIscsiBackend': True
+                    'Controller-1::CinderEnableIscsiBackend': cinder_iscsi
                 })
 
         if not args.use_tht:
@@ -465,6 +468,9 @@ class DeployOvercloud(command.Command):
 
         parser.add_argument('--libvirt-type', default='qemu')
         parser.add_argument('--ntp-server', default='')
+        parser.add_argument('--cinder-iscsi',
+                            dest='cinder_iscsi',
+                            action='store_true')
         parser.add_argument(
             '--plan-uuid',
             help=_("The UUID of the Tuskar plan to deploy.")
