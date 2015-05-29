@@ -51,7 +51,7 @@ def generate_overcloud_passwords(output_file="tripleo-overcloud-passwords"):
 
     if os.path.isfile(output_file):
         with open(output_file) as f:
-            return dict(line.split('=') for line in f)
+            return dict(line.split('=') for line in f.read().splitlines())
 
     password_names = (
         "OVERCLOUD_ADMIN_PASSWORD",
