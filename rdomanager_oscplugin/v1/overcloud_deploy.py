@@ -15,6 +15,7 @@
 from __future__ import print_function
 
 import glob
+import json
 import logging
 import os
 import six
@@ -29,6 +30,7 @@ from keystoneclient import exceptions as ksc_exc
 from openstackclient.i18n import _
 from os_cloud_config import keystone
 from os_cloud_config import keystone_pki
+from os_cloud_config import neutron
 
 from rdomanager_oscplugin import utils
 
@@ -406,43 +408,45 @@ class DeployOvercloud(command.Command):
         extra_envs = glob.glob(extra_dir + '/*/*environment*yaml')
         return extra_registries + extra_envs
 
-    def _post_heat_deploy(self):
-        """Setup after the Heat stack create or update has been done."""
-
-        clients = self.app.client_manager
-        orchestration_client = clients.rdomanager_oscplugin.orchestration()
-        stack = self._get_stack(orchestration_client)
-        identity_client = self.app.client_manager.identity
-
+    def _create_overcloudrc(self, stack, parsed_args):
         overcloud_endpoint = self._get_overcloud_endpoint(stack)
         overcloud_ip = six.moves.urllib.parse.urlparse(
             overcloud_endpoint).hostname
-        utils.remove_known_hosts(overcloud_ip)
 
-        # TODO(dmatthews): Update os-cloud-config so that we don't need to
-        # copy all the defaults from their CLI parser. They force us to pass
-        # all values.
-        keystone.initialize(
-            overcloud_ip, self.passwords['OVERCLOUD_ADMIN_TOKEN'],
-            'admin.example.com', self.passwords['OVERCLOUD_ADMIN_PASSWORD'],
-            'regionOne', None, None, 'heat-admin', 600, 10, True)
+        rc_params = {
+            'NOVA_VERSION': '1.1',
+            'COMPUTE_API_VERSION': '1.1',
+            'OS_USERNAME': 'admin',
+            'OS_TENANT_NAME': 'admin',
+            'OS_NO_CACHE': 'True',
+            'OS_CLOUDNAME': 'overcloud',
+            'no_proxy': "%(no_proxy)s,%(overcloud_ip)s" % {
+                'no_proxy': parsed_args.no_proxy,
+                'overcloud_ip': overcloud_ip,
+            }
+        }
+        rc_params.update({
+            'OS_PASSWORD': self.passwords['OVERCLOUD_ADMIN_PASSWORD'],
+            'OS_AUTH_URL': self._get_overcloud_endpoint(),
+        })
+        with open('overcloudrc', 'w') as f:
+            for key, value in rc_params:
+                f.write("export %(key)s=%(value)s\n" %
+                        {'key': key, 'value': value})
 
-        try:
-            identity_client.roles.create(name='swiftoperator')
-        except ksc_exc.Conflict:
-            pass
+    def _update_nodesjson(self, stack):
 
-        try:
-            identity_client.roles.create(name='ResellerAdmin')
-        except ksc_exc.Conflict:
-            pass
+        with open("instackenv.json") as f:
+            instack_env = json.load(f)
 
-        utils.setup_endpoints(overcloud_ip, self.passwords, identity_client)
+            instack_env.setdefault('overcloud', {})
+            instack_env['overcloud']['password'] = (
+                self.passwords['OVERCLOUD_ADMIN_PASSWORD'])
+            instack_env['overcloud']['endpoint'] = (
+                self._get_overcloud_endpoint(stack))
 
-        try:
-            identity_client.roles.create(name='heat_stack_user')
-        except ksc_exc.Conflict:
-            pass
+        with open("instackenv.json") as f:
+            json.dump(instack_env, f)
 
     def get_parser(self, prog_name):
         parser = super(DeployOvercloud, self).get_parser(prog_name)
@@ -465,6 +469,19 @@ class DeployOvercloud(command.Command):
 
         parser.add_argument('--libvirt-type', default='qemu')
         parser.add_argument('--ntp-server', default='')
+        parser.add_argument('--network-cidr', default='10.0.0.0/8')
+        parser.add_argument(
+            '--tripleo-root',
+            default=os.environ.get('TRIPLEO_ROOT', '/etc/tripleo')
+        )
+        parser.add_argument(
+            '--nodes-json',
+            default=os.environ.get('NODES_JSON', 'instackenv.json')
+        )
+        parser.add_argument(
+            '--no-proxy',
+            default=os.environ.get('no_proxy', '')
+        )
         parser.add_argument(
             '--plan-uuid',
             help=_("The UUID of the Tuskar plan to deploy.")
@@ -499,4 +516,91 @@ class DeployOvercloud(command.Command):
         else:
             self._deploy_tuskar(stack, parsed_args)
 
-        self._post_heat_deploy()
+        # Get a new copy of the stack after stack update/create. If it was a
+        # create then the previous stack object would be None.
+        stack = self._get_stack(orchestration_client)
+
+        self._create_overcloudrc(stack, parsed_args)
+
+        self._update_nodesjson(stack)
+
+        print("Overcloud Deployed")
+
+
+class DeployPostconfigOvercloud(command.Command):
+    """Complete the configuration of the overcloud"""
+
+    def get_parser(self, prog_name):
+        parser = super(DeployPostconfigOvercloud, self).get_parser(prog_name)
+
+        parser.add_argument('--overcloud_nameserver', default='8.8.8.8')
+        parser.add_argument('--floating-id-cidr', default='192.0.2.0/24')
+        parser.add_argument('--floating-ip-start', default='192.0.2.45')
+        parser.add_argument('--floating-ip-end', default='192.0.2.64')
+        parser.add_argument('--ibm-network-gateway', default='192.0.2.1')
+        parser.add_argument(
+            'overcloud_ip',
+            help=_('The IP address of the Overcloud endpoint')
+        )
+
+        return parser
+
+    def take_action(self, parsed_args):
+        self.log.debug("take_action(%s)" % parsed_args)
+
+        identity_client = self.app.client_manager.identity
+
+        passwords = utils.generate_overcloud_passwords()
+
+        utils.remove_known_hosts(parsed_args.overcloud_ip)
+
+        # TODO(dmatthews): Update os-cloud-config so that we don't need to
+        # copy all the defaults from their CLI parser. They force us to pass
+        # all values.
+        keystone.initialize(
+            parsed_args.overcloud_ip, passwords['OVERCLOUD_ADMIN_TOKEN'],
+            'admin.example.com', passwords['OVERCLOUD_ADMIN_PASSWORD'],
+            'regionOne', None, None, 'heat-admin', 600, 10, True)
+
+        try:
+            identity_client.roles.create(name='swiftoperator')
+        except ksc_exc.Conflict:
+            pass
+
+        try:
+            identity_client.roles.create(name='ResellerAdmin')
+        except ksc_exc.Conflict:
+            pass
+
+        utils.setup_endpoints(parsed_args.overcloud_ip,
+                              passwords,
+                              identity_client)
+
+        try:
+            identity_client.roles.create(name='heat_stack_user')
+        except ksc_exc.Conflict:
+            pass
+
+        network_description = {
+            "float": {
+                "cidr": parsed_args.network_cidr,
+                "name": "default-net",
+                "nameserver": parsed_args.overcloud_nameserver
+            },
+            "external": {
+                "name": "ext-net",
+                "cidr": parsed_args.floating_id_cidr,
+                "allocation_start": parsed_args.floating_ip_start,
+                "allocation_end": parsed_args.floating_ip_end,
+                "gateway": parsed_args.ibm_network_gateway,
+            }
+        }
+
+        neutron.initialize_neutron(
+            network_description,
+            neutron_client=self.app.client_manager.network,
+            keystone_client=self.app.client_manager.identity,
+        )
+
+        self.app.client_manager.compute.flavors.create(
+            'm1.demo', 512, 1, 10, 'auto')
