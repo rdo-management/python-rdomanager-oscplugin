@@ -29,6 +29,7 @@ from keystoneclient import exceptions as ksc_exc
 from openstackclient.i18n import _
 from os_cloud_config import keystone
 from os_cloud_config import keystone_pki
+from os_cloud_config import neutron
 
 from rdomanager_oscplugin import utils
 
@@ -406,7 +407,7 @@ class DeployOvercloud(command.Command):
         extra_envs = glob.glob(extra_dir + '/*/*environment*yaml')
         return extra_registries + extra_envs
 
-    def _post_heat_deploy(self):
+    def _post_heat_deploy(self, parsed_args):
         """Setup after the Heat stack create or update has been done."""
 
         clients = self.app.client_manager
@@ -444,6 +445,30 @@ class DeployOvercloud(command.Command):
         except ksc_exc.Conflict:
             pass
 
+        network_description = {
+            "float": {
+                "cidr": parsed_args.network_cidr,
+                "name": "default-net",
+                "nameserver": parsed_args.overcloud_nameserver
+            },
+            "external": {
+                "name": "ext-net",
+                "cidr": parsed_args.floating_id_cidr,
+                "allocation_start": parsed_args.floating_ip_start,
+                "allocation_end": parsed_args.floating_ip_end,
+                "gateway": parsed_args.ibm_network_gateway,
+            }
+        }
+
+        neutron.initialize_neutron(
+            network_description,
+            neutron_client=self.app.client_manager.network,
+            keystone_client=self.app.client_manager.identity,
+        )
+
+        self.app.client_manager.compute.flavors.create(
+            'm1.demo', 512, 1, 10, 'auto')
+
     def get_parser(self, prog_name):
         parser = super(DeployOvercloud, self).get_parser(prog_name)
         parser.add_argument('--control-scale', type=int, default=1)
@@ -465,6 +490,12 @@ class DeployOvercloud(command.Command):
 
         parser.add_argument('--libvirt-type', default='qemu')
         parser.add_argument('--ntp-server', default='')
+        parser.add_argument('--network-cidr', default='10.0.0.0/8')
+        parser.add_argument('--overcloud_nameserver', default='8.8.8.8')
+        parser.add_argument('--floating-id-cidr', default='192.0.2.0/24')
+        parser.add_argument('--floating-ip-start', default='192.0.2.45')
+        parser.add_argument('--floating-ip-end', default='192.0.2.64')
+        parser.add_argument('--ibm-network-gateway', default='192.0.2.1')
         parser.add_argument(
             '--plan-uuid',
             help=_("The UUID of the Tuskar plan to deploy.")
@@ -499,4 +530,6 @@ class DeployOvercloud(command.Command):
         else:
             self._deploy_tuskar(stack, parsed_args)
 
-        self._post_heat_deploy()
+        self._post_heat_deploy(parsed_args)
+
+        print("Overcloud Deployed")
