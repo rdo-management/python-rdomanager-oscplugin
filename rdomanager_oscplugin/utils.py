@@ -51,7 +51,7 @@ def generate_overcloud_passwords(output_file="tripleo-overcloud-passwords"):
 
     if os.path.isfile(output_file):
         with open(output_file) as f:
-            return dict(line.split('=') for line in f)
+            return dict(line.split('=') for line in f.read().splitlines())
 
     password_names = (
         "OVERCLOUD_ADMIN_PASSWORD",
@@ -431,10 +431,8 @@ def register_endpoint(name,
         if not role:
             # Log "Creating user-role assignment for user $NAME, role admin,
             # tenant service"
-            identity_client.roles.grant(
-                admin_role_id,
-                user=user_id,
-                project=service_project_id
+            identity_client.roles.add_user_role(
+                user_id, admin_role_id, service_project_id
             )
 
         # Add the admin tenant role for ceilometer user to enable polling
@@ -447,20 +445,16 @@ def register_endpoint(name,
             role = identity_client.roles.roles_for_user(
                 user_id, admin_project_id)
             if not role:
-                identity_client.roles.grant(
-                    admin_role_id,
-                    user=user_id,
-                    project=admin_project_id
+                identity_client.roles.add_user_role(
+                    user_id, admin_role_id, admin_project_id
                 )
 
                 # swift polling requires ResellerAdmin role to be added to the
                 # Ceilometer user
                 reseller_admin_role_id = next(role.id for role in roles if
                                               role.name in 'ResellerAdmin')
-                identity_client.roles.grant(
-                    reseller_admin_role_id,
-                    user=user_id,
-                    project=admin_project_id
+                identity_client.roles.add_user_role(
+                    user_id, reseller_admin_role_id, admin_project_id
                 )
 
     service = identity_client.services.create(
