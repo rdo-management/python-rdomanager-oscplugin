@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_5a4e9d70",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1004023
+      },
+      "writtenOn": "2015-06-01T20:37:50Z",
+      "side": 1,
+      "message": "I think these options should align with the *scale options, similar to the existing instack-deploy-overcloud environment variables, so --ceph-storage-flavor, --block-storage-flavor and --swift-storage-flavor.",
+      "range": {
+        "startLine": 469,
+        "startChar": 36,
+        "endLine": 469,
+        "endChar": 41
+      },
+      "revId": "970c49688add01d8875d4231de065859be9861dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
