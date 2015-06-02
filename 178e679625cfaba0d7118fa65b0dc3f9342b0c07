@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_ef41693a",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-06-02T18:20:06Z",
+      "side": 1,
+      "message": "I don\u0027t think the dirname part is going to work as intended.  That was relying on bash to fill in the path to the parent directory.\n\nI\u0027m not entirely sure how to look up the instack root from here.  The oscplugin code isn\u0027t going to be in the same tree as instack-undercloud, so we can\u0027t necessarily traverse the path like we were.  It might need to be an explicit parameter to the client if we want to use a non-standard path for this (the path passed in here is only used if the files aren\u0027t found in /usr/share/instack-undercloud).",
+      "revId": "178e679625cfaba0d7118fa65b0dc3f9342b0c07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
