@@ -22,6 +22,30 @@
       "revId": "970c49688add01d8875d4231de065859be9861dc",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_8930dd9f",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1003529
+      },
+      "writtenOn": "2015-06-02T13:24:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "facab960_5a4e9d70",
+      "range": {
+        "startLine": 469,
+        "startChar": 36,
+        "endLine": 469,
+        "endChar": 41
+      },
+      "revId": "970c49688add01d8875d4231de065859be9861dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
