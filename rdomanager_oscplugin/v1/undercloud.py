@@ -19,7 +19,7 @@ import logging
 import subprocess
 
 from cliff import command
-
+from instack_undercloud import undercloud
 
 class InstallPlugin(command.Command):
     """Install and setup the undercloud"""
@@ -30,6 +30,6 @@ class InstallPlugin(command.Command):
     def take_action(self, parsed_args):
         self.log.debug("take_action(%s)" % parsed_args)
 
-        subprocess.check_call("instack-install-undercloud")
+        undercloud.install('$(dirname $0)/..')
 
         return
