@@ -444,6 +444,42 @@ class DeployOvercloud(command.Command):
         except ksc_exc.Conflict:
             pass
 
+    def _run_tempest(self, overcloud_auth_url, overcloud_admin_password,
+                     tempest_args):
+        tempest_run_dir = os.path.join(os.path.expanduser("~"), "tempest")
+        try:
+            os.stat(tempest_run_dir)
+        except OSError:
+            os.mkdir(tempest_run_dir)
+
+        os.chdir(tempest_run_dir)
+
+        utils.run_shell('/usr/share/openstack-tempest-kilo/tools/'
+                        'configure-tempest-directory')
+        utils.run_shell('./tools/config_tempest.py --out etc/tempest.conf '
+                        '--debug --create '
+                        'identity.uri %(auth_url)s '
+                        'compute.allow_tenant_isolation true '
+                        'object-storage.operator_role SwiftOperator '
+                        'identity.admin_password %(admin_password)s '
+                        'compute.build_timeout 500 '
+                        'compute.image_ssh_user cirros '
+                        'compute.ssh_user cirros '
+                        'network.build_timeout 500 '
+                        'volume.build_timeout 500 '
+                        'scenario.ssh_user cirros' %
+                        {'auth_url': overcloud_auth_url,
+                         'admin_password': overcloud_admin_password})
+
+        full_tempest_args = '--no-virtual-env'
+        if tempest_args:
+            full_tempest_args = '%s -- %s' % (full_tempest_args, tempest_args)
+        log_file = os.path.join(tempest_run_dir, "tempest-run.log")
+        utils.run_shell('./run_tempest.sh %(tempest_args)s 2>&1 '
+                        '| tee %(log_file)s' %
+                        {'tempest_args': full_tempest_args,
+                         'log_file': log_file})
+
     def get_parser(self, prog_name):
         parser = super(DeployOvercloud, self).get_parser(prog_name)
         parser.add_argument('--control-scale', type=int, default=1)
@@ -481,6 +517,9 @@ class DeployOvercloud(command.Command):
             help=('Directory containing any extra environment files to pass '
                   'heat. (Defaults to /etc/tripleo/extra_config.d)')
         )
+        parser.add_argument('--tempest',
+                            dest='run_tempest', action='store_true')
+        parser.add_argument('--tempest-args')
 
         return parser
 
@@ -500,3 +539,6 @@ class DeployOvercloud(command.Command):
             self._deploy_tuskar(stack, parsed_args)
 
         self._post_heat_deploy()
+
+        # if parsed_args.run_tempest:
+        #     self._run_tempest(parsed_args.tempest_args)
