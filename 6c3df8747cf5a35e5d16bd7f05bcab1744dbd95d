@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_b7a6d70e",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-06-03T12:57:12Z",
+      "side": 1,
+      "message": "Please go ahead and change this to use update like the tuskar version does",
+      "revId": "6c3df8747cf5a35e5d16bd7f05bcab1744dbd95d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
