@@ -39,4 +39,4 @@ class TestOvercloudScale(fakes.TestOvercloudScale):
         parsed_args = self.check_parser(self.cmd, argslist, verifylist)
         self.cmd.take_action(parsed_args)
         scale_manager.scaleup(parsed_args.role, parsed_args.num)
-        scale_manager.scaleup.called_once_with('Compute-1', 2)
+        scale_manager.scaleup.assert_called_once_with('Compute-1', 2)
