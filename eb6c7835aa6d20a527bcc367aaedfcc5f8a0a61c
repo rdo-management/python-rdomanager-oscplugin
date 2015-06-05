@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_3cf2a36f",
+        "filename": "rdomanager_oscplugin/tests/v1/overcloud_node/test_overcloud_node.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-05T11:44:54Z",
+      "side": 1,
+      "message": "Good point, thanks!",
+      "parentUuid": "facab960_eedb2119",
+      "revId": "eb6c7835aa6d20a527bcc367aaedfcc5f8a0a61c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_0ed765ee",
         "filename": "rdomanager_oscplugin/tests/v1/overcloud_scale/test_overcloud_scale.py",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-06-04T20:51:18Z",
       "side": 1,
       "message": "ditto",
+      "revId": "eb6c7835aa6d20a527bcc367aaedfcc5f8a0a61c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_dcfc5741",
+        "filename": "rdomanager_oscplugin/tests/v1/overcloud_scale/test_overcloud_scale.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-05T11:44:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "facab960_0ed765ee",
       "revId": "eb6c7835aa6d20a527bcc367aaedfcc5f8a0a61c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
