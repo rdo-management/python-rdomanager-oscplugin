@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_9c7c8f22",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-05T09:49:47Z",
+      "side": 1,
+      "message": "This should probably use subprocess.check_call.",
+      "revId": "92413024561b7464c37422ebca2f4dd133163db1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
