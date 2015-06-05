@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_d7e510a9",
+        "filename": "rdomanager_oscplugin/v1/overcloud_validate.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-06-05T14:16:19Z",
+      "side": 1,
+      "message": "an? This can probably be worded slightly better. This will be the help text next to the command in \u0027openstack -h\u0027",
+      "revId": "22b487d9fe3861645f52e3a2471e009b48565670",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
