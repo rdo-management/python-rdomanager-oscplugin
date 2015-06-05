@@ -16,6 +16,24 @@
       "revId": "92413024561b7464c37422ebca2f4dd133163db1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_bc2153fe",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-05T10:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "facab960_9c7c8f22",
+      "revId": "92413024561b7464c37422ebca2f4dd133163db1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
