@@ -539,4 +539,5 @@ class DeployOvercloud(command.Command):
 
         self._update_nodesjson(stack)
 
+        print("Overcloud Endpoint: {0}".format(self._get_overcloud_endpoint))
         print("Overcloud Deployed")
