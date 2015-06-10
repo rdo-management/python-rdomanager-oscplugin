@@ -387,7 +387,9 @@ class BuildOvercloudImage(command.Command):
             else:
                 # Download the image
                 r = requests.get(
-                    'http://cloud.fedoraproject.org/fedora-21.x86_64.qcow2')
+                    'http://download.fedoraproject.org/pub/fedora/linux/'
+                    'releases/21/Cloud/Images/x86_64/'
+                    'Fedora-Cloud-Base-20141203-21.x86_64.qcow2')
                 with open(image_name, 'wb') as f:
                     f.write(r.content)
             # The perms always seem to be wrong when copying out of the cache,

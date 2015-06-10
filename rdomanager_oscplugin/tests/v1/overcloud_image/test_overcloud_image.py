@@ -75,7 +75,8 @@ class TestOvercloudImageBuild(TestPluginV1):
             self.cmd.take_action(parsed_args)
 
         mock_requests_get.assert_called_once_with(
-            'http://cloud.fedoraproject.org/fedora-21.x86_64.qcow2')
+            'http://download.fedoraproject.org/pub/fedora/linux/releases/21/'
+            'Cloud/Images/x86_64/Fedora-Cloud-Base-20141203-21.x86_64.qcow2')
         self.assertEqual(2, mock_os_path_isfile.call_count)
         self.assertEqual(1, mock_os_chmod.call_count)
         mock_open_context.assert_has_calls(
