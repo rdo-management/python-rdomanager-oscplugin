@@ -426,6 +426,7 @@ class DeployOvercloud(command.Command):
             'OS_TENANT_NAME': 'admin',
             'OS_NO_CACHE': 'True',
             'OS_CLOUDNAME': 'overcloud',
+            'OS_OVERCLOUD_IP': overcloud_ip,
             'no_proxy': "%(no_proxy)s,%(overcloud_ip)s" % {
                 'no_proxy': parsed_args.no_proxy,
                 'overcloud_ip': overcloud_ip,
