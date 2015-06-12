@@ -15,6 +15,7 @@
 from __future__ import print_function
 
 import logging
+import os
 import six
 
 from cliff import command
@@ -41,7 +42,7 @@ class PostconfigOvercloud(command.Command):
         parser.add_argument('--ibm-network-gateway', default='192.0.2.1')
         parser.add_argument('--network-cidr', default='10.0.0.0/8')
         parser.add_argument(
-            'overcloud_ip',
+            'overcloud-ip', default=os.environ.get('OS_OVERCLOUD_IP'),
             help=_('The IP address of the Overcloud endpoint')
         )
 
