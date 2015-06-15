@@ -485,6 +485,14 @@ class DeployOvercloud(command.Command):
                             default='nic1')
         parser.add_argument('--neutron-network-type', default='gre')
         parser.add_argument('--neutron-tunnel-types', default='gre')
+        parser.add_argument('--neutron-disable-ovs-tunneling',
+                            dest='neutron-ovs-tunneling',
+                            action='store_false')
+        parser.add_argument('--neutron-enable-ovs-tunneling',
+                            dest='neutron-ovs-tunneling',
+                            action='store_true')
+        parser.set_defaults(neutron-ovs-tunneling=True)
+        parser.add_argument('--neutron-network-vlan-ranges', default='datacentre:1:1000')
 
         parser.add_argument('--libvirt-type', default='qemu')
         parser.add_argument('--ntp-server', default='')
