@@ -16,6 +16,24 @@
       "revId": "0c67eebbcc670d454cd6da90204fae5a9a8faac6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_5501cead",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003854
+      },
+      "writtenOn": "2015-06-16T13:45:57Z",
+      "side": 1,
+      "message": "maybe this is worth a cleanup in the future to make sure the defaults are taken from template unless redefined here",
+      "parentUuid": "facab960_d50ddee9",
+      "revId": "0c67eebbcc670d454cd6da90204fae5a9a8faac6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
