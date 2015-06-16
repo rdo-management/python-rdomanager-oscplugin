@@ -34,6 +34,24 @@
       "revId": "0c67eebbcc670d454cd6da90204fae5a9a8faac6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_d524fe61",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-06-16T13:48:59Z",
+      "side": 1,
+      "message": "sure man, you\u0027re probably right. but at this point i\u0027d rather not get into ANYTHING more than this patch needs to do*\n\n*(or i will hit you)",
+      "parentUuid": "facab960_5501cead",
+      "revId": "0c67eebbcc670d454cd6da90204fae5a9a8faac6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
