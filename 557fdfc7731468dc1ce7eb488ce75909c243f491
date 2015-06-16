@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_f5d4a2be",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-06-16T14:31:58Z",
+      "side": 1,
+      "message": "yeah so the actual neutron config is enable_tunneling but in the heat templates we have NeutronEnableTunnelling. In any case what we expose to the user here is --neutron-disable-tunnelling",
+      "parentUuid": "facab960_554c6ec8",
+      "revId": "557fdfc7731468dc1ce7eb488ce75909c243f491",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_f55d827a",
         "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2015-06-16T14:27:24Z",
       "side": 1,
       "message": "tunneling or tunnelling?",
+      "revId": "557fdfc7731468dc1ce7eb488ce75909c243f491",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_15dd86e0",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-06-16T14:31:58Z",
+      "side": 1,
+      "message": "as above",
+      "parentUuid": "facab960_f55d827a",
       "revId": "557fdfc7731468dc1ce7eb488ce75909c243f491",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
