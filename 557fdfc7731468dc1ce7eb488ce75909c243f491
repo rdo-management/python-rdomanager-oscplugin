@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_d5e6beaf",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-06-16T14:34:47Z",
+      "side": 1,
+      "message": "I should also add I hadn\u0027t realised there was (also) this difference between us/uk english, either way I don\u0027t really feel strongly. The only really important thing is what is exposed to the user, so we can change that to --neutron-disable-tunnelling \n\nOR we could even make an alias --neutron-disable-tunneling and tunnelling",
+      "parentUuid": "facab960_f5d4a2be",
+      "revId": "557fdfc7731468dc1ce7eb488ce75909c243f491",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_f55d827a",
         "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
         "patchSetId": 7
