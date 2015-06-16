@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_9bdf070d",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-06-16T20:10:21Z",
+      "side": 1,
+      "message": "I don\u0027t work for them anymore. ;-)",
+      "range": {
+        "startLine": 598,
+        "startChar": 31,
+        "endLine": 598,
+        "endChar": 34
+      },
+      "revId": "b4b7e464f81c4b450f4198ed9341497682255c2c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
