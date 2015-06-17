@@ -33,4 +33,54 @@ class InstallPlugin(command.Command):
         # TODO(trown): Make the location of the instack root dir configurable
         undercloud.install('.')
 
+        tuskar_defaults = {
+            'Ceph-Storage-1::count': '0',
+            'Ceph-Storage-1::Flavor': 'baremetal',
+            'Ceph-Storage-1::Image': 'overcloud-full',
+            'Cinder-Storage-1::CinderISCSIHelper': 'lioadm',
+            'Cinder-Storage-1::count': '0',
+            'Cinder-Storage-1::Image': 'overcloud-full',
+            'Cinder-Storage-1::Flavor': 'baremetal',
+            'Compute-1::count': '1',
+            'Compute-1::Flavor': 'baremetal',
+            'Compute-1::Image': 'overcloud-full',
+            'Compute-1::NeutronBridgeMappings': 'datacentre:br-ex',
+            'Compute-1::NeutronEnableTunnelling': 'True',
+            'Compute-1::NeutronFlatNetworks': 'datacentre',
+            'Compute-1::NeutronNetworkType': 'gre',
+            'Compute-1::NeutronNetworkVLANRanges': 'datacentre:1:1000',
+            'Compute-1::NeutronPhysicalBridge': 'br-ex',
+            'Compute-1::NeutronPublicInterface': 'nic1',
+            'Compute-1::NeutronTunnelTypes': 'gre',
+            'Compute-1::NovaComputeLibvirtType': 'qemu',
+            'Compute-1::NtpServer': '',
+            'Controller-1::CinderISCSIHelper': 'lioadm',
+            'Controller-1::CloudName': 'overcloud',
+            'Controller-1::count': '1',
+            'Controller-1::Flavor': 'baremetal',
+            'Controller-1::Image': 'overcloud-full',
+            'Controller-1::NeutronBridgeMappings': 'datacentre:br-ex',
+            'Controller-1::NeutronEnableTunnelling': 'True',
+            'Controller-1::NeutronFlatNetworks': 'datacentre',
+            'Controller-1::NeutronNetworkType': 'gre',
+            'Controller-1::NeutronNetworkVLANRanges': 'datacentre:1:1000',
+            'Controller-1::NeutronPublicInterface': 'nic1',
+            'Controller-1::NeutronTunnelTypes': 'gre',
+            'Controller-1::NtpServer': '',
+            'Swift-Storage-1::count': '0',
+            'Swift-Storage-1::Flavor': 'baremetal',
+            'Swift-Storage-1::Image': 'overcloud-full',
+            }
+
+        management = self.app.client_manager.rdomanager_oscplugin.management()
+        plans = [plan for plan in management.plans.list()
+                 if plan.name == 'overcloud']
+        if not plans:
+            self.log.error('Could not find plan "overcloud"')
+            raise KeyError('Could not find plan "overcloud"')
+
+        parameters = [{'name': pair[0], 'value': pair[1]}
+                      for pair in tuskar_defaults.items()]
+        management.plans.patch(plans[0].uuid, parameters)
+
         return
