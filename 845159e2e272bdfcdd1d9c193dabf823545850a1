@@ -51,6 +51,24 @@
       "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_01862413",
+        "filename": "setup.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-17T09:09:33Z",
+      "side": 1,
+      "message": "yeah, it\u0027s because then the command is \"openstack baremetal configure ready-state\". Both \"configure ready_state\" or \"configure ready state\" seemed weird, but I am open to suggestions.",
+      "parentUuid": "facab960_8115d4e6",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
