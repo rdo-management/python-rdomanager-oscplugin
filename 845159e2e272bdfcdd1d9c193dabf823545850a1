@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_c1335ca9",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-17T08:44:49Z",
+      "side": 1,
+      "message": "Would this be better done with something similar to _wait_for_drac_config_jobs? Same comment to the other sleeps on L214 and L226",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
