@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "facab960_2c795fc8",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-06-17T13:40:21Z",
+      "side": 1,
+      "message": "Do we have to have this same loop in every method? Does every machine have to be in the same state at the same time? Or can we process them one at a time and extract the loop to the main driver method?",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_c1335ca9",
         "filename": "rdomanager_oscplugin/v1/baremetal.py",
         "patchSetId": 2
@@ -101,6 +118,24 @@
       "side": 1,
       "message": "yeah, it\u0027s because then the command is \"openstack baremetal configure ready-state\". Both \"configure ready_state\" or \"configure ready state\" seemed weird, but I am open to suggestions.",
       "parentUuid": "facab960_8115d4e6",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_0ca3bb4f",
+        "filename": "setup.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-06-17T13:40:21Z",
+      "side": 1,
+      "message": "Can we not just get a better command name? \u0027configure ready state\u0027 is not very informative to me. If we are going to keep it, I say drop the \u0027-\u0027 and just use \u0027configure ready state\u0027",
+      "parentUuid": "facab960_01862413",
       "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
