@@ -19,6 +19,7 @@ import logging
 import subprocess
 
 from cliff import command
+from tuskarclient.openstack.common.apiclient import exceptions
 
 
 class InstallPlugin(command.Command):
@@ -31,5 +32,59 @@ class InstallPlugin(command.Command):
         self.log.debug("take_action(%s)" % parsed_args)
 
         subprocess.check_call("instack-install-undercloud")
+
+        tuskar_defaults = {
+            'Ceph-Storage-1::count': '0',
+            'Ceph-Storage-1::Flavor': 'baremetal',
+            'Ceph-Storage-1::Image': 'overcloud-full',
+            'Cinder-Storage-1::CinderISCSIHelper': 'lioadm',
+            'Cinder-Storage-1::count': '0',
+            'Cinder-Storage-1::Image': 'overcloud-full',
+            'Cinder-Storage-1::Flavor': 'baremetal',
+            'Compute-1::count': '1',
+            'Compute-1::Flavor': 'baremetal',
+            'Compute-1::Image': 'overcloud-full',
+            'Compute-1::NeutronBridgeMappings': 'datacentre:br-ex',
+            'Compute-1::NeutronEnableTunnelling': 'True',
+            'Compute-1::NeutronFlatNetworks': 'datacentre',
+            'Compute-1::NeutronNetworkType': 'gre',
+            'Compute-1::NeutronNetworkVLANRanges': 'datacentre:1:1000',
+            'Compute-1::NeutronPhysicalBridge': 'br-ex',
+            'Compute-1::NeutronPublicInterface': 'nic1',
+            'Compute-1::NeutronTunnelTypes': 'gre',
+            'Compute-1::NovaComputeLibvirtType': 'qemu',
+            'Compute-1::NtpServer': '',
+            'Controller-1::CinderISCSIHelper': 'lioadm',
+            'Controller-1::CloudName': 'overcloud',
+            'Controller-1::count': '1',
+            'Controller-1::Flavor': 'baremetal',
+            'Controller-1::Image': 'overcloud-full',
+            'Controller-1::NeutronBridgeMappings': 'datacentre:br-ex',
+            'Controller-1::NeutronEnableTunnelling': 'True',
+            'Controller-1::NeutronFlatNetworks': 'datacentre',
+            'Controller-1::NeutronNetworkType': 'gre',
+            'Controller-1::NeutronNetworkVLANRanges': 'datacentre:1:1000',
+            'Controller-1::NeutronPublicInterface': 'nic1',
+            'Controller-1::NeutronTunnelTypes': 'gre',
+            'Controller-1::NtpServer': '',
+            'Swift-Storage-1::count': '0',
+            'Swift-Storage-1::Flavor': 'baremetal',
+            'Swift-Storage-1::Image': 'overcloud-full',
+            }
+
+        management = self.app.client_manager.rdomanager_oscplugin.management()
+        plans = [plan for plan in management.plans.list()
+                 if plan.name == 'overcloud']
+        if not plans:
+            self.log.error('Could not find plan "overcloud"')
+            raise KeyError('Could not find plan "overcloud"')
+
+        if len(plans) > 1:
+            self.log.error('More than one plan is called "overcloud"')
+            raise KeyError('More than one plan is called "overcloud"')
+
+        parameters = [{'name': pair[0], 'value': pair[1]}
+                      for pair in tuskar_defaults.items()]
+        management.plans.patch(plans[0].uuid, parameters)
 
         return
