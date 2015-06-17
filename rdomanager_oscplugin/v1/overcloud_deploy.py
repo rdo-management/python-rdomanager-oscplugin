@@ -223,9 +223,6 @@ class DeployOvercloud(command.Command):
             })
         else:
             parameters.update({
-                'Controller-1::CinderISCSIHelper': 'lioadm',
-                'Cinder-Storage-1::CinderISCSIHelper': 'lioadm',
-                'Controller-1::CloudName': 'overcloud',
                 'Controller-1::NeutronPublicInterface':
                     args.neutron_public_interface,
                 'Controller-1::NeutronBridgeMappings':
@@ -264,11 +261,6 @@ class DeployOvercloud(command.Command):
                 'Controller-1::Flavor': args.control_flavor,
                 'Swift-Storage-1::Flavor': args.swift_storage_flavor,
                 'Ceph-Storage-1::Flavor': args.ceph_storage_flavor,
-                'Swift-Storage-1::Image': 'overcloud-full',
-                'Cinder-Storage-1::Image': 'overcloud-full',
-                'Ceph-Storage-1::Image': 'overcloud-full',
-                'Controller-1::Image': 'overcloud-full',
-                'Compute-1::Image': 'overcloud-full',
             })
 
         return parameters
