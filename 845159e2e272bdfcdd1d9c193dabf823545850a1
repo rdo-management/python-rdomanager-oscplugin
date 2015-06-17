@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_e71eb05e",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-17T14:23:27Z",
+      "side": 1,
+      "message": "If we move the loop to take_action, it will take significantly longer to finish with ready state configuration. \nThe benefit of the current approach is that we trigger eg. the BIOS configuration at the same time on all nodes and then do a restart to let the remote DRAC jobs do their work at the same time. So we are waiting for the time of one reboot and all the nodes are rebooted. \nWith the other approach, we do the reboot and the waiting for each of the node, one after the other. So it will take as much more time as many node we have.",
+      "parentUuid": "facab960_2c795fc8",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_c1335ca9",
         "filename": "rdomanager_oscplugin/v1/baremetal.py",
         "patchSetId": 2
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_a74f486a",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-17T14:23:27Z",
+      "side": 1,
+      "message": "Good point! I will submit a separate patch for that.",
+      "parentUuid": "facab960_ece697af",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_2c8b1fc4",
         "filename": "rdomanager_oscplugin/v1/baremetal.py",
         "patchSetId": 2
@@ -83,6 +119,24 @@
       "writtenOn": "2015-06-17T13:23:34Z",
       "side": 1,
       "message": "note -\u003e node",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_8746c44d",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-17T14:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "facab960_2c8b1fc4",
       "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
@@ -136,6 +190,24 @@
       "side": 1,
       "message": "Can we not just get a better command name? \u0027configure ready state\u0027 is not very informative to me. If we are going to keep it, I say drop the \u0027-\u0027 and just use \u0027configure ready state\u0027",
       "parentUuid": "facab960_01862413",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_27433843",
+        "filename": "setup.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-17T14:23:27Z",
+      "side": 1,
+      "message": "We can go for configure-bios-and-raid but the problem is that in the future this might be expanded to many more things. To give you some context, here\u0027s the email thread about ready state orchestration from the openstack-dev list: http://lists.openstack.org/pipermail/openstack-dev/2014-September/045985.html\n\nWhile I prefer \"configure ready-state\", other option might be \"prepare-for-enrollment\" or similar.",
+      "parentUuid": "facab960_0ca3bb4f",
       "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
