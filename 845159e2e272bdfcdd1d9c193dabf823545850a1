@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_81ecf4f4",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-17T08:58:42Z",
+      "side": 1,
+      "message": "One difference is that wait_for_drac_config_job is waiting for configuration jobs (creating RAID volume or configuring BIOS) to finish which might take up more than 30 mins. Here we are just waiting for the DRAC to process the request without starting any configuration job, so it\u0027s a matter of few hundred milliseconds. That\u0027s why I didn\u0027t add that kind of check here. But if you still think it would be better, I will update the patch.",
+      "parentUuid": "facab960_c1335ca9",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_8115d4e6",
         "filename": "setup.cfg",
         "patchSetId": 2
