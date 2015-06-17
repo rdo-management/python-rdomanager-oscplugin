@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_ece697af",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-17T13:14:13Z",
+      "side": 1,
+      "message": "I\u0027m fine with that for now, something that polls could be much quicker than waiting 15 seconds tho\u0027 if it really is that fast.",
+      "parentUuid": "facab960_81ecf4f4",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_8115d4e6",
         "filename": "setup.cfg",
         "patchSetId": 2
