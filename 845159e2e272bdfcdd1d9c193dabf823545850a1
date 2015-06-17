@@ -16,6 +16,23 @@
       "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_8115d4e6",
+        "filename": "setup.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-17T08:47:39Z",
+      "side": 1,
+      "message": "oh, I just spotted the \"-\" here, that feels odd.",
+      "revId": "845159e2e272bdfcdd1d9c193dabf823545850a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
