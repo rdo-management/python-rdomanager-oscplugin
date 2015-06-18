@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_721eddbc",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-06-18T12:12:38Z",
+      "side": 1,
+      "message": "I am not sure about providing Google DNS to Overcloud (or is the default config not used ussually?). But that might be my personal issue.",
+      "range": {
+        "startLine": 594,
+        "startChar": 63,
+        "endLine": 594,
+        "endChar": 70
+      },
+      "revId": "1392935a90d56461a752a9c4d1557ee002013a7d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
