@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_2db876e4",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-06-18T13:27:32Z",
+      "side": 1,
+      "message": "I\u0027ll fix this.",
+      "parentUuid": "facab960_ed3e8e8b",
+      "revId": "cc63a0c7e5802132329ad9e9162e0af8cd0d983e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_ed65aeb5",
         "filename": "rdomanager_oscplugin/v1/undercloud.py",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-06-18T13:15:19Z",
       "side": 1,
       "message": "Only first occurence of overcloud plan is used on lines bellow, would not be better return that one directly?",
+      "revId": "cc63a0c7e5802132329ad9e9162e0af8cd0d983e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_0db3b20a",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-06-18T13:27:32Z",
+      "side": 1,
+      "message": "No, because if there is no plan you then get an unhelpful index error.",
+      "parentUuid": "facab960_ed65aeb5",
       "revId": "cc63a0c7e5802132329ad9e9162e0af8cd0d983e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
