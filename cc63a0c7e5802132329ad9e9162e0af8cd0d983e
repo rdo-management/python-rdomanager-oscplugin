@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_ed3e8e8b",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-18T13:14:15Z",
+      "side": 1,
+      "message": "By removing all the defaults, anyone deploying without Tuskar (openstack overcloud deploy --use-tripleo-heat-templates) will need to pass in every one of these. This is why it might be easier to not allow any of these arguments with a Tuskar deploy.",
+      "revId": "cc63a0c7e5802132329ad9e9162e0af8cd0d983e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
