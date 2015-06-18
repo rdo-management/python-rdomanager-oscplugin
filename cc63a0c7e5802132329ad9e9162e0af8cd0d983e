@@ -16,6 +16,40 @@
       "revId": "cc63a0c7e5802132329ad9e9162e0af8cd0d983e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_ed65aeb5",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-06-18T13:15:19Z",
+      "side": 1,
+      "message": "Only first occurence of overcloud plan is used on lines bellow, would not be better return that one directly?",
+      "revId": "cc63a0c7e5802132329ad9e9162e0af8cd0d983e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_0d401206",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-06-18T13:15:19Z",
+      "side": 1,
+      "message": "I would said that not (empty array) is True",
+      "revId": "cc63a0c7e5802132329ad9e9162e0af8cd0d983e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
