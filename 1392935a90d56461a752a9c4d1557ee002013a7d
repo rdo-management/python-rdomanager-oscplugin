@@ -22,6 +22,30 @@
       "revId": "1392935a90d56461a752a9c4d1557ee002013a7d",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_6d127e58",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-18T12:46:56Z",
+      "side": 1,
+      "message": "While I don\u0027t understand it either, this has been the case in instack for some time. https://github.com/rdo-management/instack-undercloud/blame/master/scripts/instack-deploy-overcloud#L490",
+      "parentUuid": "facab960_721eddbc",
+      "range": {
+        "startLine": 594,
+        "startChar": 63,
+        "endLine": 594,
+        "endChar": 70
+      },
+      "revId": "1392935a90d56461a752a9c4d1557ee002013a7d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
