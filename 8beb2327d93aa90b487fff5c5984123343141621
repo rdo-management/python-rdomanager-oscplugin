@@ -16,6 +16,24 @@
       "revId": "8beb2327d93aa90b487fff5c5984123343141621",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_0f456a16",
+        "filename": "setup.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-18T08:13:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "facab960_f90ad877",
+      "revId": "8beb2327d93aa90b487fff5c5984123343141621",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
