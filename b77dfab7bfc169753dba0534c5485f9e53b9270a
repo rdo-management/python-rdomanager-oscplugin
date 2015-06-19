@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_da65f71e",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-06-19T21:46:09Z",
+      "side": 1,
+      "message": "That wasn\u0027t really my point.  I was mostly noting this as support for my position that this code belongs in instack-undercloud, not the client.",
+      "parentUuid": "facab960_fa9c7b11",
+      "revId": "b77dfab7bfc169753dba0534c5485f9e53b9270a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_d4a30eb0",
         "filename": "rdomanager_oscplugin/v1/undercloud.py",
         "patchSetId": 6
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "I can pick it up from keystone, but I have to hardcode the keystone URL, which didn\u0027t seem to be an improvement. But maybe it is?",
       "parentUuid": "facab960_afed53b9",
+      "revId": "b77dfab7bfc169753dba0534c5485f9e53b9270a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_fa6abbec",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-06-19T21:46:09Z",
+      "side": 1,
+      "message": "The undercloud install code already has a way to look up the Keystone auth details.  See https://github.com/rdo-management/instack-undercloud/blob/master/instack_undercloud/undercloud.py#L481",
+      "parentUuid": "facab960_da97b7ea",
       "revId": "b77dfab7bfc169753dba0534c5485f9e53b9270a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
