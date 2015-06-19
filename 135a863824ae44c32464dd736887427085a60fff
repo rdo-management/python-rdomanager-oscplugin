@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_14fd766e",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-06-19T14:47:31Z",
+      "side": 1,
+      "message": "I think openstackclient has a find_resource. Should probably use that. Don\u0027t have a strong opinion.",
+      "revId": "135a863824ae44c32464dd736887427085a60fff",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
