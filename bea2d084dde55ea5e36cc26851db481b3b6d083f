@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_d414eea1",
+        "filename": "rdomanager_oscplugin/v1/overcloud_scale.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-06-19T14:50:30Z",
+      "side": 0,
+      "message": "Are we actually using this ScaleManager elsewhere? If not, I don\u0027t think we can do this quite yet. Or, is the ScaleManager part unnecessary?",
+      "revId": "bea2d084dde55ea5e36cc26851db481b3b6d083f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
