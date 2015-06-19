@@ -16,6 +16,23 @@
       "revId": "12adb1d47a61c760469fc64b9074c4c30bb8e7e2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_465e7477",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-19T10:11:24Z",
+      "side": 1,
+      "message": "There is a method for finding a resource in tuskarclient which makes things a bit easier. See it used here: https://review.gerrithub.io/#/c/237062/",
+      "revId": "12adb1d47a61c760469fc64b9074c4c30bb8e7e2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
