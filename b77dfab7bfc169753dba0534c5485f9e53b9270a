@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_95a8a021",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-06-21T12:25:00Z",
+      "side": 1,
+      "message": "Well, maybe we can put it in the tuskar element?\n\nhttps://review.openstack.org/#/c/193868/",
+      "parentUuid": "facab960_da65f71e",
+      "revId": "b77dfab7bfc169753dba0534c5485f9e53b9270a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_d4a30eb0",
         "filename": "rdomanager_oscplugin/v1/undercloud.py",
         "patchSetId": 6
