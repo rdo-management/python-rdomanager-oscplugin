@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_fb60faa6",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-06-22T17:18:59Z",
+      "side": 1,
+      "message": "I don\u0027t think we\u0027re using the element anymore.  This code can just go at the end of undercloud.install(): https://github.com/rdo-management/instack-undercloud/blob/master/instack_undercloud/undercloud.py#L489",
+      "parentUuid": "facab960_95a8a021",
+      "revId": "b77dfab7bfc169753dba0534c5485f9e53b9270a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_d4a30eb0",
         "filename": "rdomanager_oscplugin/v1/undercloud.py",
         "patchSetId": 6
