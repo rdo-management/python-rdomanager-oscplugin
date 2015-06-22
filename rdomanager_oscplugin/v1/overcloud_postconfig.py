@@ -61,7 +61,15 @@ class PostconfigOvercloud(command.Command):
             passwords['OVERCLOUD_ADMIN_PASSWORD'],
             user='heat-admin')
 
-        services = {}
+        services = {
+            'cinderv2': {
+                'description': 'Cinder Volume Service v2',
+                'type': 'volumev2',
+                'path': '/v2/%(tenant_id)s',
+                'port': 8776,
+                'ssl_port': 13776,
+            }
+        }
         for service, data in six.iteritems(utils.SERVICE_LIST):
             service_data = {}
             password_field = data.get('password_field')
