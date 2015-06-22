@@ -57,11 +57,8 @@ class ValidateOvercloud(command.Command):
         full_tempest_args = '--no-virtual-env'
         if tempest_args:
             full_tempest_args = '%s -- %s' % (full_tempest_args, tempest_args)
-        log_file = os.path.join(tempest_run_dir, "tempest-run.log")
-        utils.run_shell('./run_tempest.sh %(tempest_args)s 2>&1 '
-                        '| tee %(log_file)s' %
-                        {'tempest_args': full_tempest_args,
-                         'log_file': log_file})
+        utils.run_shell('./tools/run-tests.sh %(tempest_args)s'
+                        % {'tempest_args': full_tempest_args})
 
     def get_parser(self, prog_name):
         parser = super(ValidateOvercloud, self).get_parser(prog_name)
