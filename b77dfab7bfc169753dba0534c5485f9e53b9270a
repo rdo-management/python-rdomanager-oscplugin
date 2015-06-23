@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_6c226e53",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-06-23T10:00:32Z",
+      "side": 1,
+      "message": "That element is still used. I don\u0027t know if tuskar_undercloud are planning to move away from using elements.",
+      "parentUuid": "facab960_fb60faa6",
+      "revId": "b77dfab7bfc169753dba0534c5485f9e53b9270a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_d4a30eb0",
         "filename": "rdomanager_oscplugin/v1/undercloud.py",
         "patchSetId": 6
