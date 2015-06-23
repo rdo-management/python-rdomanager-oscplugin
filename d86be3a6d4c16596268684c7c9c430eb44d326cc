@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_cc18da77",
+        "filename": "rdomanager_oscplugin/v1/overcloud_validate.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-06-23T08:59:48Z",
+      "side": 1,
+      "message": "do we still need to pass this? the script doesn\u0027t seem to process this flag...",
+      "revId": "d86be3a6d4c16596268684c7c9c430eb44d326cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
