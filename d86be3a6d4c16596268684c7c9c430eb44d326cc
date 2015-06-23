@@ -16,6 +16,24 @@
       "revId": "d86be3a6d4c16596268684c7c9c430eb44d326cc",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_9438983e",
+        "filename": "rdomanager_oscplugin/v1/overcloud_validate.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002284
+      },
+      "writtenOn": "2015-06-23T17:11:26Z",
+      "side": 1,
+      "message": "No, we don\u0027t. The old script was developer-oriented mostly around venvs. The run-tests.sh assumes more of a user-oriented rpm-based tempest. In any event it knows nothing about virtual envs.",
+      "parentUuid": "facab960_cc18da77",
+      "revId": "d86be3a6d4c16596268684c7c9c430eb44d326cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
