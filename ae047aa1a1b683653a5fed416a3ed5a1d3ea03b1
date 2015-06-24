@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_353ee38c",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-24T14:24:43Z",
+      "side": 1,
+      "message": "This error makes it sound like --use-t-h-t isn\u0027t a valid choice. It is.",
+      "revId": "ae047aa1a1b683653a5fed416a3ed5a1d3ea03b1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
