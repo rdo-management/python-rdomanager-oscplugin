@@ -571,6 +571,17 @@ class DeployOvercloud(command.Command):
 
     def get_parser(self, prog_name):
         parser = super(DeployOvercloud, self).get_parser(prog_name)
+        main_group = parser.add_mutually_exclusive_group(required=True)
+        main_group.add_argument('--use-tripleo-heat-templates',
+                                dest='use_tht', action='store_true')
+        main_group.add_argument(
+            '--plan-uuid', dest='plan',
+            help=_("The UUID of the Tuskar plan to deploy.")
+        )
+        main_group.add_argument(
+            '--plan',
+            help=_("The Name or UUID of the Tuskar plan to deploy.")
+        )
         parser.add_argument('--control-scale', type=int)
         parser.add_argument('--compute-scale', type=int)
         parser.add_argument('--ceph-storage-scale', type=int)
@@ -589,8 +600,6 @@ class DeployOvercloud(command.Command):
         parser.add_argument('--swift-storage-flavor',
                             help=_("Nova flavor to use for swift storage "
                                    "nodes."))
-        parser.add_argument('--use-tripleo-heat-templates',
-                            dest='use_tht', action='store_true')
         parser.add_argument('--neutron-flat-networks')
         parser.add_argument('--neutron-physical-bridge')
         parser.add_argument('--neutron-bridge-mappings')
@@ -608,6 +617,12 @@ class DeployOvercloud(command.Command):
         parser.add_argument('--cinder-lvm',
                             dest='cinder_lvm',
                             action='store_true')
+        parser.add_argument('--overcloud_nameserver', default='8.8.8.8')
+        parser.add_argument('--floating-id-cidr', default='192.0.2.0/24')
+        parser.add_argument('--floating-ip-start', default='192.0.2.45')
+        parser.add_argument('--floating-ip-end', default='192.0.2.64')
+        parser.add_argument('--bm-network-gateway', default='192.0.2.1')
+        parser.add_argument('--network-cidr', default='10.0.0.0/8')
         parser.add_argument(
             '--tripleo-root',
             default=os.environ.get('TRIPLEO_ROOT', '/etc/tripleo')
@@ -621,14 +636,6 @@ class DeployOvercloud(command.Command):
             default=os.environ.get('no_proxy', '')
         )
         parser.add_argument(
-            '--plan-uuid', dest='plan',
-            help=_("The UUID of the Tuskar plan to deploy.")
-        )
-        parser.add_argument(
-            '--plan',
-            help=_("The Name or UUID of the Tuskar plan to deploy.")
-        )
-        parser.add_argument(
             '-O', '--output-dir', metavar='<OUTPUT DIR>',
             help=_('Directory to write Tuskar template files into. It will be '
                    'created if it does not exist. If not provided a temporary '
@@ -640,12 +647,6 @@ class DeployOvercloud(command.Command):
             help=('Directory containing any extra environment files to pass '
                   'heat. (Defaults to /etc/tripleo/extra_config.d)')
         )
-        parser.add_argument('--overcloud_nameserver', default='8.8.8.8')
-        parser.add_argument('--floating-id-cidr', default='192.0.2.0/24')
-        parser.add_argument('--floating-ip-start', default='192.0.2.45')
-        parser.add_argument('--floating-ip-end', default='192.0.2.64')
-        parser.add_argument('--bm-network-gateway', default='192.0.2.1')
-        parser.add_argument('--network-cidr', default='10.0.0.0/8')
 
         return parser
 
@@ -659,11 +660,6 @@ class DeployOvercloud(command.Command):
         stack_create = stack is None
 
         self._pre_heat_deploy()
-
-        if parsed_args.use_tht and parsed_args.plan:
-            print(("Either --plan or --use-tripleo-heat-templates "
-                   "should be provided. Not both."), file=sys.stderr)
-            return
 
         if parsed_args.use_tht:
             self._deploy_tripleo_heat_templates(stack, parsed_args)
