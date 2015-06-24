@@ -34,6 +34,24 @@
       "revId": "d86be3a6d4c16596268684c7c9c430eb44d326cc",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_43f01067",
+        "filename": "rdomanager_oscplugin/v1/overcloud_validate.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-06-24T13:10:45Z",
+      "side": 1,
+      "message": "Then it should be removed.",
+      "parentUuid": "facab960_9438983e",
+      "revId": "d86be3a6d4c16596268684c7c9c430eb44d326cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
