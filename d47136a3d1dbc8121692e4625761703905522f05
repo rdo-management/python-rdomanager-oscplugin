@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dacfb570_c464d0e7",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-06-25T14:42:15Z",
+      "side": 1,
+      "message": "There might be a help text too, but it is not a significant problem.",
+      "revId": "d47136a3d1dbc8121692e4625761703905522f05",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
