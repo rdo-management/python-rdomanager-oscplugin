@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dacfb570_c4e3f003",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-06-25T15:59:17Z",
+      "side": 1,
+      "message": "This line should do what https://github.com/rdo-management/instack-undercloud/blob/master/scripts/instack-build-images#L64 was doing before.",
+      "revId": "94185bf61cf2da091f899a14e5382c8ecd4e415b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
