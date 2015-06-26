@@ -86,8 +86,13 @@ class ClientWrapper(object):
 
         token = self._instance.auth.get_token(self._instance.session)
 
+        # NOTE(bnemec): I'm not sure we should be accessing private members
+        # on self._instance, but at this point I'm unsure what the proper
+        # way to get access to os_cacert is, and it's unlikely that cli opt
+        # is going to change.
         self._baremetal = ironic_client.get_client(
-            1, os_auth_token=token, ironic_url=endpoint)
+            1, os_auth_token=token, ironic_url=endpoint,
+            ca_file=self._instance._cli_options.os_cacert)
 
         return self._baremetal
 
