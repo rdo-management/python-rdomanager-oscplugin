@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_e219c823",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1003529
+      },
+      "writtenOn": "2015-06-26T16:18:35Z",
+      "side": 1,
+      "message": "This is backwards to how it is used below, but I think this whole approach will not work.",
+      "revId": "2dd47f60040110643d2074098ca11f51d0e43411",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
