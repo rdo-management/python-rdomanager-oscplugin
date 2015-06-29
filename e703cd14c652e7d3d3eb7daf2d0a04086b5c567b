@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_4be9a819",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-29T14:37:49Z",
+      "side": 1,
+      "message": "+1",
+      "revId": "e703cd14c652e7d3d3eb7daf2d0a04086b5c567b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_eb927c9e",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-29T14:37:49Z",
+      "side": 1,
+      "message": "While it was an oversight originally, we don\u0027t need this if after https://review.gerrithub.io/#/c/237487/ merged.",
+      "revId": "e703cd14c652e7d3d3eb7daf2d0a04086b5c567b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
