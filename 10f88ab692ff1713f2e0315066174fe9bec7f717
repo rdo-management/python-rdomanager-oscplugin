@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_6b874c62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-06-29T11:37:15Z",
+      "side": 1,
+      "message": "+1, as soon as there is a realease upstream we should use the client they create rather than our way.",
+      "revId": "10f88ab692ff1713f2e0315066174fe9bec7f717",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
