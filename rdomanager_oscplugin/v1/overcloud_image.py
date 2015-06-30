@@ -48,7 +48,7 @@ class BuildOvercloudImage(command.Command):
         'stable-interface-names',
         'grub2-deprecated',
         'sosreport',
-        '-p python-psutil,python-debtcollector',
+        '-p python-psutil,python-debtcollector,plotnetcfg',
     ]
 
     OVERCLOUD_FULL_DIB_EXTRA_ARGS = [
