@@ -46,6 +46,30 @@
       "revId": "4fd9061e6216e3e119b2c3bb41be2b1dc39829c2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_f27349e5",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-06-30T11:42:52Z",
+      "side": 1,
+      "message": "so to confirm, it is fine even with one controller. I added a print statement and ran a deploy with --control-scale 1 and got:\n\n\n/tmp/tmpwCiPlN/puppet/all-nodes-config.yaml\n/home/stack/.ssh/known_hosts updated.\nOriginal contents retained as /home/stack/.ssh/known_hosts.old\nPKI initialization in init-keystone is deprecated and will be removed.\nWarning: Permanently added \u0027192.0.2.18\u0027 (ECDSA) to the list of known hosts.\nThe following cert files already exist, use --rebuild to remove the existing files before regenerating:\n/etc/keystone/ssl/certs/ca.pem already exists\n/etc/keystone/ssl/private/signing_key.pem already exists\n/etc/keystone/ssl/certs/signing_cert.pem already exists\nConnection to 192.0.2.18 closed.\ninside loop, count is 0 and agents are [u\u0027627baa9c-6f07-4a5b-bd1d-2e122f94f79a\u0027, u\u0027d308efc9-af87-4e43-8af3-9fd7186e3311\u0027]\ninside loop, count is 1 and agents are [u\u0027627baa9c-6f07-4a5b-bd1d-2e122f94f79a\u0027, u\u0027d308efc9-af87-4e43-8af3-9fd7186e3311\u0027]\ninside loop, count is 2 and agents are [u\u0027627baa9c-6f07-4a5b-bd1d-2e122f94f79a\u0027, u\u0027d308efc9-af87-4e43-8af3-9fd7186e3311\u0027]\ninside loop, count is 3 and agents are [u\u0027627baa9c-6f07-4a5b-bd1d-2e122f94f79a\u0027, u\u0027d308efc9-af87-4e43-8af3-9fd7186e3311\u0027]\ninside loop, count is 4 and agents are [u\u0027627baa9c-6f07-4a5b-bd1d-2e122f94f79a\u0027, u\u0027d308efc9-af87-4e43-8af3-9fd7186e3311\u0027]\ninside loop, count is 5 and agents are [u\u0027627baa9c-6f07-4a5b-bd1d-2e122f94f79a\u0027, u\u0027d308efc9-af87-4e43-8af3-9fd7186e3311\u0027]\nOvercloud Endpoint: http://192.0.2.18:5000/v2.0/\nOvercloud Deployed",
+      "parentUuid": "9ad9bd40_726819f6",
+      "range": {
+        "startLine": 568,
+        "startChar": 19,
+        "endLine": 568,
+        "endChar": 28
+      },
+      "revId": "4fd9061e6216e3e119b2c3bb41be2b1dc39829c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
