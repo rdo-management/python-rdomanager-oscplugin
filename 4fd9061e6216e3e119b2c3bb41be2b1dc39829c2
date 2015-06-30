@@ -70,6 +70,30 @@
       "revId": "4fd9061e6216e3e119b2c3bb41be2b1dc39829c2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_b249c18d",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-06-30T11:50:50Z",
+      "side": 1,
+      "message": "going to add a break here ^^^ if there are enough agents, no need to keep querying neutron 5 more times! testing it now",
+      "parentUuid": "9ad9bd40_f27349e5",
+      "range": {
+        "startLine": 568,
+        "startChar": 19,
+        "endLine": 568,
+        "endChar": 28
+      },
+      "revId": "4fd9061e6216e3e119b2c3bb41be2b1dc39829c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
