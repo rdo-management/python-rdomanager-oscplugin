@@ -20,6 +20,7 @@ import os
 import six
 import sys
 import tempfile
+import time
 import uuid
 
 from cliff import command
@@ -556,6 +557,24 @@ class DeployOvercloud(command.Command):
             passwords['OVERCLOUD_ADMIN_PASSWORD'],
             'admin',
             overcloud_endpoint)
+
+        # BZ https://bugzilla.redhat.com/show_bug.cgi?id=1236578
+        # Give the l3 agents a chance, loop for about a minute at worst
+        count = 0
+        while count < 6:  # 6 retries with 10s sleep
+            neutron_agents = neutron_client.list_agents()
+            l3_agents = [r['id'] for r in neutron_agents['agents']
+                         if r['binary'] == 'neutron-l3-agent']
+            if len(l3_agents) < 2:  # cfg.CONF.min_l3_agents_per_router
+                self.log.debug(("Warning can't get enough l3 agents. "
+                                "Retrying in 10 seconds. Agent ids: %s "
+                                % l3_agents))
+                time.sleep(10)
+            count += 1
+            if count > 5:
+                self.log.debug(("Warning can't get enough l3 agents. "
+                                "Giving up, agents are %s: " % neutron_agents))
+
         neutron.initialize_neutron(
             network_description,
             neutron_client=neutron_client,
