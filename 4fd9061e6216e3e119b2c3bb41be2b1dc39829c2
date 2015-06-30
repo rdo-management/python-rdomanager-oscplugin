@@ -22,6 +22,30 @@
       "revId": "4fd9061e6216e3e119b2c3bb41be2b1dc39829c2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_726819f6",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-06-30T11:33:22Z",
+      "side": 1,
+      "message": "it should be ok but i am running a deploy with this and control-scale 1 to make sure.",
+      "parentUuid": "9ad9bd40_f28509ae",
+      "range": {
+        "startLine": 568,
+        "startChar": 19,
+        "endLine": 568,
+        "endChar": 28
+      },
+      "revId": "4fd9061e6216e3e119b2c3bb41be2b1dc39829c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
