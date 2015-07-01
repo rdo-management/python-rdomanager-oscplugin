@@ -1,0 +1,9 @@
+Code-Review+1: Bamboo Harvester <mred@nemebean.com>
+Code-Review+1: adriano petrich <petrich@gmail.com>
+Code-Review+2: Dougal Matthews <dougal@redhat.com>
+Verified+1: Dougal Matthews <dougal@redhat.com>
+Submitted-by: Dougal Matthews <dougal@redhat.com>
+Submitted-at: Wed, 01 Jul 2015 09:20:37 +0200
+Reviewed-on: https://review.gerrithub.io/238129
+Project: rdo-management/python-rdomanager-oscplugin
+Branch: refs/heads/master
