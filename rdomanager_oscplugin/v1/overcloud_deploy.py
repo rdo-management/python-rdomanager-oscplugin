@@ -560,11 +560,6 @@ class DeployOvercloud(command.Command):
             }
         }
 
-        # BZ https://bugzilla.redhat.com/show_bug.cgi?id=1236578
-        # Give the l3 agents a chance, one off sleep
-        # ideally wana do 'neutron agent-list | grep neutron-l3'
-        time.sleep(5)
-
         neutron_client = clients.get_neutron_client(
             'admin',
             passwords['OVERCLOUD_ADMIN_PASSWORD'],
@@ -573,20 +568,31 @@ class DeployOvercloud(command.Command):
 
         # BZ https://bugzilla.redhat.com/show_bug.cgi?id=1236578
         # Give the l3 agents a chance, loop for about a minute at worst
-        for count in range(6):  # 6 retries with 10s sleep
+        # This is likely happening in the first place because of
+        # https://bugzilla.redhat.com/show_bug.cgi?id=1238117
+        count = 0
+        sleep_time = 20
+        loops = 6
+        min_agents = 2
+        for count in range(loops):
             neutron_agents = neutron_client.list_agents()
             l3_agents = [r['id'] for r in neutron_agents['agents']
                          if r['binary'] == 'neutron-l3-agent']
-            if len(l3_agents) < 2:  # cfg.CONF.min_l3_agents_per_router
-                self.log.warning(("Warning can't get enough l3 agents. "
-                                  "Retrying in 10 seconds. Agent ids: %s"),
-                                 l3_agents)
-                time.sleep(10)
+            if len(l3_agents) < min_agents:  # min_l3_agents_per_router
+                warn = ("Warning not enough l3 agents (attempt %s of %s). "
+                        "Retrying in %s seconds. Agent ids: %s "
+                        % ((count+1), loops, sleep_time, l3_agents))
+                self.log.debug(warn)
+                print(warn)
+                time.sleep(sleep_time)
             else:  # have enough agents no need to continue
                 break
-        else:
-            self.log.error(("Warning can't get enough l3 agents. "
-                            "Giving up, agents are %s: " % neutron_agents))
+            count += 1
+            if count > (loops - 1):
+                warn = ("Warning can't get enough l3 agents. "
+                        "Giving up, agents are %s: " % neutron_agents)
+                self.log.debug(warn)
+                print(warn)
 
         neutron.initialize_neutron(
             network_description,
