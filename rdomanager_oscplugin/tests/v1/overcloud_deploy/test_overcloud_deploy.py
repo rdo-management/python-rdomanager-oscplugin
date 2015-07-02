@@ -16,6 +16,7 @@
 import sys
 
 import mock
+import six
 
 from tuskarclient.v2.plans import Plan
 
@@ -332,6 +333,15 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
              'extra_registry.yaml',
              'extra_environment.yaml']
         )
+
+        # We can't use assert_called_with() here, as we need to compare
+        # two lists that may have different ordering, although the ordering
+        # does not matter:
+        self.assertEqual(sorted(management.plans.patch.call_args_list[0][0][1]),
+                         sorted({'name': x[0], 'value': six.text_type(x[1])}
+                                for x in parameters.items())
+        )
+        self.assertEqual(management.plans.patch.call_count, 1)
 
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_deploy_tuskar', autospec=True)
