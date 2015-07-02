@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_d382bdff",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-07-02T14:29:52Z",
+      "side": 0,
+      "message": "I think the for/else does a better job of looping, but otherwise this change is fine.",
+      "revId": "bdd22888b132d19af3b04ac7dd1372fc64e3fabd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
