@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_b84d0475",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1002595
+      },
+      "writtenOn": "2015-07-05T18:31:02Z",
+      "side": 1,
+      "message": "We should also specify \u0027physical_network\u0027 to satisfy the requirements of os-cloud-config when using segmentation ID.",
+      "revId": "5b97c5ab8080f0062e11f4bd8789b97ef08ef52b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
