@@ -21,10 +21,10 @@ class FakeClientWrapper(object):
     pass
 
 
-class TestOvercloudValidate(utils.TestCommand):
+class TestGenerateTempestDeployerInput(utils.TestCommand):
 
     def setUp(self):
-        super(TestOvercloudValidate, self).setUp()
+        super(TestGenerateTempestDeployerInput, self).setUp()
 
         self.app.client_manager.auth_ref = mock.Mock(auth_token="TOKEN")
         self.app.client_manager.rdomanager_oscplugin = FakeClientWrapper()
