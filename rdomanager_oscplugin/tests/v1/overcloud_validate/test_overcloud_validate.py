@@ -14,6 +14,7 @@
 #
 
 import mock
+from six.moves import builtins as __builtin__
 
 from rdomanager_oscplugin.tests.v1.overcloud_validate import fakes
 from rdomanager_oscplugin.v1 import overcloud_validate
@@ -27,12 +28,16 @@ class TestOvercloudValidate(fakes.TestOvercloudValidate):
         # Get the command object to test
         self.cmd = overcloud_validate.ValidateOvercloud(self.app, None)
         self.cmd.tempest_run_dir = '/home/user/tempest'
+        self.cmd.generated_partial_config_path = ('/home/user/tempest/'
+                                                  'deployer.config')
 
+    @mock.patch.object(__builtin__, 'open')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_validate.ValidateOvercloud.'
                 '_setup_dir')
     @mock.patch('os.chdir')
     @mock.patch('rdomanager_oscplugin.utils.run_shell')
-    def test_validate_ok(self, mock_run_shell, mock_os_chdir, mock_setup_dir):
+    def test_validate_ok(self, mock_run_shell, mock_os_chdir, mock_setup_dir,
+                         mock_open):
 
         argslist = ['--overcloud-auth-url', 'http://foo',
                     '--overcloud-admin-password', 'password',
