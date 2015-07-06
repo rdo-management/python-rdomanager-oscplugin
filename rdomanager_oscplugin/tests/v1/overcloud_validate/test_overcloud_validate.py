@@ -14,63 +14,31 @@
 #
 
 import mock
+from six.moves import builtins as __builtin__
 
 from rdomanager_oscplugin.tests.v1.overcloud_validate import fakes
 from rdomanager_oscplugin.v1 import overcloud_validate
 
 
-class TestOvercloudValidate(fakes.TestOvercloudValidate):
+class TestGenerateTempestDeployerInput(fakes.TestGenerateTempestDeployerInput):
 
     def setUp(self):
-        super(TestOvercloudValidate, self).setUp()
+        super(TestGenerateTempestDeployerInput, self).setUp()
 
         # Get the command object to test
-        self.cmd = overcloud_validate.ValidateOvercloud(self.app, None)
+        self.cmd = overcloud_validate.GenerateTempestDeployerInput(self.app,
+                                                                   None)
         self.cmd.tempest_run_dir = '/home/user/tempest'
+        self.cmd.generated_partial_config_path = ('/home/user/tempest/'
+                                                  'deployer.config')
 
-    @mock.patch('rdomanager_oscplugin.v1.overcloud_validate.ValidateOvercloud.'
-                '_setup_dir')
-    @mock.patch('os.chdir')
-    @mock.patch('rdomanager_oscplugin.utils.run_shell')
-    def test_validate_ok(self, mock_run_shell, mock_os_chdir, mock_setup_dir):
-
-        argslist = ['--overcloud-auth-url', 'http://foo',
-                    '--overcloud-admin-password', 'password',
-                    '--network-id', '42',
-                    '--deployer-input', 'partial_config_file',
-                    '--tempest-args', 'bar',
-                    '--skipfile', 'skip']
-        verifylist = [
-            ('overcloud_auth_url', 'http://foo'),
-            ('overcloud_admin_password', 'password'),
-            ('deployer_input', 'partial_config_file'),
-            ('tempest_args', 'bar'),
-            ('skipfile', 'skip')
-        ]
-
-        parsed_args = self.check_parser(self.cmd, argslist, verifylist)
+    @mock.patch.object(__builtin__, 'open')
+    @mock.patch('rdomanager_oscplugin.v1.overcloud_validate.'
+                'GenerateTempestDeployerInput._setup_dir')
+    def test_validate_ok(self, mock_setup_dir, mock_open):
+        parsed_args = self.check_parser(self.cmd, [], [])
         self.cmd.take_action(parsed_args)
 
         mock_setup_dir.assert_called_once_with()
-        mock_os_chdir.assert_called_with('/home/user/tempest')
-        mock_run_shell.assert_has_calls([
-            mock.call('/usr/share/openstack-tempest-kilo/tools/'
-                      'configure-tempest-directory'),
-            mock.call('./tools/config_tempest.py --out etc/tempest.conf '
-                      '--network-id 42 '
-                      '--deployer-input partial_config_file '
-                      '--debug --create '
-                      'compute.allow_tenant_isolation true '
-                      'compute.build_timeout 500 '
-                      'compute.image_ssh_user cirros '
-                      'compute.ssh_user cirros '
-                      'identity.admin_password password '
-                      'identity.uri http://foo '
-                      'network.build_timeout 500 '
-                      'network.tenant_network_cidr 192.168.0.0/24 '
-                      'object-storage.operator_role swiftoperator '
-                      'orchestration.stack_owner_role heat_stack_user '
-                      'scenario.ssh_user cirros '
-                      'volume.build_timeout 500'),
-            mock.call('./tools/run-tests.sh bar --skip-file skip')
-        ])
+        mock_open.assert_called_once_with('/home/user/tempest/deployer.config',
+                                          'w+')
