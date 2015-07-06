@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "9ad9bd40_d3170ba2",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-07-06T09:32:59Z",
+      "side": 1,
+      "message": "no you\u0027re right mate sorry will fixup is a remnant from the previous while loop",
+      "parentUuid": "9ad9bd40_b818a485",
+      "revId": "83af01d1bb86fca0faea8739c0545f6c675e5b8a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad9bd40_934663be",
         "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
         "patchSetId": 6
