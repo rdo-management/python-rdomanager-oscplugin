@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_982cc0ad",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-07-06T07:58:59Z",
+      "side": 1,
+      "message": "Sorry, I might have confused things with my previous comment. I am not sure what will happen with count coming from range here and ...",
+      "revId": "83af01d1bb86fca0faea8739c0545f6c675e5b8a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_b818a485",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-07-06T07:58:59Z",
+      "side": 1,
+      "message": "... also being updated here.",
+      "revId": "83af01d1bb86fca0faea8739c0545f6c675e5b8a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
