@@ -68,6 +68,24 @@
       "revId": "83af01d1bb86fca0faea8739c0545f6c675e5b8a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_9374a3fe",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-07-06T09:46:15Z",
+      "side": 1,
+      "message": "yeah will just make it \u003e\u003d and still works",
+      "parentUuid": "9ad9bd40_934663be",
+      "revId": "83af01d1bb86fca0faea8739c0545f6c675e5b8a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
