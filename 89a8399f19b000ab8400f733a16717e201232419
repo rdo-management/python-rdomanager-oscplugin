@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_33967795",
+        "filename": "rdomanager_oscplugin/v1/overcloud_validate.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-07-06T08:30:19Z",
+      "side": 1,
+      "message": "This is probably not needed, as an empty argument here would only result in an extra space after the command.\n\nBut that\u0027s nitpicking.",
+      "range": {
+        "startLine": 62,
+        "startChar": 15,
+        "endLine": 62,
+        "endChar": 16
+      },
+      "revId": "89a8399f19b000ab8400f733a16717e201232419",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
