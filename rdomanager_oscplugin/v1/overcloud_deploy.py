@@ -392,6 +392,22 @@ class DeployOvercloud(command.Command):
             if output['output_key'] == 'KeystoneURL':
                 return output['output_value']
 
+    def _get_service_ips(self, stack, networks, default):
+        service_ips = dict((network, default) for network in networks)
+        # XXX Here we should use the stack outputs, but those are still being
+        # implemented. We don't know exactly what the contents will be, so
+        # this function probably has to be modified.
+        # for output in stack.to_dict().get('outputs', {}):
+        # Temporary hardcoding for testing:
+        for output in [{'output_key': 'internal_api', 'output_value': '192.0.2.10'}, 
+                       {'output_key': 'tenant', 'output_value': '192.0.2.10'},
+                       {'output_key': 'storage_mgmt', 'output_value': '192.0.2.10'},
+                       {'output_key': 'storage', 'output_value': '192.0.2.10'}]:
+            if output['output_key'] in networks:
+                service_ips[output['output_key']] = output['output_value']
+
+        return service_ips
+
     def _pre_heat_deploy(self):
         """Setup before the Heat stack create or update has been done."""
         clients = self.app.client_manager
@@ -548,6 +564,10 @@ class DeployOvercloud(command.Command):
         overcloud_ip = six.moves.urllib.parse.urlparse(
             overcloud_endpoint).hostname
 
+        netmap = json.loads(stack.parameters['ServiceNetMap'])
+        networks = set(netmap.values())
+        service_ips = self._get_service_ips(stack, networks, overcloud_ip)
+
         utils.remove_known_hosts(overcloud_ip)
 
         keystone.initialize(
@@ -563,6 +583,10 @@ class DeployOvercloud(command.Command):
             password_field = data.get('password_field')
             if password_field:
                 service_data['password'] = passwords[password_field]
+            network_field = netmap.get(service.capitalize() + 'ApiNetwork')
+            if network_field:
+                ip = service_ips[network_field]
+                service_data['internal_host'] = ip
             services.update({service: service_data})
 
         keystone_client = clients.get_keystone_client(
