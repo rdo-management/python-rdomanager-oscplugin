@@ -273,16 +273,21 @@ class DeployOvercloud(command.Command):
                 parameters[param] = getattr(args, arg)
 
         # Scaling needs extra parameters
-        if parameters.get('Controller-1::count', 1) > 1:
+        number_controllers = parameters.get('Controller-1::count')
+        if number_controllers > 1:
             if args.use_tht:
                 parameters.update({
                     'NeutronL3HA': True,
                     'NeutronAllowL3AgentFailover': False,
+                    'NeutronDhcpAgentsPerNetwork': number_controllers,
+
                 })
             else:
                 parameters.update({
                     'Controller-1::NeutronL3HA': True,
                     'Controller-1::NeutronAllowL3AgentFailover': False,
+                    'Controller-1::NeutronDhcpAgentsPerNetwork':
+                        number_controllers,
                     'Compute-1::NeutronL3HA': True,
                     'Compute-1::NeutronAllowL3AgentFailover': False,
                 })
