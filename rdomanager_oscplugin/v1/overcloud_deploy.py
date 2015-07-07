@@ -278,11 +278,13 @@ class DeployOvercloud(command.Command):
                 parameters[param] = getattr(args, arg)
 
         # Scaling needs extra parameters
-        if parameters.get('Controller-1::count', 1) > 1:
+        number_controllers = parameters.get('Controller-1::count')
+        if number_controllers > 1:
             if args.use_tht:
                 parameters.update({
                     'NeutronL3HA': True,
                     'NeutronAllowL3AgentFailover': False,
+
                 })
             else:
                 parameters.update({
@@ -291,6 +293,20 @@ class DeployOvercloud(command.Command):
                     'Compute-1::NeutronL3HA': True,
                     'Compute-1::NeutronAllowL3AgentFailover': False,
                 })
+
+        # set at least 3 dhcp_agents_per_network
+        dhcp_agents_per_network = (number_controllers if number_controllers > 3
+                                   else 3)
+
+        if args.use_tht:
+            parameters.update({
+                'NeutronDhcpAgentsPerNetwork': dhcp_agents_per_network,
+            })
+        else:
+            parameters.update({
+                'Controller-1::NeutronDhcpAgentsPerNetwork':
+                    dhcp_agents_per_network,
+            })
 
         if parameters.get('Ceph-Storage-1::count', 0) > 0:
             parameters.update({
