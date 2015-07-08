@@ -84,6 +84,9 @@ PARAMETERS = {
     'NeutronNetworkType': 'gre',
     'NeutronTunnelTypes': 'gre',
     'NeutronNetworkVLANRanges': 'datacentre:1:1000',
+    'NeutronTunnelIdRanges': '1:1000',
+    'NeutronVniRanges': '1:1000',
+
     'NeutronEnableTunnelling': 'True',
 }
 
@@ -213,6 +216,8 @@ class DeployOvercloud(command.Command):
                 ('OvercloudCephStorageFlavor', 'ceph_storage_flavor'),
                 ('NeutronNetworkType', 'neutron_network_type'),
                 ('NeutronTunnelTypes', 'neutron_tunnel_types'),
+                ('NeutronTunnelIdRanges', 'neutron_tunnel_id_ranges'),
+                ('NeutronVniRanges', 'neutron_vni_ranges'),
                 ('NeutronNetworkVLANRanges', 'neutron_network_vlan_ranges'),
                 ('NeutronMechanismDrivers', 'neutron_mechanism_drivers')
             )
@@ -244,6 +249,12 @@ class DeployOvercloud(command.Command):
                 ('Compute-1::NeutronNetworkType', 'neutron_network_type'),
                 ('Controller-1::NeutronTunnelTypes', 'neutron_tunnel_types'),
                 ('Compute-1::NeutronTunnelTypes', 'neutron_tunnel_types'),
+                ('Controller-1::NeutronTunnelIdRanges',
+                    'neutron_tunnel_id_ranges'),
+                ('Controller-1::NeutronVniRanges', 'neutron_vni_ranges'),
+                ('Compute-1::NeutronTunnelIdRanges',
+                    'neutron_tunnel_id_ranges'),
+                ('Compute-1::NeutronVniRanges', 'neutron_vni_ranges'),
                 ('Controller-1::NeutronNetworkVLANRanges',
                     'neutron_network_vlan_ranges'),
                 ('Compute-1::NeutronNetworkVLANRanges',
@@ -688,6 +699,14 @@ class DeployOvercloud(command.Command):
                             default='nic1')
         parser.add_argument('--neutron-network-type')
         parser.add_argument('--neutron-tunnel-types')
+        parser.add_argument('--neutron-tunnel-id-ranges',
+                            default="1:1000",
+                            help=_("Ranges of GRE tunnel IDs to make "
+                                   "available for tenant network allocation"),)
+        parser.add_argument('--neutron-vni-ranges',
+                            default="1:1000",
+                            help=_("Ranges of VXLAN VNI IDs to make "
+                                   "available for tenant network allocation"),)
         parser.add_argument('--neutron-disable-tunneling',
                             dest='neutron_disable_tunneling',
                             action="store_const", const=True),
