@@ -649,11 +649,6 @@ class DeployOvercloud(command.Command):
     def get_parser(self, prog_name):
         parser = super(DeployOvercloud, self).get_parser(prog_name)
         main_group = parser.add_mutually_exclusive_group(required=True)
-        main_group.add_argument('--use-tripleo-heat-templates',
-                                dest='use_tht', action='store_true',
-                                help=_("Use the tripleo heat templates "
-                                       "directly, instead of the tuskar "
-                                       "plan. "))
         main_group.add_argument(
             '--plan-uuid', dest='plan',
             help=_("The UUID of the Tuskar plan to deploy.")
@@ -768,6 +763,8 @@ class DeployOvercloud(command.Command):
 
     def take_action(self, parsed_args):
         self.log.debug("take_action(%s)" % parsed_args)
+        # TODO(UI-team): remove unneeded t-h-t deploy code once is it agreed
+        parsed_args.use_tht = False
 
         clients = self.app.client_manager
         orchestration_client = clients.rdomanager_oscplugin.orchestration()

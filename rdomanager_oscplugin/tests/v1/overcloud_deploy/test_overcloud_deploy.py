@@ -13,13 +13,10 @@
 #   under the License.
 #
 
-import sys
-
 import mock
 
 from tuskarclient.v2.plans import Plan
 
-from openstackclient.tests import utils as oscutils
 from rdomanager_oscplugin.tests.v1.overcloud_deploy import fakes
 from rdomanager_oscplugin.tests.v1.utils import (
     generate_overcloud_passwords_mock)
@@ -35,90 +32,6 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
         self.cmd = overcloud_deploy.DeployOvercloud(self.app, None)
 
         self._get_passwords = generate_overcloud_passwords_mock
-
-    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
-                '_deploy_postconfig')
-    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
-                '_update_nodesjson')
-    @mock.patch('rdomanager_oscplugin.utils.generate_overcloud_passwords')
-    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
-                '_create_overcloudrc')
-    @mock.patch('os_cloud_config.keystone.setup_endpoints', autospec=True)
-    @mock.patch('time.sleep', return_value=None)
-    @mock.patch('os_cloud_config.keystone.initialize', autospec=True)
-    @mock.patch('rdomanager_oscplugin.utils.remove_known_hosts', autospec=True)
-    @mock.patch('rdomanager_oscplugin.utils.wait_for_stack_ready',
-                autospec=True)
-    @mock.patch('rdomanager_oscplugin.utils.set_nodes_state', autospec=True)
-    @mock.patch('heatclient.common.template_utils.'
-                'process_multiple_environments_and_files', autospec=True)
-    @mock.patch('heatclient.common.template_utils.get_template_contents',
-                autospec=True)
-    @mock.patch('os_cloud_config.keystone_pki.generate_certs_into_json',
-                autospec=True)
-    @mock.patch('rdomanager_oscplugin.utils.create_environment_file',
-                autospec=True)
-    @mock.patch('rdomanager_oscplugin.utils.get_config_value', autospec=True)
-    @mock.patch('rdomanager_oscplugin.utils.check_hypervisor_stats',
-                autospec=True)
-    def test_tht_deploy(self, mock_check_hypervisor_stats, mock_get_key,
-                        mock_create_env, generate_certs_mock,
-                        mock_get_templte_contents, mock_process_multiple_env,
-                        set_nodes_state_mock, wait_for_stack_ready_mock,
-                        mock_remove_known_hosts, mock_keystone_initialize,
-                        mock_sleep, mock_setup_endpoints,
-                        mock_create_overcloudrc,
-                        mock_generate_overcloud_passwords,
-                        mock_update_nodesjson,
-                        mock_deploy_postconfig):
-
-        arglist = ['--use-tripleo-heat-templates', ]
-        verifylist = [
-            ('use_tht', True),
-        ]
-
-        mock_generate_overcloud_passwords.return_value = self._get_passwords()
-
-        clients = self.app.client_manager
-        orchestration_client = clients.rdomanager_oscplugin.orchestration()
-        mock_stack = fakes.create_to_dict_mock(
-            outputs=[{
-                'output_key': 'KeystoneURL',
-                'output_value': 'Overcloud endpoint'
-            }]
-        )
-        orchestration_client.stacks.get.return_value = mock_stack
-
-        mock_check_hypervisor_stats.return_value = {
-            'count': 4,
-            'memory_mb': 4096,
-            'vcpus': 8,
-        }
-        mock_get_key.return_value = "PASSWORD"
-        clients.network.api.find_attr.return_value = {
-            "id": "network id"
-        }
-        mock_create_env.return_value = "/fake/path"
-        mock_process_multiple_env.return_value = [{}, "env"]
-        mock_get_templte_contents.return_value = [{}, "template"]
-        wait_for_stack_ready_mock.return_value = True
-
-        parsed_args = self.check_parser(self.cmd, arglist, verifylist)
-
-        self.cmd.take_action(parsed_args)
-
-        args, kwargs = orchestration_client.stacks.update.call_args
-
-        self.assertEqual(args, (orchestration_client.stacks.get().id, ))
-
-        # The parameters output contains lots of output and some in random.
-        # So lets just check that it is present
-        self.assertTrue('parameters' in kwargs)
-
-        self.assertEqual(kwargs['files'], {})
-        self.assertEqual(kwargs['template'], 'template')
-        self.assertEqual(kwargs['environment'], 'env')
-        self.assertEqual(kwargs['stack_name'], 'overcloud')
 
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_deploy_postconfig')
@@ -153,7 +66,6 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                    '--neutron-mechanism-drivers', 'linuxbridge']
 
         verifylist = [
-            ('use_tht', False),
             ('plan', 'undercloud'),
             ('output_dir', 'fake'),
         ]
@@ -261,7 +173,6 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                    '-e', 'extra_environment.yaml']
 
         verifylist = [
-            ('use_tht', False),
             ('plan', 'undercloud'),
             ('output_dir', 'fake'),
             ('extra_templates', ['extra_registry.yaml',
@@ -342,40 +253,13 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                 '_deploy_tripleo_heat_templates', autospec=True)
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_pre_heat_deploy', autospec=True)
-    def test_invalid_deploy_call(self, mock_pre_deploy, mock_deploy_tht,
-                                 mock_deploy_tuskar):
-
-        arglist = ['--plan', 'undercloud', '--use-tripleo-heat-templates']
-        verifylist = [
-            ('use_tht', True),
-            ('plan', 'undercloud'),
-        ]
-
-        try:
-            oldstderr = sys.stderr
-            sys.stderr = self.fake_stdout
-            self.assertRaises(oscutils.ParserException, self.check_parser,
-                              self.cmd, arglist, verifylist)
-        finally:
-            sys.stderr = oldstderr
-
-        self.assertFalse(mock_deploy_tht.called)
-        self.assertFalse(mock_deploy_tuskar.called)
-
-    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
-                '_deploy_tuskar', autospec=True)
-    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
-                '_deploy_tripleo_heat_templates', autospec=True)
-    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
-                '_pre_heat_deploy', autospec=True)
     def test_missing_sat_url(self, mock_pre_deploy, mock_deploy_tht,
                              mock_deploy_tuskar):
 
-        arglist = ['--use-tripleo-heat-templates', '--rhel-reg',
+        arglist = ['--plan', 'undercloud', '--rhel-reg',
                    '--reg-method', 'satellite', '--reg-org', '123456789',
                    '--reg-activation-key', 'super-awesome-key']
         verifylist = [
-            ('use_tht', True),
             ('rhel_reg', True),
             ('reg_method', 'satellite'),
             ('reg_org', '123456789'),
@@ -403,12 +287,11 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                                       mock_deploy_tuskar, mock_oc_endpoint,
                                       mock_create_ocrc, mock_update_njson):
 
-        arglist = ['--use-tripleo-heat-templates', '--rhel-reg',
+        arglist = ['--plan', 'undercloud', '--rhel-reg',
                    '--reg-sat-url', 'https://example.com',
                    '--reg-method', 'satellite', '--reg-org', '123456789',
                    '--reg-activation-key', 'super-awesome-key']
         verifylist = [
-            ('use_tht', True),
             ('rhel_reg', True),
             ('reg_sat_url', 'https://example.com'),
             ('reg_method', 'satellite'),
@@ -418,8 +301,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
         self.cmd.take_action(parsed_args)
-        self.assertTrue(mock_deploy_tht.called)
+        self.assertFalse(mock_deploy_tht.called)
         self.assertTrue(mock_oc_endpoint.called)
         self.assertTrue(mock_create_ocrc.called)
         self.assertTrue(mock_update_njson.called)
-        self.assertFalse(mock_deploy_tuskar.called)
+        self.assertTrue(mock_deploy_tuskar.called)
