@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_cca913e1",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-07-09T14:01:33Z",
+      "side": 1,
+      "message": "hmmm this is wrong... we don\u0027t want this. we want at least 3, but otherwise number controllers.",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 31
+      },
+      "revId": "606021f2e4c225e8c2bbe890f34574df17d759b6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
