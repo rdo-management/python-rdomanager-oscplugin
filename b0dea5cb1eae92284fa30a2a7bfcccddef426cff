@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_39e63ab5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001583
+      },
+      "writtenOn": "2015-07-10T12:43:10Z",
+      "side": 1,
+      "message": "s/hardcoeded/hardcoded/",
+      "range": {
+        "startLine": 9,
+        "startChar": 60,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "b0dea5cb1eae92284fa30a2a7bfcccddef426cff",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
