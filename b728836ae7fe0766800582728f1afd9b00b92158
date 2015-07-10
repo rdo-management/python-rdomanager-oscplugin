@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_f65ea144",
+        "filename": "rdomanager_oscplugin/v1/overcloud_validate.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-07-10T08:20:42Z",
+      "side": 1,
+      "message": "nit: I would probably use os.path.isdir rather than os.stat - but this is fine.",
+      "revId": "b728836ae7fe0766800582728f1afd9b00b92158",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
