@@ -17,7 +17,6 @@ from __future__ import print_function
 import json
 import logging
 import os
-import re
 import six
 import sys
 import tempfile
@@ -605,33 +604,35 @@ class DeployOvercloud(command.Command):
             'admin',
             overcloud_endpoint)
 
-        # BZ https://bugzilla.redhat.com/show_bug.cgi?id=1236578
-        # Give the l3 agents a chance, loop for about a minute at worst
-        # This is likely happening in the first place because of
-        # https://bugzilla.redhat.com/show_bug.cgi?id=1238117
-        sleep_time = 20
-        loops = 6
-        min_agents = 2
-        for count in range(loops):
-            neutron_agents = neutron_client.list_agents()
-            # Match the neutron-n-? pattern used by NeutronScale
-            l3_agents = [r['id'] for r in neutron_agents['agents']
-                         if r['binary'] == 'neutron-l3-agent' and
-                         re.search(r'neutron-n-\d{1}', r['host'])]
-            if len(l3_agents) < min_agents:  # min_l3_agents_per_router
-                warn = ("Warning not enough l3 agents (attempt %s of %s). "
-                        "Retrying in %s seconds. Agent ids: %s "
-                        % ((count + 1), loops, sleep_time, l3_agents))
-                self.log.debug(warn)
-                print(warn)
-                time.sleep(sleep_time)
-            else:  # have enough agents no need to continue
-                break
-            if count == (loops - 1):
-                warn = ("Warning can't get enough l3 agents. "
-                        "Giving up, agents are %s: " % neutron_agents)
-                self.log.debug(warn)
-                print(warn)
+        if parsed_args.control_scale and parsed_args.control_scale > 1:
+            # todo(marios): can probably revert this entire if clause once
+            # we are happy this issue is completely solved. If at this point
+            # with >1 controller we don't have at least 2 l3_agents it is a
+            # problem and this debug info will be useful.
+            # https://bugzilla.redhat.com/show_bug.cgi?id=1236578
+            # https://bugzilla.redhat.com/show_bug.cgi?id=1238117
+            sleep_time = 20
+            loops = 6
+            min_agents = 2
+            for count in range(loops):
+                neutron_agents = neutron_client.list_agents()
+                # Match the neutron-n-? pattern used by NeutronScale
+                l3_agents = [r['id'] for r in neutron_agents['agents']
+                             if r['binary'] == 'neutron-l3-agent']
+                if len(l3_agents) < min_agents:  # min_l3_agents_per_router
+                    warn = ("Warning not enough l3 agents (attempt %s of %s). "
+                            "Retrying in %s seconds. Agent ids: %s "
+                            % ((count + 1), loops, sleep_time, l3_agents))
+                    self.log.debug(warn)
+                    print(warn)
+                    time.sleep(sleep_time)
+                else:  # have enough agents no need to continue
+                    break
+                if count == (loops - 1):
+                    warn = ("Warning can't get enough l3 agents. "
+                            "Giving up, agents are %s: " % neutron_agents)
+                    self.log.debug(warn)
+                    print(warn)
 
         neutron.initialize_neutron(
             network_description,
