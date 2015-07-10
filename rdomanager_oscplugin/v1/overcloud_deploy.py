@@ -17,7 +17,6 @@ from __future__ import print_function
 import json
 import logging
 import os
-import re
 import six
 import sys
 import tempfile
@@ -616,8 +615,7 @@ class DeployOvercloud(command.Command):
             neutron_agents = neutron_client.list_agents()
             # Match the neutron-n-? pattern used by NeutronScale
             l3_agents = [r['id'] for r in neutron_agents['agents']
-                         if r['binary'] == 'neutron-l3-agent' and
-                         re.search(r'neutron-n-\d{1}', r['host'])]
+                         if r['binary'] == 'neutron-l3-agent']
             if len(l3_agents) < min_agents:  # min_l3_agents_per_router
                 warn = ("Warning not enough l3 agents (attempt %s of %s). "
                         "Retrying in %s seconds. Agent ids: %s "
