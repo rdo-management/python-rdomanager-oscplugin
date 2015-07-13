@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_b23a5ccb",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-07-13T12:28:19Z",
+      "side": 1,
+      "message": "This should not be needed. It is added/resolved by os_cloud_config",
+      "revId": "5b8315996dbc875f9cff056cec04026998a62f44",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
