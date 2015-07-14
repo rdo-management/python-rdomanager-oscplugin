@@ -665,7 +665,9 @@ class DeployOvercloud(command.Command):
                                 const=TRIPLEO_HEAT_TEMPLATES,
                                 help=_("Use the tripleo heat templates "
                                        "directly, instead of the tuskar "
-                                       "plan. "))
+                                       "plan. "
+                                       "DEPRECATED: use --templates "
+                                       "with no path instead"))
         main_group.add_argument(
             '--plan-uuid', dest='plan',
             help=_("The UUID of the Tuskar plan to deploy.")
