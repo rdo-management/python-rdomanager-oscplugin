@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_4b615638",
+        "filename": "rdomanager_oscplugin/v1/overcloud_update.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-07-14T16:27:14Z",
+      "side": 1,
+      "message": "osc_plugin \u003d self.app.client_manager.rdomanager_oscplugin\nmanagement \u003d osc_plugin.management()\norchestration \u003d osc_plugin.orchestration()\n\nWould make for more readable code here, IMO.",
+      "revId": "44b75419e4ddd4df636c37efd7ea82274a5631ac",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
