@@ -16,6 +16,24 @@
       "revId": "a5d61097b8c6b9f95fe6f02b6bb5462576f7c27a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_682f00f7",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-07-14T14:04:40Z",
+      "side": 1,
+      "message": "yeah was actually fixing this and tried to rebase and saw that this entire section is gone. So that decides the should we keep it discussion then :)",
+      "parentUuid": "9ad9bd40_085674d2",
+      "revId": "a5d61097b8c6b9f95fe6f02b6bb5462576f7c27a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
