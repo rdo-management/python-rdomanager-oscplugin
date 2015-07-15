@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_d31c38c4",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1004023
+      },
+      "writtenOn": "2015-07-15T10:22:02Z",
+      "side": 1,
+      "message": "I\u0027d probably make this more general, as it affects both create and update (well any stack action actually, but those are the two we\u0027re currently using).\n\nHow about \"Deployment timeout in minutes\" ?",
+      "range": {
+        "startLine": 641,
+        "startChar": 42,
+        "endLine": 641,
+        "endChar": 50
+      },
+      "revId": "c9d115be209e9c2cf87a01ccf8f8e40fbaf3846d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
