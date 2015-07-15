@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_b3e6d4b2",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-07-15T10:57:17Z",
+      "side": 1,
+      "message": "I am not sure if this does not consume CPU too much (busy-wait?) But not proven, going to do manual test.",
+      "revId": "5f160ac94a782600ea35b3b3d2aa113936452879",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
