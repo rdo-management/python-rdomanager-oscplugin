@@ -16,6 +16,24 @@
       "revId": "a00092cf00faeed7665b58af591569058e4eebb4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_975c5def",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-07-15T06:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad9bd40_8b5b5e86",
+      "revId": "a00092cf00faeed7665b58af591569058e4eebb4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
