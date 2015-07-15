@@ -316,7 +316,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             mock_get_stack(),
             'fake/plan.yaml',
             parameters,
-            ['fake/environment.yaml']
+            ['fake/environment.yaml'],
+            None
         )
 
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
@@ -351,7 +352,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                    '--neutron-disable-tunneling',
                    '--control-scale', '3',
                    '-e', 'extra_registry.yaml',
-                   '-e', 'extra_environment.yaml']
+                   '-e', 'extra_environment.yaml',
+                   '-t', '120', ]
 
         verifylist = [
             ('templates', None),
@@ -426,7 +428,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             parameters,
             ['fake/environment.yaml',
              'extra_registry.yaml',
-             'extra_environment.yaml']
+             'extra_environment.yaml'],
+            120
         )
 
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
