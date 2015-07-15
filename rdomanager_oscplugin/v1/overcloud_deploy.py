@@ -310,21 +310,22 @@ class DeployOvercloud(command.Command):
                 'CephAdminKey': utils.create_cephx_key()
             })
 
-            cinder_lvm = True if args.cinder_lvm else False
+        cinder_lvm = True if args.cinder_lvm else False
 
-            if args.templates:
-                parameters.update({
-                    'CinderEnableRbdBackend': True,
-                    'NovaEnableRbdBackend': True,
-                    'CinderEnableIscsiBackend': cinder_lvm,
-                })
-            else:
-                parameters.update({
-                    'Controller-1::CinderEnableRbdBackend': True,
-                    'Controller-1::GlanceBackend': 'rbd',
-                    'Compute-1::NovaEnableRbdBackend': True,
-                    'Controller-1::CinderEnableIscsiBackend': cinder_lvm
-                })
+        if args.templates:
+            parameters.update({
+                'CinderEnableRbdBackend': True,
+                'NovaEnableRbdBackend': True,
+                'GlanceBackend': 'rbd',
+                'CinderEnableIscsiBackend': cinder_lvm,
+            })
+        else:
+            parameters.update({
+                'Controller-1::CinderEnableRbdBackend': True,
+                'Controller-1::GlanceBackend': 'rbd',
+                'Compute-1::NovaEnableRbdBackend': True,
+                'Controller-1::CinderEnableIscsiBackend': cinder_lvm
+            })
 
         return parameters
 
