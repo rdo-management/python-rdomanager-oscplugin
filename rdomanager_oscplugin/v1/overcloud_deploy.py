@@ -316,6 +316,7 @@ class DeployOvercloud(command.Command):
                 parameters.update({
                     'CinderEnableRbdBackend': True,
                     'NovaEnableRbdBackend': True,
+                    'GlanceBackend': 'rbd',
                     'CinderEnableIscsiBackend': cinder_lvm,
                 })
             else:
