@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_7cf9797f",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2015-07-15T23:28:05Z",
+      "side": 1,
+      "message": "i don\u0027t think this whole if args.templates is ever going to get run, b/c it\u0027s nested inside of:\n\n if parameters.get(\u0027Ceph-Storage-1::count\u0027, 0) \u003e 0\n\nfrom line 306\n\nthat parameter isn\u0027t going to exist when using tripleo-heat-templates directly",
+      "revId": "df3634b8ca6cd98b98f4f14e9decc9b1fdd5319b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
