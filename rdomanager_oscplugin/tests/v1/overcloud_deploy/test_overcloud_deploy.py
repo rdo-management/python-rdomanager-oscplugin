@@ -311,6 +311,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             'Controller-1::NeutronMechanismDrivers': 'linuxbridge',
             'Compute-1::NeutronMechanismDrivers': 'linuxbridge',
             'Controller-1::NeutronDhcpAgentsPerNetwork': 3,
+            'Controller-1::ManilaPassword': 'password',
         }
 
         mock_heat_deploy.assert_called_with(
