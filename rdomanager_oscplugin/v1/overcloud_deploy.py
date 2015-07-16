@@ -621,7 +621,8 @@ class DeployOvercloud(command.Command):
         keystone.setup_endpoints(
             services,
             client=keystone_client,
-            os_auth_url=overcloud_endpoint)
+            os_auth_url=overcloud_endpoint,
+            public_host=overcloud_ip)
 
         compute_client = clients.get_nova_bm_client(
             'admin',
