@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_4bb944e8",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1002548
+      },
+      "writtenOn": "2015-07-17T13:53:08Z",
+      "side": 1,
+      "message": "This return is never Hit but not a major issue.",
+      "revId": "0b050caabfcf023ae3b67edc08e8a9019b87fc2e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
