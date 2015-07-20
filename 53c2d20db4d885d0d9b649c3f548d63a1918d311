@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_3f3b51d2",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1003854
+      },
+      "writtenOn": "2015-07-20T17:40:49Z",
+      "side": 1,
+      "message": "L339 to L354 should go into the if block as well; we can\u0027t change the glance/cinder/nova backend on the fly",
+      "revId": "53c2d20db4d885d0d9b649c3f548d63a1918d311",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
