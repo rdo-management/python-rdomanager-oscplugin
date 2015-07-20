@@ -274,10 +274,10 @@ class DeployOvercloud(command.Command):
                 parameters[param] = getattr(args, arg)
 
         # Scaling needs extra parameters
-        number_controllers = max((
+        number_controllers = int(max((
             parameters.get('ControllerCount', 0),
             parameters.get('Controller-1::count', 0)
-        ))
+        )))
 
         if number_controllers and number_controllers > 1:
             if args.templates:
@@ -307,8 +307,8 @@ class DeployOvercloud(command.Command):
                     dhcp_agents_per_network,
             })
 
-        if max((parameters.get('CephStorageCount', 0),
-                parameters.get('Ceph-Storage-1::count', 0))) > 0:
+        if int(max((parameters.get('CephStorageCount', 0),
+                    parameters.get('Ceph-Storage-1::count', 0)))) > 0:
 
             parameters.update({
                 'CephClusterFSID': six.text_type(uuid.uuid1()),
