@@ -191,8 +191,6 @@ class DeployOvercloud(command.Command):
         net = network_client.api.find_attr('networks', 'ctlplane')
         parameters['NeutronControlPlaneID'] = net['id']
 
-        neutron_enable_tunneling = not args.neutron_disable_tunneling
-
         if args.templates:
             param_args = (
                 ('NeutronPublicInterface', 'neutron_public_interface'),
@@ -293,65 +291,70 @@ class DeployOvercloud(command.Command):
                 parameters[param] = getattr(args, arg)
 
         # Scaling needs extra parameters
-        number_controllers = max((
-            parameters.get('ControllerCount', 0),
-            parameters.get('Controller-1::count', 0)
-        ))
+        scale_controller = (int(parameters.get('ControllerCount', 0)) > 1 or
+                            int(parameters.get('Controller-1::count', 0)) > 1)
 
-        if number_controllers and number_controllers > 1:
-            if args.templates:
-                parameters.update({
-                    'NeutronL3HA': True,
-                    'NeutronAllowL3AgentFailover': False,
-                })
-            else:
-                parameters.update({
-                    'Controller-1::NeutronL3HA': True,
-                    'Controller-1::NeutronAllowL3AgentFailover': False,
-                    'Compute-1::NeutronL3HA': True,
-                    'Compute-1::NeutronAllowL3AgentFailover': False,
-                })
-
-        # set at least 3 dhcp_agents_per_network
-        dhcp_agents_per_network = (number_controllers if number_controllers and
-                                   number_controllers > 3 else 3)
+        # Given Tuskar saves the params value, we need to reset them when
+        # not scaling
+        neutron_l3_ha = False
+        neutron_allow_l3_agent_failover = False
+        if scale_controller:
+            neutron_l3_ha = True
+            neutron_allow_l3_agent_failover = False
 
         if args.templates:
             parameters.update({
-                'NeutronDhcpAgentsPerNetwork': dhcp_agents_per_network,
+                'NeutronL3HA': neutron_l3_ha,
+                'NeutronAllowL3AgentFailover': neutron_allow_l3_agent_failover,
             })
         else:
             parameters.update({
-                'Controller-1::NeutronDhcpAgentsPerNetwork':
-                    dhcp_agents_per_network,
+                'Controller-1::NeutronL3HA': neutron_l3_ha,
+                'Controller-1::NeutronAllowL3AgentFailover': neutron_allow_l3_agent_failover,
+                'Compute-1::NeutronL3HA': neutron_l3_ha,
+                'Compute-1::NeutronAllowL3AgentFailover': neutron_allow_l3_agent_failover,
             })
 
-        if max((parameters.get('CephStorageCount', 0),
-                parameters.get('Ceph-Storage-1::count', 0))) > 0:
+        # Ceph needs extra parameters
+        use_cephstorage = (int(parameters.get('CephStorageCount', 0)) > 0 or
+                           int(parameters.get('Ceph-Storage-1::count', 0)) > 0)
 
-            if stack is None:
-                parameters.update({
-                    'CephClusterFSID': six.text_type(uuid.uuid1()),
-                    'CephMonKey': utils.create_cephx_key(),
-                    'CephAdminKey': utils.create_cephx_key()
-                })
+        ceph_cluster_fsid = "''"
+        ceph_mon_key = "''"
+        ceph_admin_key = "''"
+        cinder_enable_iscsi_backend = True
+        cinder_enable_rbd_backend = False
+        nova_enable_rbd_backend = False
+        glance_backend = 'swift'
+        if use_cephstorage and stack is None:
+            ceph_cluster_fsid = six.text_type(uuid.uuid1())
+            ceph_mon_key = utils.create_cephx_key()
+            ceph_admin_key = utils.create_cephx_key()
+            cinder_enable_iscsi_backend = True if args.cinder_lvm else False
+            cinder_enable_rbd_backend = True
+            nova_enable_rbd_backend = True
+            glance_backend = 'rbd'
 
-                cinder_lvm = True if args.cinder_lvm else False
-
-                if args.templates:
-                    parameters.update({
-                        'CinderEnableRbdBackend': True,
-                        'NovaEnableRbdBackend': True,
-                        'GlanceBackend': 'rbd',
-                        'CinderEnableIscsiBackend': cinder_lvm,
-                    })
-                else:
-                    parameters.update({
-                        'Controller-1::CinderEnableRbdBackend': True,
-                        'Controller-1::GlanceBackend': 'rbd',
-                        'Compute-1::NovaEnableRbdBackend': True,
-                        'Controller-1::CinderEnableIscsiBackend': cinder_lvm
-                    })
+        if args.templates:
+            parameters.update({
+                'CephClusterFSID': ceph_cluster_fsid,
+                'CephMonKey': ceph_mon_key,
+                'CephAdminKey': ceph_admin_key,
+                'CinderEnableIscsiBackend': cinder_enable_iscsi_backend,
+                'CinderEnableRbdBackend': cinder_enable_rbd_backend,
+                'NovaEnableRbdBackend': nova_enable_rbd_backend,
+                'GlanceBackend': glance_backend,
+            })
+        else:
+            parameters.update({
+                'CephClusterFSID': ceph_cluster_fsid,
+                'CephMonKey': ceph_mon_key,
+                'CephAdminKey': ceph_admin_key,
+                'Controller-1::CinderEnableIscsiBackend': cinder_enable_iscsi_backend,
+                'Controller-1::CinderEnableRbdBackend': cinder_enable_rbd_backend,
+                'Compute-1::NovaEnableRbdBackend': nova_enable_rbd_backend,
+                'Controller-1::GlanceBackend': glance_backend,
+            })
 
         return parameters
 
