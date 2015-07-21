@@ -254,6 +254,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
         self.assertEqual(kwargs['parameters'], {
             'AdminPassword': 'password',
             'AdminToken': 'password',
+            'BlockStorageCount': 0,
             'BlockStorageImage': 'overcloud-full',
             'CeilometerMeteringSecret': 'password',
             'CeilometerPassword': 'password',
@@ -268,6 +269,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             'CinderPassword': 'password',
             'CloudName': 'overcloud',
             'controllerImage': 'overcloud-full',
+            'ComputeCount': 1,
+            'ControllerCount': 1,
             'Debug': 'True',
             'ExtraConfig': '{}',
             'GlanceBackend': 'rbd',
@@ -276,12 +279,14 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             'HeatStackDomainAdminPassword': 'password',
             'HypervisorNeutronPhysicalBridge': 'br-ex',
             'HypervisorNeutronPublicInterface': 'nic1',
+            'NeutronAllowL3AgentFailover': False,
             'NeutronBridgeMappings': 'datacentre:br-ex',
             'NeutronControlPlaneID': 'network id',
-            'NeutronDhcpAgentsPerNetwork': 3,
+            'NeutronDhcpAgentsPerNetwork': 1,
             'NeutronDnsmasqOptions': 'dhcp-option-force=26,1400',
             'NeutronEnableTunnelling': 'True',
             'NeutronFlatNetworks': 'datacentre',
+            'NeutronL3HA': False,
             'NeutronNetworkType': 'gre',
             'NeutronNetworkVLANRanges': 'datacentre:1:1000',
             'NeutronPassword': 'password',
@@ -292,6 +297,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             'NovaImage': 'overcloud-full',
             'NovaPassword': 'password',
             'NtpServer': '',
+            'ObjectStorageCount': 0,
             'OvercloudBlockStorageFlavor': 'baremetal',
             'OvercloudCephStorageFlavor': 'baremetal',
             'OvercloudComputeFlavor': 'baremetal',
@@ -301,6 +307,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             'SwiftHashSuffix': 'password',
             'SwiftPassword': 'password',
             'SwiftStorageImage': 'overcloud-full',
+            'controllerImage': 'overcloud-full',
         })
 
         self.assertEqual(kwargs['files'], {})
