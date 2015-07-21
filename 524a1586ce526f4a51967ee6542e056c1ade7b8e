@@ -39,6 +39,30 @@
       "revId": "524a1586ce526f4a51967ee6542e056c1ade7b8e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_8e189e76",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-07-21T11:36:11Z",
+      "side": 0,
+      "message": "Agreed.. I don\u0027t know why we are removing this. This at least was working.",
+      "parentUuid": "9ad9bd40_1b868e13",
+      "range": {
+        "startLine": 316,
+        "startChar": 8,
+        "endLine": 316,
+        "endChar": 31
+      },
+      "revId": "524a1586ce526f4a51967ee6542e056c1ade7b8e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
