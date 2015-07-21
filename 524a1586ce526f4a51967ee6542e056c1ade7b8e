@@ -16,6 +16,29 @@
       "revId": "524a1586ce526f4a51967ee6542e056c1ade7b8e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_1b868e13",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-07-21T09:53:10Z",
+      "side": 0,
+      "message": "do we really want to make this change? I am a bit confused given irc discussion so I\u0027ll try to add this in context here.\n\nMy understanding is that we need \"at least 3, or, number of controllers\" as dhcp_agents_per_network. We previously defaulted to 2 (in templates) and upped to 3 after discussion at https://bugzilla.redhat.com/attachment.cgi?id\u003d1050706 for https://bugzilla.redhat.com/show_bug.cgi?id\u003d1238117",
+      "range": {
+        "startLine": 316,
+        "startChar": 8,
+        "endLine": 316,
+        "endChar": 31
+      },
+      "revId": "524a1586ce526f4a51967ee6542e056c1ade7b8e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
