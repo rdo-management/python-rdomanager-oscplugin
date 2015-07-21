@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_788ec5d1",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-07-21T03:05:38Z",
+      "side": 1,
+      "message": "Unless, of course, we can end up in the situation that both parameters exist at the same time *and* we want more than 9 instances. Then this can fail.\n\nBut then we need to convert each parameter to to int first, and then we have to consider cases of empty strings. Also this will fail under Python 3, but changing the 0\u0027s to strings fixes that.",
+      "revId": "48ce0be108418b1cd451a62af704dad7c0873b24",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
