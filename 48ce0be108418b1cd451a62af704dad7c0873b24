@@ -16,6 +16,24 @@
       "revId": "48ce0be108418b1cd451a62af704dad7c0873b24",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_d8e42ce3",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-07-21T07:52:49Z",
+      "side": 1,
+      "message": "Good catch Lennart",
+      "parentUuid": "9ad9bd40_788ec5d1",
+      "revId": "48ce0be108418b1cd451a62af704dad7c0873b24",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
