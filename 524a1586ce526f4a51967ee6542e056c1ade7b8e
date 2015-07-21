@@ -87,6 +87,30 @@
       "revId": "524a1586ce526f4a51967ee6542e056c1ade7b8e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_0e5bae2e",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-07-21T11:46:28Z",
+      "side": 0,
+      "message": "Fine, but does that belong in this changeset?",
+      "parentUuid": "9ad9bd40_0e248ead",
+      "range": {
+        "startLine": 316,
+        "startChar": 8,
+        "endLine": 316,
+        "endChar": 31
+      },
+      "revId": "524a1586ce526f4a51967ee6542e056c1ade7b8e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
