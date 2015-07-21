@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_f858108c",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1003854
+      },
+      "writtenOn": "2015-07-21T08:27:50Z",
+      "side": 0,
+      "message": "this was removed because it is set on L225",
+      "revId": "524a1586ce526f4a51967ee6542e056c1ade7b8e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
