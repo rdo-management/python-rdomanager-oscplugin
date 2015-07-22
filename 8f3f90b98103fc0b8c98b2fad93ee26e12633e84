@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_8315c741",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-07-22T14:48:26Z",
+      "side": 1,
+      "message": "cant quickly tell if this is your addition (and if so nuke it?) or if from the rebase - i can\u0027t see it in what i have from latest poodle so not sure",
+      "revId": "8f3f90b98103fc0b8c98b2fad93ee26e12633e84",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
