@@ -16,6 +16,24 @@
       "revId": "357a306a46038f7a45ab9429fb4e6ca05e46e812",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_4f24beae",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-07-23T09:39:00Z",
+      "side": 1,
+      "message": "as an update, i sanity checked this in its present form (with all the () above) and got 1 when 1 controller and 3 when 3 no errors in deploy",
+      "parentUuid": "9ad9bd40_f42d67ff",
+      "revId": "357a306a46038f7a45ab9429fb4e6ca05e46e812",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
