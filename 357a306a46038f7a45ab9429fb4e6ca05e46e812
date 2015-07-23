@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_f42d67ff",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1003948
+      },
+      "writtenOn": "2015-07-23T07:49:42Z",
+      "side": 1,
+      "message": "overzealous use of () i think - at least works fine with++out the inner () around number_controllers,3",
+      "revId": "357a306a46038f7a45ab9429fb4e6ca05e46e812",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
