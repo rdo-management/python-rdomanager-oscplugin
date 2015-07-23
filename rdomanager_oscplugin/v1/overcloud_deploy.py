@@ -296,51 +296,45 @@ class DeployOvercloud(command.Command):
             int(parameters.get('Controller-1::count', 0))
         ))
 
-        if number_controllers > 1:
-            if args.templates:
-                parameters.update({
-                    'NeutronL3HA': True,
-                    'NeutronAllowL3AgentFailover': False,
-                })
-            else:
-                parameters.update({
-                    'Controller-1::NeutronL3HA': True,
-                    'Controller-1::NeutronAllowL3AgentFailover': False,
-                    'Compute-1::NeutronL3HA': True,
-                    'Compute-1::NeutronAllowL3AgentFailover': False,
-                })
-        else:
-            if args.templates:
-                parameters.update({
-                    'NeutronL3HA': False,
-                    'NeutronAllowL3AgentFailover': False,
-                })
-            else:
-                parameters.update({
-                    'Controller-1::NeutronL3HA': False,
-                    'Controller-1::NeutronAllowL3AgentFailover': False,
-                    'Compute-1::NeutronL3HA': False,
-                    'Compute-1::NeutronAllowL3AgentFailover': False,
-                })
+        if stack is None:
+            if number_controllers > 1:
+                dhcp_agents_per_network = min(number_controllers, 3)
+                if args.templates:
+                    parameters.update({
+                        'NeutronL3HA': True,
+                        'NeutronAllowL3AgentFailover': False,
+                        'NeutronDhcpAgentsPerNetwork': dhcp_agents_per_network,
+                    })
+                else:
+                    parameters.update({
+                        'Controller-1::NeutronL3HA': True,
+                        'Controller-1::NeutronAllowL3AgentFailover': False,
+                        'Compute-1::NeutronL3HA': True,
+                        'Compute-1::NeutronAllowL3AgentFailover': False,
+                        'Controller-1::NeutronDhcpAgentsPerNetwork':
+                        dhcp_agents_per_network,
+                    })
+            elif number_controllers == 1:
+                dhcp_agents_per_network = 1
+                if args.templates:
+                    parameters.update({
+                        'NeutronL3HA': False,
+                        'NeutronAllowL3AgentFailover': False,
+                        'NeutronDhcpAgentsPerNetwork': dhcp_agents_per_network,
+                    })
+                else:
+                    parameters.update({
+                        'Controller-1::NeutronL3HA': False,
+                        'Controller-1::NeutronAllowL3AgentFailover': False,
+                        'Compute-1::NeutronL3HA': False,
+                        'Compute-1::NeutronAllowL3AgentFailover': False,
+                        'Controller-1::NeutronDhcpAgentsPerNetwork':
+                        dhcp_agents_per_network,
+                    })
 
-        # set at least 3 dhcp_agents_per_network
-        dhcp_agents_per_network = (number_controllers if number_controllers and
-                                   number_controllers > 3 else 3)
+            if max((int(parameters.get('CephStorageCount', 0)),
+                    int(parameters.get('Ceph-Storage-1::count', 0)))) > 0:
 
-        if args.templates:
-            parameters.update({
-                'NeutronDhcpAgentsPerNetwork': dhcp_agents_per_network,
-            })
-        else:
-            parameters.update({
-                'Controller-1::NeutronDhcpAgentsPerNetwork':
-                    dhcp_agents_per_network,
-            })
-
-        if max((int(parameters.get('CephStorageCount', 0)),
-                int(parameters.get('Ceph-Storage-1::count', 0)))) > 0:
-
-            if stack is None:
                 parameters.update({
                     'CephClusterFSID': six.text_type(uuid.uuid1()),
                     'CephMonKey': utils.create_cephx_key(),
@@ -363,26 +357,26 @@ class DeployOvercloud(command.Command):
                         'Compute-1::NovaEnableRbdBackend': True,
                         'Controller-1::CinderEnableIscsiBackend': cinder_lvm
                     })
-        else:
-            parameters.update({
-                'CephClusterFSID': "''",
-                'CephMonKey': "''",
-                'CephAdminKey': "''"
-            })
-            if args.templates:
-                parameters.update({
-                    'CinderEnableRbdBackend': False,
-                    'NovaEnableRbdBackend': False,
-                    'GlanceBackend': 'swift',
-                    'CinderEnableIscsiBackend': True,
-                })
             else:
                 parameters.update({
-                    'Controller-1::CinderEnableRbdBackend': False,
-                    'Controller-1::GlanceBackend': 'swift',
-                    'Compute-1::NovaEnableRbdBackend': False,
-                    'Controller-1::CinderEnableIscsiBackend': True,
+                    'CephClusterFSID': "",
+                    'CephMonKey': "",
+                    'CephAdminKey': ""
                 })
+                if args.templates:
+                    parameters.update({
+                        'CinderEnableRbdBackend': False,
+                        'NovaEnableRbdBackend': False,
+                        'GlanceBackend': 'swift',
+                        'CinderEnableIscsiBackend': True,
+                    })
+                else:
+                    parameters.update({
+                        'Controller-1::CinderEnableRbdBackend': False,
+                        'Controller-1::GlanceBackend': 'swift',
+                        'Compute-1::NovaEnableRbdBackend': False,
+                        'Controller-1::CinderEnableIscsiBackend': True,
+                    })
 
         return parameters
 
