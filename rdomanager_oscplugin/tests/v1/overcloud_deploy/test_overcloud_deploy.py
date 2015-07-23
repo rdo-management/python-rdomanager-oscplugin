@@ -136,13 +136,10 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             'HeatStackDomainAdminPassword': 'password',
             'HypervisorNeutronPhysicalBridge': 'br-ex',
             'HypervisorNeutronPublicInterface': 'nic1',
-            'NeutronAllowL3AgentFailover': False,
             'NeutronBridgeMappings': 'datacentre:br-ex',
             'NeutronControlPlaneID': 'network id',
-            'NeutronDhcpAgentsPerNetwork': 3,
             'NeutronDnsmasqOptions': 'dhcp-option-force=26,1400',
             'NeutronFlatNetworks': 'datacentre',
-            'NeutronL3HA': False,
             'NeutronNetworkVLANRanges': 'datacentre:1:1000',
             'NeutronPassword': 'password',
             'NeutronPublicInterface': 'nic1',
@@ -281,7 +278,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             'NeutronAllowL3AgentFailover': False,
             'NeutronBridgeMappings': 'datacentre:br-ex',
             'NeutronControlPlaneID': 'network id',
-            'NeutronDhcpAgentsPerNetwork': 3,
+            'NeutronDhcpAgentsPerNetwork': 1,
             'NeutronDnsmasqOptions': 'dhcp-option-force=26,1400',
             'NeutronEnableTunnelling': 'True',
             'NeutronFlatNetworks': 'datacentre',
@@ -406,6 +403,10 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             '/home/stack/tripleo-heat-templates/overcloud-without-mergepy.yaml'
         )
 
+    @mock.patch('os_cloud_config.keystone_pki.create_signing_pair')
+    @mock.patch('os_cloud_config.keystone_pki.create_ca_pair')
+    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
+                '_get_overcloud_endpoint')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_deploy_postconfig')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
@@ -416,20 +417,21 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                 'process_multiple_environments_and_files')
     @mock.patch('heatclient.common.template_utils.get_template_contents')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
-                '_get_stack')
-    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_pre_heat_deploy')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_create_overcloudrc')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_heat_deploy')
     def test_tuskar_deploy(self, mock_heat_deploy, mock_create_overcloudrc,
-                           most_pre_deploy, mock_get_stack,
+                           most_pre_deploy,
                            mock_get_templte_contents,
                            mock_process_multiple_env,
                            mock_generate_overcloud_passwords,
                            mock_get_key, mock_update_nodesjson,
-                           mock_deploy_postconfig):
+                           mock_deploy_postconfig,
+                           mock_get_overcloud_endpoint,
+                           mock_keystone_pki_create_ca_pair,
+                           mock_keystone_pki_create_signing_pair):
 
         arglist = ['--plan', 'undercloud', '--output-dir', 'fake',
                    '--compute-flavor', 'baremetal',
@@ -460,9 +462,24 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             "id": "network id"
         }
 
+        orchestration_client = clients.rdomanager_oscplugin.orchestration()
+        mock_stack = fakes.create_to_dict_mock(
+            outputs=[{
+                'output_key': 'KeystoneURL',
+                'output_value': 'Overcloud endpoint'
+            }]
+        )
+        orchestration_client.stacks.get.side_effect = [None, mock_stack]
+
         mock_get_key.return_value = "PASSWORD"
 
         mock_generate_overcloud_passwords.return_value = self._get_passwords()
+
+        mock_keystone_pki_create_ca_pair.return_value = (
+            'CA_KEY_PEM', 'CA_CERT_PEM')
+
+        mock_keystone_pki_create_signing_pair.return_value = (
+            'SIGNING_KEY_PEM', 'SIGNING_CERT_PEM')
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
 
@@ -506,13 +523,18 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             'Controller-1::GlanceBackend': 'swift',
             'Controller-1::CinderEnableIscsiBackend': True,
             'Controller-1::CinderEnableRbdBackend': False,
-            'CephClusterFSID': "''",
-            'CephMonKey': "''",
-            'CephAdminKey': "''",
+            'CephClusterFSID': '',
+            'CephMonKey': '',
+            'CephAdminKey': '',
+            'Controller-1::NeutronEnableTunnelling': False,
+            'Compute-1::NeutronEnableTunnelling': False,
+            'Controller-1::KeystoneCACertificate': 'CA_CERT_PEM',
+            'Controller-1::KeystoneSigningCertificate': 'SIGNING_CERT_PEM',
+            'Controller-1::KeystoneSigningKey': 'SIGNING_KEY_PEM',
         }
 
         mock_heat_deploy.assert_called_with(
-            mock_get_stack(),
+            None,
             'fake/plan.yaml',
             parameters,
             ['fake/environment.yaml'],
@@ -608,20 +630,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             'Controller-1::GlancePassword': 'password',
             'Swift-Storage-1::SnmpdReadonlyUserPassword': "PASSWORD",
             'Controller-1::AdminToken': 'password',
-            'Controller-1::NeutronL3HA': True,
-            'Controller-1::NeutronAllowL3AgentFailover': False,
-            'Compute-1::NeutronL3HA': True,
-            'Compute-1::NeutronAllowL3AgentFailover': False,
             'Controller-1::NeutronMechanismDrivers': 'linuxbridge',
             'Compute-1::NeutronMechanismDrivers': 'linuxbridge',
-            'Controller-1::NeutronDhcpAgentsPerNetwork': 3,
-            'Compute-1::NovaEnableRbdBackend': False,
-            'Controller-1::GlanceBackend': 'swift',
-            'Controller-1::CinderEnableIscsiBackend': True,
-            'Controller-1::CinderEnableRbdBackend': False,
-            'CephClusterFSID': "''",
-            'CephMonKey': "''",
-            'CephAdminKey': "''",
         }
 
         mock_heat_deploy.assert_called_with(
@@ -632,6 +642,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             240
         )
 
+    @mock.patch('os_cloud_config.keystone_pki.create_signing_pair')
+    @mock.patch('os_cloud_config.keystone_pki.create_ca_pair')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_deploy_postconfig')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
@@ -642,8 +654,6 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                 'process_multiple_environments_and_files')
     @mock.patch('heatclient.common.template_utils.get_template_contents')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
-                '_get_stack')
-    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_pre_heat_deploy')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_create_overcloudrc')
@@ -651,12 +661,14 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                 '_heat_deploy')
     def test_tuskar_deploy_extra_config(self, mock_heat_deploy,
                                         mock_create_overcloudrc,
-                                        most_pre_deploy, mock_get_stack,
+                                        most_pre_deploy,
                                         mock_get_templte_contents,
                                         mock_process_multiple_env,
                                         mock_generate_overcloud_passwords,
                                         mock_get_key, mock_update_nodesjson,
-                                        mock_deploy_postconfig):
+                                        mock_deploy_postconfig,
+                                        mock_keystone_pki_create_ca_pair,
+                                        mock_keystone_pki_create_signing_pair):
 
         arglist = ['--plan', 'undercloud', '--output-dir', 'fake',
                    '--compute-flavor', 'baremetal',
@@ -691,9 +703,24 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             "id": "network id"
         }
 
+        orchestration_client = clients.rdomanager_oscplugin.orchestration()
+        mock_stack = fakes.create_to_dict_mock(
+            outputs=[{
+                'output_key': 'KeystoneURL',
+                'output_value': 'Overcloud endpoint'
+            }]
+        )
+        orchestration_client.stacks.get.side_effect = [None, mock_stack]
+
         mock_get_key.return_value = "PASSWORD"
 
         mock_generate_overcloud_passwords.return_value = self._get_passwords()
+
+        mock_keystone_pki_create_ca_pair.return_value = (
+            'CA_KEY_PEM', 'CA_CERT_PEM')
+
+        mock_keystone_pki_create_signing_pair.return_value = (
+            'SIGNING_KEY_PEM', 'SIGNING_CERT_PEM')
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
 
@@ -735,13 +762,18 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             'Controller-1::GlanceBackend': 'swift',
             'Controller-1::CinderEnableIscsiBackend': True,
             'Controller-1::CinderEnableRbdBackend': False,
-            'CephClusterFSID': "''",
-            'CephMonKey': "''",
-            'CephAdminKey': "''",
+            'CephClusterFSID': '',
+            'CephMonKey': '',
+            'CephAdminKey': '',
+            'Controller-1::NeutronEnableTunnelling': False,
+            'Compute-1::NeutronEnableTunnelling': False,
+            'Controller-1::KeystoneCACertificate': 'CA_CERT_PEM',
+            'Controller-1::KeystoneSigningCertificate': 'SIGNING_CERT_PEM',
+            'Controller-1::KeystoneSigningKey': 'SIGNING_KEY_PEM',
         }
 
         mock_heat_deploy.assert_called_with(
-            mock_get_stack(),
+            None,
             'fake/plan.yaml',
             parameters,
             ['fake/environment.yaml',
