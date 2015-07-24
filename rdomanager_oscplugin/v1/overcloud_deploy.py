@@ -629,7 +629,7 @@ class DeployOvercloud(command.Command):
 
         utils.remove_known_hosts(overcloud_ip)
 
-        keystone_ip = service_ips.get('KeystoneInternalVip')
+        keystone_ip = service_ips.get('KeystoneAdminVip')
         if not keystone_ip:
             keystone_ip = overcloud_ip
 
