@@ -135,7 +135,9 @@ class StartBaremetalIntrospectionBulk(IntrospectionParser, command.Command):
                                           'manageable'):
             self.log.debug("Node {0} has been set to manageable.".format(uuid))
 
-        for node in client.node.list():
+        manageable_nodes = [node for node in client.node.list()
+                            if node.provision_state == "manageable"]
+        for node in manageable_nodes:
 
             node_uuids.append(node.uuid)
 
