@@ -430,6 +430,20 @@ class UploadOvercloudImage(command.Command):
             self.log.debug('Image "%s" have already not existed, '
                            'no problem.' % name)
 
+    def _get_image(self, name):
+        try:
+            image = utils.find_resource(self.app.client_manager.image.images,
+                                        name)
+        except exceptions.CommandError:
+            self.log.debug('Image "%s" does not exists, no problem.' % name)
+            return None
+        return image
+
+    def _image_changed(self, name, filename):
+        image = utils.find_resource(self.app.client_manager.image.images,
+                                    name)
+        return image.checksum == utils.file_checksum(filename)
+
     def _check_file_exists(self, file_path):
         if not os.path.isfile(file_path):
             print('ERROR: Required file "%s" does not exist' % file_path)
@@ -441,36 +455,46 @@ class UploadOvercloudImage(command.Command):
         return open(filepath, 'rb')
 
     def _copy_file(self, src, dest):
-        subprocess.call('sudo cp -f "{0}" "{1}"'.format(src, dest), shell=True)
+        subprocess.check_call('sudo cp -f "{0}" "{1}"'.format(src, dest),
+                              shell=True)
 
-    def _load_image(self, image_path, image_name, image_client):
-        self.log.debug("uploading images to glance")
+    def _image_try_update(self, image_name, image_file, parsed_args):
+        image = self._get_image(image_name)
+        if image:
+            if self._image_changed(image_name, image_file):
+                if parsed_args.update_existing:
+                    return self.app.client_manager.image.images.update(
+                        image_name,
+                        data=self._read_image_file_pointer(
+                            parsed_args.image_path, image_file)
+                    )
+                else:
+                    print('Image "%s" already exists and can be updated'
+                          ' with --update-existing' % image_name)
+                    return image
+            else:
+                print('Image "%s" already exists and is up-to-date,'
+                      ' skipping.' % image_name)
+                return image
+        else:
+            return None
 
-        kernel_id = image_client.images.create(
-            name='%s-vmlinuz' % image_name,
-            is_public=True,
-            disk_format='aki',
-            data=self._read_image_file_pointer(image_path,
-                                               '%s.vmlinuz' % image_name)
-        ).id
+    def _files_changed(self, filepath1, filepath2):
+        return utils.file_checksum(filepath1) != utils.file_checksum(filepath2)
 
-        ramdisk_id = image_client.images.create(
-            name='%s-initrd' % image_name,
-            is_public=True,
-            disk_format='ari',
-            data=self._read_image_file_pointer(image_path,
-                                               '%s.initrd' % image_name)
-        ).id
-
-        image_client.images.create(
-            name=image_name,
-            is_public=True,
-            disk_format='qcow2',
-            container_format='bare',
-            properties={'kernel_id': kernel_id, 'ramdisk_id': ramdisk_id},
-            data=self._read_image_file_pointer(image_path,
-                                               '%s.qcow2' % image_name)
-        )
+    def _file_create_or_update(self, src_file, dest_file, update_existing):
+        if self._check_file_exists(dest_file):
+            if self._files_changed(src_file, dest_file):
+                if update_existing:
+                    self._copy_file(src_file, dest_file)
+                else:
+                    print('Image file "%s" already exists and can be updated'
+                          ' with --update-existing' % dest_file)
+            else:
+                print('Image file "%s" already exists and is up-to-date,'
+                      ' skipping.' % dest_file)
+        else:
+            self._copy_file(src_file, dest_file)
 
     def get_parser(self, prog_name):
         parser = super(UploadOvercloudImage, self).get_parser(prog_name)
@@ -489,6 +513,12 @@ class UploadOvercloudImage(command.Command):
             default=os.environ.get('HTTP_BOOT', '/httpboot'),
             help="Root directory for dicovery images",
         )
+        parser.add_argument(
+            "--update-existing",
+            dest="update_existing",
+            action="store_true",
+            help="Update images if already exist",
+        )
         return parser
 
     def take_action(self, parsed_args):
@@ -498,7 +528,7 @@ class UploadOvercloudImage(command.Command):
         self._env_variable_or_set('DEPLOY_NAME', 'deploy-ramdisk-ironic')
         self._env_variable_or_set('DISCOVERY_NAME', 'discovery-ramdisk')
 
-        self.log.debug("check image files")
+        self.log.debug("checking if image files exist")
 
         image_files = [
             '%s.initramfs' % os.environ['DEPLOY_NAME'],
@@ -512,43 +542,94 @@ class UploadOvercloudImage(command.Command):
             self._check_file_exists(os.path.join(parsed_args.image_path,
                                                  image))
 
-        self.log.debug("prepare glance images")
+        image_name = parsed_args.os_image.split('.')[0]
 
-        self._load_image(parsed_args.image_path,
-                         parsed_args.os_image.split('.')[0],
-                         image_client)
+        self.log.debug("uploading overcloud images to glance")
 
-        self._delete_image_if_exists(image_client, 'bm_deploy_kernel')
-        self._delete_image_if_exists(image_client, 'bm_deploy_ramdisk')
+        oc_vmlinuz_name = '%s-vmlinuz' % image_name
+        oc_vmlinuz_file = '%s.vmlinuz' % image_name
+        kernel = (self._image_try_update(oc_vmlinuz_name,
+                                         oc_vmlinuz_file,
+                                         parsed_args) or
+                  image_client.images.create(
+                      name=oc_vmlinuz_name,
+                      is_public=True,
+                      disk_format='aki',
+                      data=self._read_image_file_pointer(
+                          parsed_args.image_path, oc_vmlinuz_file)
+        ))
 
-        image_client.images.create(
-            name='bm-deploy-kernel',
+        oc_initrd_name = '%s-initrd' % image_name
+        oc_initrd_file = '%s.initrd' % image_name
+        ramdisk = (self._image_try_update(oc_initrd_name,
+                                          oc_initrd_file,
+                                          parsed_args) or
+                   image_client.images.create(
+                       name=oc_initrd_name,
+                       is_public=True,
+                       disk_format='ari',
+                       data=self._read_image_file_pointer(
+                           parsed_args.image_path, oc_initrd_file)
+        ))
+
+        oc_name = image_name
+        oc_file = '%s.qcow2' % image_name
+        overcloud_image = (self._image_try_update(oc_name, oc_file,
+                                                  parsed_args) or
+                           image_client.images.create(
+                               name=oc_name,
+                               is_public=True,
+                               disk_format='qcow2',
+                               container_format='bare',
+                               properties={'kernel_id': kernel.id,
+                                           'ramdisk_id': ramdisk.id},
+                               data=self._read_image_file_pointer(
+                                   parsed_args.image_path, oc_file)
+        ))
+
+        # check overcloud image links
+        if (overcloud_image.properties['kernel_id'] != kernel.id or
+                overcloud_image.properties['ramdisk_id'] != ramdisk.id):
+            print('ERROR: link overcloud image to it\'s initrd and kernel'
+                  ' images is INVALID. Fix it manually.')
+
+        self.log.debug("uploading bm images to glance")
+
+        deploy_kernel_name = 'bm-deploy-kernel'
+        deploy_kernel_file = '%s.kernel' % os.environ['DEPLOY_NAME']
+        self._image_try_update(deploy_kernel_name, deploy_kernel_file,
+                               parsed_args) or image_client.images.create(
+            name=deploy_kernel_name,
             is_public=True,
             disk_format='aki',
-            data=self._read_image_file_pointer(parsed_args.image_path,
-                                               '%s.kernel' %
-                                               os.environ['DEPLOY_NAME'])
+            data=self._read_image_file_pointer(
+                parsed_args.image_path,
+                deploy_kernel_file)
         )
 
-        image_client.images.create(
-            name='bm-deploy-ramdisk',
+        deploy_ramdisk_name = 'bm-deploy-ramdisk'
+        deploy_ramdisk_file = '%s.initramfs' % os.environ['DEPLOY_NAME']
+        self._image_try_update(deploy_ramdisk_name, deploy_ramdisk_file,
+                               parsed_args) or image_client.images.create(
+            name=deploy_ramdisk_name,
             is_public=True,
             disk_format='ari',
             data=self._read_image_file_pointer(parsed_args.image_path,
-                                               '%s.initramfs' %
-                                               os.environ['DEPLOY_NAME'])
+                                               deploy_ramdisk_file)
         )
 
         self.log.debug("copy discovery images to HTTP BOOT dir")
 
-        self._copy_file(
+        self._file_create_or_update(
             os.path.join(parsed_args.image_path,
                          '%s.kernel' % os.environ['DISCOVERY_NAME']),
-            os.path.join(parsed_args.http_boot, 'discovery.kernel')
+            os.path.join(parsed_args.http_boot, 'discovery.kernel'),
+            parsed_args.update_existing
         )
 
-        self._copy_file(
+        self._file_create_or_update(
             os.path.join(parsed_args.image_path,
                          '%s.initramfs' % os.environ['DISCOVERY_NAME']),
-            os.path.join(parsed_args.http_boot, 'discovery.ramdisk')
+            os.path.join(parsed_args.http_boot, 'discovery.ramdisk'),
+            parsed_args.update_existing
         )

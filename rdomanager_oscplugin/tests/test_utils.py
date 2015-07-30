@@ -14,9 +14,10 @@
 #
 
 import mock
-from unittest import TestCase
 
+from io import BytesIO
 from rdomanager_oscplugin import utils
+from unittest import TestCase
 
 
 class TestPasswordsUtil(TestCase):
@@ -337,3 +338,13 @@ class TestWaitForDiscovery(TestCase):
         utils.remove_known_hosts('192.168.0.1')
 
         mock_check_call.assert_not_called()
+
+    @mock.patch('__builtin__.open')
+    def test_file_checksum(self, open_mock):
+        exit_mock = mock.Mock()
+        enter_mock = mock.Mock()
+        open_mock.return_value = BytesIO(b'blahblahblah')
+        setattr(open_mock.return_value, '__exit__', exit_mock)
+        setattr(open_mock.return_value, '__enter__', enter_mock)
+        self.assertEqual(utils.file_checksum('testfile'),
+                         '46ea0d5b246d2841744c26f72a86fc29')
