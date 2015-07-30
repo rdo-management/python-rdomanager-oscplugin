@@ -376,3 +376,17 @@ def create_cephx_key():
 
 def run_shell(cmd):
     return subprocess.call([cmd], shell=True)
+
+
+def file_checksum(filepath):
+    """Calculate md5 checksum on file
+
+    :param filepath: Full path to file (e.g. /home/stack/image.qcow2)
+    :type  filepath: string
+
+    """
+    checksum = hashlib.md5()
+    with open(filepath, 'rb') as f:
+        for fragment in iter(lambda: f.read(65536), ''):
+            checksum.update(fragment)
+    return checksum.hexdigest()
