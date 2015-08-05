@@ -15,7 +15,11 @@
 
 """OpenStackClient Plugin interface"""
 
+from __future__ import print_function
+
 import logging
+import os
+import sys
 
 from ironicclient import client as ironic_client
 from openstackclient.common import utils
@@ -33,6 +37,10 @@ API_VERSIONS = {
     '1': 'rdomanager_oscplugin.plugin'
 }
 
+if os.geteuid() == 0:
+        print('ERROR: This command cannot run under root user. Switch to normal user.',
+              file=sys.stderr)
+        exit(1)
 
 def make_client(instance):
     return ClientWrapper(instance)
