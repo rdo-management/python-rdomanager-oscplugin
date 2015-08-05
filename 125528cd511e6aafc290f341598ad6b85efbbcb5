@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_c834114c",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-08-05T15:20:51Z",
+      "side": 1,
+      "message": "Why use print when all (edit: s/all/most/) of the existing code uses logging?",
+      "revId": "125528cd511e6aafc290f341598ad6b85efbbcb5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_a818add3",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-08-05T15:20:51Z",
+      "side": 1,
+      "message": "Please just raise an exception instead.  That allows the standard error handling in the client to kick in, whereas this is going to end-run around that.\n\nAlso, this is a total no-no in a library, and some day all of this code _is_ going into a library, if I have anything to say about it. ;-)",
+      "revId": "125528cd511e6aafc290f341598ad6b85efbbcb5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_e80e358b",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-08-05T15:20:51Z",
+      "side": 1,
+      "message": "Ugh, this pattern already slipped in.  That should be fixed.",
+      "revId": "125528cd511e6aafc290f341598ad6b85efbbcb5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_28249d0b",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-08-05T15:20:51Z",
+      "side": 1,
+      "message": "If you\u0027re prefixing a print statement with ERROR:, that just screams \"use log.error\" :-)",
+      "revId": "125528cd511e6aafc290f341598ad6b85efbbcb5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
