@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ad9bd40_e85c757f",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-08-05T15:26:20Z",
+      "side": 1,
+      "message": "\"file\" is a reserved word.  It shouldn\u0027t be used as an identifier.",
+      "revId": "125528cd511e6aafc290f341598ad6b85efbbcb5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad9bd40_c834114c",
         "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
         "patchSetId": 11
