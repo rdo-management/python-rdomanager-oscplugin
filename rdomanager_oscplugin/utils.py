@@ -378,3 +378,8 @@ def create_cephx_key():
 
 def run_shell(cmd):
     return subprocess.call([cmd], shell=True)
+
+
+def allUnique(x):
+    seen = list()
+    return not any(i in seen or seen.append(i) for i in x)
