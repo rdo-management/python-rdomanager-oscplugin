@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_035c124a",
+        "filename": "rdomanager_oscplugin/v1/overcloud_network_environment_validate.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-08-07T06:56:08Z",
+      "side": 1,
+      "message": "Slightly confusing as it isn\u0027t necessarily called network-environment.yaml.",
+      "revId": "2e8fb3abd16dad7726c0508623cd483847a45db3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
