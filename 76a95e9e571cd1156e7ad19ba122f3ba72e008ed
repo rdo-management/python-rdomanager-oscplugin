@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ad9bd40_0c119f51",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-08-07T14:04:33Z",
+      "side": 1,
+      "message": "Thanks for comment, but I\u0027d prefer keep it if it is not a problem.",
+      "parentUuid": "9ad9bd40_29ac958b",
+      "revId": "76a95e9e571cd1156e7ad19ba122f3ba72e008ed",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad9bd40_49a719a7",
         "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
         "patchSetId": 14
@@ -30,6 +48,24 @@
       "writtenOn": "2015-08-07T12:03:30Z",
       "side": 1,
       "message": "I find this formatting really difficult to read, but I guess it is partly due to the strict 80 char limit, so not sure I have a better suggestion.",
+      "revId": "76a95e9e571cd1156e7ad19ba122f3ba72e008ed",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_ac1fd359",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-08-07T14:04:33Z",
+      "side": 1,
+      "message": "It is a little bit more readable in https://review.gerrithub.io/#/c/242061/6/rdomanager_oscplugin/v1/overcloud_image.py",
+      "parentUuid": "9ad9bd40_49a719a7",
       "revId": "76a95e9e571cd1156e7ad19ba122f3ba72e008ed",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
