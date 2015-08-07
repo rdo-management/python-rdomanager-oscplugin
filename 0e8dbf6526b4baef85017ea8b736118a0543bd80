@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_e3b2ce92",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-08-07T06:51:02Z",
+      "side": 1,
+      "message": "all_unique",
+      "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_c3b86a77",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-08-07T06:51:02Z",
+      "side": 1,
+      "message": "You could just compare len(set(x)) and len(x)",
+      "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_836902fb",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-08-07T06:51:02Z",
+      "side": 1,
+      "message": "It looks like this log.error could happen without error_count being incremented?",
+      "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_a36c4609",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-08-07T06:51:02Z",
+      "side": 1,
+      "message": "...and again here. not sure if that is a problem?",
+      "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_634dde99",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-08-07T06:51:02Z",
+      "side": 1,
+      "message": "...and once more here.",
+      "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
