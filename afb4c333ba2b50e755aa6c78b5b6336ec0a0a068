@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_5e56d606",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-08-13T12:18:50Z",
+      "side": 1,
+      "message": "It might be nice use some method from utils.py (run_shell), but not an issue.",
+      "range": {
+        "startLine": 122,
+        "startChar": 16,
+        "endLine": 122,
+        "endChar": 39
+      },
+      "revId": "afb4c333ba2b50e755aa6c78b5b6336ec0a0a068",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
