@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ad9bd40_66f16c6a",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1005927
+      },
+      "writtenOn": "2015-08-14T11:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad9bd40_e3b2ce92",
+      "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad9bd40_c3b86a77",
         "filename": "rdomanager_oscplugin/utils.py",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-08-07T06:51:02Z",
       "side": 1,
       "message": "You could just compare len(set(x)) and len(x)",
+      "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_46df08d6",
+        "filename": "rdomanager_oscplugin/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1005927
+      },
+      "writtenOn": "2015-08-14T11:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad9bd40_c3b86a77",
       "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9ad9bd40_869bd016",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1005927
+      },
+      "writtenOn": "2015-08-14T11:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad9bd40_836902fb",
+      "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad9bd40_a36c4609",
         "filename": "rdomanager_oscplugin/v1/baremetal.py",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "9ad9bd40_a69e1405",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1005927
+      },
+      "writtenOn": "2015-08-14T11:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad9bd40_a36c4609",
+      "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad9bd40_634dde99",
         "filename": "rdomanager_oscplugin/v1/baremetal.py",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2015-08-07T06:51:02Z",
       "side": 1,
       "message": "...and once more here.",
+      "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_c6a15847",
+        "filename": "rdomanager_oscplugin/v1/baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1005927
+      },
+      "writtenOn": "2015-08-14T11:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad9bd40_634dde99",
       "revId": "0e8dbf6526b4baef85017ea8b736118a0543bd80",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
