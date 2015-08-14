@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_92d3ef02",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-08-14T13:32:08Z",
+      "side": 1,
+      "message": "In rst doc is cinder instead of block storage",
+      "range": {
+        "startLine": 708,
+        "startChar": 50,
+        "endLine": 708,
+        "endChar": 55
+      },
+      "revId": "b853e09434fbb1aacf32820979935f7a2b434a0f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_72b2ebe5",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-08-14T13:32:08Z",
+      "side": 1,
+      "message": "Maybe . here?",
+      "revId": "b853e09434fbb1aacf32820979935f7a2b434a0f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
