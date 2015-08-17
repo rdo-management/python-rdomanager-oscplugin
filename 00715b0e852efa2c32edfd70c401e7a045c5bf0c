@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_c5776e3a",
+        "filename": "setup.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-08-17T11:23:56Z",
+      "side": 1,
+      "message": "One nitpick. One command is called \"overcloud network environment validate\" and the other \"baremetal instackenv validate\". Could we choose one of those forms for consistency? Either \"networkenv\" and \"instackenv\" or \"network environment\" and \"instack environment\".",
+      "revId": "00715b0e852efa2c32edfd70c401e7a045c5bf0c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
