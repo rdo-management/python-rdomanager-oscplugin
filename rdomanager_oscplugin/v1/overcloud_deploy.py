@@ -598,9 +598,9 @@ class DeployOvercloud(command.Command):
                 f.write("export %(key)s=%(value)s\n" %
                         {'key': key, 'value': value})
 
-    def _update_nodesjson(self, stack):
+    def _update_nodesjson(self, stack, parsed_args):
 
-        with open("instackenv.json") as f:
+        with open(parsed_args.nodes_json) as f:
             instack_env = json.load(f)
 
             instack_env.setdefault('overcloud', {})
@@ -609,7 +609,7 @@ class DeployOvercloud(command.Command):
             instack_env['overcloud']['endpoint'] = (
                 self._get_overcloud_endpoint(stack))
 
-        with open("instackenv.json", "w") as f:
+        with open(parsed_args.nodes_json, "w") as f:
             json.dump(instack_env, f)
 
     def _deploy_postconfig(self, stack, parsed_args):
@@ -739,6 +739,7 @@ class DeployOvercloud(command.Command):
         )
         parser.add_argument(
             '--nodes-json',
+            dest='nodes_json',
             default=os.environ.get('NODES_JSON', 'instackenv.json')
         )
         parser.add_argument(
@@ -835,7 +836,7 @@ class DeployOvercloud(command.Command):
 
         self._create_overcloudrc(stack, parsed_args)
 
-        self._update_nodesjson(stack)
+        self._update_nodesjson(stack, parsed_args)
 
         if stack_create:
             self._deploy_postconfig(stack, parsed_args)
