@@ -92,7 +92,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             outputs=[{
                 'output_key': 'KeystoneURL',
                 'output_value': 'Overcloud endpoint'
-            }]
+            }],
+            stack_name='overcloud',
         )
         orchestration_client.stacks.get.return_value = mock_stack
 
@@ -228,7 +229,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             outputs=[{
                 'output_key': 'KeystoneURL',
                 'output_value': 'Overcloud endpoint'
-            }]
+            }],
+            stack_name='overcloud',
         )
         orchestration_client.stacks.get.return_value = None
 
@@ -373,7 +375,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
             outputs=[{
                 'output_key': 'KeystoneURL',
                 'output_value': 'Overcloud endpoint'
-            }]
+            }],
+            stack_name='overcloud',
         )
         orchestration_client.stacks.get.return_value = mock_stack
 
@@ -512,6 +515,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
 
         mock_heat_deploy.assert_called_with(
             mock_get_stack(),
+            'overcloud',
             'fake/plan.yaml',
             parameters,
             ['fake/environment.yaml'],
@@ -618,6 +622,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
 
         mock_heat_deploy.assert_called_with(
             mock_get_stack(),
+            'overcloud',
             'fake/plan.yaml',
             parameters,
             ['fake/environment.yaml'],
@@ -727,6 +732,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
 
         mock_heat_deploy.assert_called_with(
             mock_get_stack(),
+            'overcloud',
             'fake/plan.yaml',
             parameters,
             ['fake/environment.yaml',
