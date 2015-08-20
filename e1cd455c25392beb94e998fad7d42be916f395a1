@@ -1,0 +1,7 @@
+Code-Review+2: Ana Krivokapić <akrivoka@redhat.com>
+Verified+1: Marek Aufart <maufart@redhat.com>
+Submitted-by: Dougal Matthews <dougal@redhat.com>
+Submitted-at: Thu, 20 Aug 2015 10:15:50 +0200
+Reviewed-on: https://review.gerrithub.io/243513
+Project: rdo-management/python-rdomanager-oscplugin
+Branch: refs/heads/master
