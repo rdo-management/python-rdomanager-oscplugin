@@ -629,12 +629,13 @@ class DeployOvercloud(command.Command):
 
         utils.remove_known_hosts(overcloud_ip)
 
+        # TODO: user shouldn't be hardcoded
         keystone.initialize(
             overcloud_ip,
             passwords['OVERCLOUD_ADMIN_TOKEN'],
             'admin@example.com',
             passwords['OVERCLOUD_ADMIN_PASSWORD'],
-            user='heat-admin')
+            user='centos')
 
         # NOTE(bcrochet): Bad hack. Remove the ssl_port info from the
         # os_cloud_config.SERVICES dictionary
