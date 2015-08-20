@@ -125,7 +125,10 @@ pxe_ssh,192.168.122.1,root,"KEY2",00:7c:ef:3d:eb:60""")
                     'mac': ['00:0b:d0:69:7e:58']
                 }
             ],
+            kernel_name='bm-deploy-kernel',
+            ramdisk_name='bm-deploy-ramdisk',
             client=self.app.client_manager.rdomanager_oscplugin.baremetal(),
+            glance_client=self.app.client_manager.image,
             keystone_client=None)
 
     @mock.patch('os_cloud_config.nodes.register_all_nodes', autospec=True)
@@ -160,7 +163,10 @@ pxe_ssh,192.168.122.1,root,"KEY2",00:7c:ef:3d:eb:60""")
                     'mac': ['00:0b:d0:69:7e:58']
                 }
             ],
+            kernel_name='bm-deploy-kernel',
+            ramdisk_name='bm-deploy-ramdisk',
             client=self.app.client_manager.rdomanager_oscplugin.baremetal(),
+            glance_client=self.app.client_manager.image,
             keystone_client=None)
 
     @mock.patch('os_cloud_config.nodes.register_all_nodes', autospec=True)
@@ -194,7 +200,10 @@ pxe_ssh,192.168.122.1,root,"KEY2",00:7c:ef:3d:eb:60""")
                     'mac': ['00:7c:ef:3d:eb:60']
                 }
             ],
+            kernel_name='bm-deploy-kernel',
+            ramdisk_name='bm-deploy-ramdisk',
             client=self.app.client_manager.rdomanager_oscplugin.baremetal(),
+            glance_client=self.app.client_manager.image,
             keystone_client=None)
 
 

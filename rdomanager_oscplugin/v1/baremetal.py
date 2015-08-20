@@ -69,6 +69,14 @@ class ImportBaremetal(command.Command):
                             help='Nova compute service host to register nodes '
                             'with')
         parser.add_argument('--json', dest='json', action='store_true')
+        parser.add_argument('-k', '--kernel-name', dest='kernel_name',
+                            default='bm-deploy-kernel',
+                            help='Default kernel name (in Glance) for nodes '
+                                 'that do not specify one.')
+        parser.add_argument('-r', '--ramdisk-name', dest='ramdisk_name',
+                            default='bm-deploy-ramdisk',
+                            help='Default ramdisk name (in Glance) for nodes '
+                                 'that do not specify one.')
         parser.add_argument('--csv', dest='csv', action='store_true')
         parser.add_argument('file_in', type=argparse.FileType('r'))
         return parser
@@ -94,7 +102,10 @@ class ImportBaremetal(command.Command):
             parsed_args.service_host,
             nodes_json,
             client=self.app.client_manager.rdomanager_oscplugin.baremetal(),
-            keystone_client=self.app.client_manager.identity)
+            keystone_client=self.app.client_manager.identity,
+            glance_client=self.app.client_manager.image,
+            kernel_name=parsed_args.kernel_name,
+            ramdisk_name=parsed_args.ramdisk_name)
 
 
 class IntrospectionParser(object):
