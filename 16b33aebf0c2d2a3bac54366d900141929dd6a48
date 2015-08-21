@@ -46,6 +46,30 @@
       "revId": "16b33aebf0c2d2a3bac54366d900141929dd6a48",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_6b173f55",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-08-21T14:06:01Z",
+      "side": 1,
+      "message": "Ah, good catch.  I thought it would also be used for node registration, but I see that\u0027s different.",
+      "parentUuid": "9ad9bd40_2bbd3703",
+      "range": {
+        "startLine": 723,
+        "startChar": 8,
+        "endLine": 723,
+        "endChar": 9
+      },
+      "revId": "16b33aebf0c2d2a3bac54366d900141929dd6a48",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
