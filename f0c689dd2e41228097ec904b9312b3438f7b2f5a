@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_0e94fc42",
+        "filename": "doc/source/command-objects/overcloud.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-08-24T12:14:39Z",
+      "side": 1,
+      "message": "nit: . here propably",
+      "revId": "f0c689dd2e41228097ec904b9312b3438f7b2f5a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_2e91c052",
+        "filename": "doc/source/command-objects/overcloud.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-08-24T12:14:39Z",
+      "side": 1,
+      "message": "nit: . here propably",
+      "revId": "f0c689dd2e41228097ec904b9312b3438f7b2f5a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_4e9e0465",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-08-24T12:14:39Z",
+      "side": 1,
+      "message": "Not sure if . should be here or no (Deprecated)",
+      "revId": "f0c689dd2e41228097ec904b9312b3438f7b2f5a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
