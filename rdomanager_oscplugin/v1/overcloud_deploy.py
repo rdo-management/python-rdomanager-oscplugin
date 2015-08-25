@@ -15,7 +15,6 @@
 from __future__ import print_function
 
 import argparse
-import json
 import logging
 import os
 import re
@@ -81,7 +80,7 @@ PARAMETERS = {
 }
 
 NEW_STACK_PARAMETERS = {
-    'NovaComputeLibvirtType': 'qemu',
+    'NovaComputeLibvirtType': 'kvm',
     'NeutronTunnelIdRanges': '1:1000',
     'NeutronVniRanges': '1:1000',
     'NeutronEnableTunnelling': 'True',
@@ -751,19 +750,15 @@ class DeployOvercloud(command.Command):
                                    'entrypoints to be loaded from the '
                                    'neutron.ml2.extension_drivers namespace.'))
         parser.add_argument('--libvirt-type',
-                            help=_('Libvirt domain type. (default: qemu) '
-                                   '[qemu|kvm|lxc|uml|xen|parallels]'))
+                            default='kvm',
+                            help=_('Libvirt domain type. (default: kvm) '
+                                   '[kvm|qemu|lxc|uml|xen|parallels]'))
         parser.add_argument('--ntp-server',
                             help=_('The NTP for overcloud nodes.'))
         parser.add_argument(
             '--tripleo-root',
             default=os.environ.get('TRIPLEO_ROOT', '/etc/tripleo'),
             help=_('The root directory for TripleO templates.')
-        )
-        parser.add_argument(
-            '--nodes-json',
-            default=os.environ.get('NODES_JSON', 'instackenv.json'),
-            help=_('A file containing node definitions.')
         )
         parser.add_argument(
             '--no-proxy',
