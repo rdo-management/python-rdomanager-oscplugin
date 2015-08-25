@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_a4724c47",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-08-25T19:26:47Z",
+      "side": 1,
+      "message": "OK, strange things happened in the merge, I take care of that tomorrow.",
+      "range": {
+        "startLine": 763,
+        "startChar": 15,
+        "endLine": 763,
+        "endChar": 27
+      },
+      "revId": "b7201ee91f77d54ba2854c8e4dba28a320308b24",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
