@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_30e2f203",
+        "filename": "setup.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-08-26T14:14:54Z",
+      "side": 1,
+      "message": "command looks quite long",
+      "revId": "d40af353a9eae043b43b028624a95a4c12a5f744",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
