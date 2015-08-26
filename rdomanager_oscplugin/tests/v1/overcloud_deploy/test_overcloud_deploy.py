@@ -21,6 +21,7 @@ import six
 from tuskarclient.v2.plans import Plan
 
 from openstackclient.tests import utils as oscutils
+from rdomanager_oscplugin import exceptions
 from rdomanager_oscplugin.tests.v1.overcloud_deploy import fakes
 from rdomanager_oscplugin.tests.v1.utils import (
     generate_overcloud_passwords_mock)
@@ -113,7 +114,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
 
-        self.cmd.take_action(parsed_args)
+        result = self.cmd.take_action(parsed_args)
+        self.assertTrue(result)
 
         args, kwargs = orchestration_client.stacks.update.call_args
 
@@ -257,7 +259,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
 
-        self.cmd.take_action(parsed_args)
+        result = self.cmd.take_action(parsed_args)
+        self.assertTrue(result)
 
         args, kwargs = orchestration_client.stacks.create.call_args
 
@@ -400,7 +403,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
 
-        self.cmd.take_action(parsed_args)
+        result = self.cmd.take_action(parsed_args)
+        self.assertTrue(result)
 
         args, kwargs = orchestration_client.stacks.update.call_args
 
@@ -484,7 +488,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
 
-        self.cmd.take_action(parsed_args)
+        result = self.cmd.take_action(parsed_args)
+        self.assertTrue(result)
 
         parameters = {
             'Cinder-Storage-1::SnmpdReadonlyUserPassword': "PASSWORD",
@@ -597,7 +602,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
 
-        self.cmd.take_action(parsed_args)
+        result = self.cmd.take_action(parsed_args)
+        self.assertTrue(result)
 
         parameters = {
             'Cinder-Storage-1::SnmpdReadonlyUserPassword': "PASSWORD",
@@ -715,7 +721,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
 
-        self.cmd.take_action(parsed_args)
+        result = self.cmd.take_action(parsed_args)
+        self.assertTrue(result)
 
         parameters = {
             'Cinder-Storage-1::SnmpdReadonlyUserPassword': "PASSWORD",
@@ -822,7 +829,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
         ]
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
-        self.cmd.take_action(parsed_args)
+        result = self.cmd.take_action(parsed_args)
+        self.assertFalse(result)
         self.assertFalse(mock_deploy_tht.called)
         self.assertFalse(mock_deploy_tuskar.called)
 
@@ -857,10 +865,28 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
         ]
 
         parsed_args = self.check_parser(self.cmd, arglist, verifylist)
-        self.cmd.take_action(parsed_args)
+        result = self.cmd.take_action(parsed_args)
+        self.assertTrue(result)
         self.assertTrue(mock_deploy_tht.called)
         self.assertTrue(mock_oc_endpoint.called)
         self.assertTrue(mock_create_ocrc.called)
         self.assertFalse(mock_deploy_tuskar.called)
 
         mock_create_tempest_deployer_input.assert_called_with(self.cmd)
+
+    @mock.patch('rdomanager_oscplugin.utils.check_hypervisor_stats',
+                autospec=True)
+    def test_pre_heat_deploy_failed(self, mock_check_hypervisor_stats):
+        clients = self.app.client_manager
+        orchestration_client = clients.rdomanager_oscplugin.orchestration()
+        orchestration_client.stacks.get.return_value = fakes.create_tht_stack()
+        mock_check_hypervisor_stats.return_value = None
+        arglist = ['--templates']
+        verifylist = [
+            ('templates', '/usr/share/openstack-tripleo-heat-templates/')
+        ]
+        parsed_args = self.check_parser(self.cmd, arglist, verifylist)
+        result = self.cmd.take_action(parsed_args)
+        self.assertFalse(result)
+        self.assertRaises(exceptions.DeploymentError,
+                          self.cmd._pre_heat_deploy)
