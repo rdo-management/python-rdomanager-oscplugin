@@ -16,6 +16,24 @@
       "revId": "d40af353a9eae043b43b028624a95a4c12a5f744",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_90573e26",
+        "filename": "setup.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-08-26T15:15:25Z",
+      "side": 1,
+      "message": "yeah, I agree. I am happy to rename it if someone comes up with a better one.",
+      "parentUuid": "9ad9bd40_30e2f203",
+      "revId": "d40af353a9eae043b43b028624a95a4c12a5f744",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
