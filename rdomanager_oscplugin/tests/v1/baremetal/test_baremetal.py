@@ -840,6 +840,61 @@ class TestConfigureBaremetalBoot(fakes.TestBaremetal):
         self.cmd.take_action(parsed_args)
 
         self.assertEqual(find_resource_mock.call_count, 2)
+        self.assertEqual(find_resource_mock.mock_calls, [
+            mock.call(mock.ANY, 'bm-deploy-kernel'),
+            mock.call(mock.ANY, 'bm-deploy-ramdisk')
+        ])
+
+        self.assertEqual(bm_client.node.update.call_count, 2)
+        self.assertEqual(bm_client.node.update.mock_calls, [
+            mock.call('ABCDEFGH', [{
+                'op': 'add', 'value': 'boot_option:local',
+                'path': '/properties/capabilities'
+            }, {
+                'op': 'add', 'value': 'IDIDID',
+                'path': '/driver_info/deploy_ramdisk'
+            }, {
+                'op': 'add', 'value': 'IDIDID',
+                'path': '/driver_info/deploy_kernel'
+            }]),
+            mock.call('IJKLMNOP', [{
+                'op': 'add', 'value': 'boot_option:local',
+                'path': '/properties/capabilities'
+            }, {
+                'op': 'add', 'value': 'IDIDID',
+                'path': '/driver_info/deploy_ramdisk'
+            }, {
+                'op': 'add', 'value': 'IDIDID',
+                'path': '/driver_info/deploy_kernel'
+            }])
+        ])
+
+    @mock.patch('openstackclient.common.utils.find_resource', autospec=True)
+    def test_configure_boot_with_suffix(self, find_resource_mock):
+
+        find_resource_mock.return_value = mock.Mock(id="IDIDID")
+        bm_client = self.app.client_manager.rdomanager_oscplugin.baremetal()
+        bm_client.node.list.return_value = [
+            mock.Mock(uuid="ABCDEFGH"),
+            mock.Mock(uuid="IJKLMNOP"),
+        ]
+
+        bm_client.node.get.side_effect = [
+            mock.Mock(uuid="ABCDEFGH", properties={}),
+            mock.Mock(uuid="IJKLMNOP", properties={}),
+        ]
+
+        arglist = ['--image-suffix', '20150101T100620']
+        verifylist = [('image_suffix', '20150101T100620')]
+
+        parsed_args = self.check_parser(self.cmd, arglist, verifylist)
+        self.cmd.take_action(parsed_args)
+
+        self.assertEqual(find_resource_mock.call_count, 2)
+        self.assertEqual(find_resource_mock.mock_calls, [
+            mock.call(mock.ANY, 'bm-deploy-kernel_20150101T100620'),
+            mock.call(mock.ANY, 'bm-deploy-ramdisk_20150101T100620')
+        ])
 
         self.assertEqual(bm_client.node.update.call_count, 2)
         self.assertEqual(bm_client.node.update.mock_calls, [

@@ -63,3 +63,8 @@ Configure boot devices for all baremetal nodes
 .. code:: bash
 
     os baremetal configure boot
+        [ --image-suffix <timebased_suffix> ]
+
+.. option:: --image-suffix <timebased_suffix>
+
+    Image name suffix specifying image which should be used for boot config.

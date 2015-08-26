@@ -454,15 +454,28 @@ class ConfigureBaremetalBoot(command.Command):
     loops = 12
     sleep_time = 10
 
+    def get_parser(self, prog_name):
+        parser = super(ConfigureBaremetalBoot, self).get_parser(prog_name)
+        parser.add_argument('--image-suffix',
+                            default='',
+                            help='Image name suffix')
+        return parser
+
     def take_action(self, parsed_args):
 
         self.log.debug("take_action(%s)" % parsed_args)
         bm_client = self.app.client_manager.rdomanager_oscplugin.baremetal()
 
         image_client = self.app.client_manager.image
+
+        if parsed_args.image_suffix == '':
+            name_suffix = ''
+        else:
+            name_suffix = '_%s' % parsed_args.image_suffix
+
         try:
             kernel_id = osc_utils.find_resource(
-                image_client.images, 'bm-deploy-kernel').id
+                image_client.images, 'bm-deploy-kernel%s' % name_suffix).id
         except AttributeError:
             print("ERROR: Please make sure there is only one image named "
                   "'bm-deploy-kernel' in glance.",
@@ -471,7 +484,8 @@ class ConfigureBaremetalBoot(command.Command):
 
         try:
             ramdisk_id = osc_utils.find_resource(
-                image_client.images, 'bm-deploy-ramdisk').id
+                image_client.images,
+                'bm-deploy-ramdisk%s' % name_suffix).id
         except AttributeError:
             print("ERROR: Please make sure there is only one image named "
                   "'bm-deploy-ramdisk' in glance.",
