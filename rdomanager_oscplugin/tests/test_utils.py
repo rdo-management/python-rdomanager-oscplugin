@@ -16,6 +16,7 @@
 import mock
 from unittest import TestCase
 
+from rdomanager_oscplugin import exceptions
 from rdomanager_oscplugin import utils
 
 
@@ -337,3 +338,41 @@ class TestWaitForDiscovery(TestCase):
         utils.remove_known_hosts('192.168.0.1')
 
         mock_check_call.assert_not_called()
+
+
+class TestCheckNodesCount(TestCase):
+
+    def setUp(self):
+        self.baremetal = mock.Mock()
+        self.baremetal.node.list.return_value = range(3)
+        self.defaults = {
+            'ControllerCount': 1,
+            'ComputeCount': 1,
+            'ObjectStorageCount': 0,
+            'BlockStorageCount': 0,
+            'CephStorageCount': 0,
+        }
+        self.stack = mock.Mock(parameters=self.defaults)
+
+    def test_check_nodes_count_deploy_enough_nodes(self):
+        user_params = {'ControllerCount': 2}
+        self.assertEqual(True,
+                         utils.check_nodes_count(self.baremetal, None,
+                                                 user_params, self.defaults))
+
+    def test_check_nodes_count_deploy_too_much(self):
+        user_params = {'ControllerCount': 3}
+        self.assertRaises(exceptions.DeploymentError, utils.check_nodes_count,
+                          self.baremetal, None, user_params, self.defaults)
+
+    def test_check_nodes_count_scale_enough_nodes(self):
+        user_params = {'ControllerCount': 2}
+        self.assertEqual(True,
+                         utils.check_nodes_count(self.baremetal, None,
+                                                 user_params, self.defaults))
+
+    def test_check_nodes_count_scale_too_much(self):
+        user_params = {'ControllerCount': 3}
+        self.assertRaises(exceptions.DeploymentError, utils.check_nodes_count,
+                          self.baremetal, self.stack, user_params,
+                          self.defaults)
