@@ -45,6 +45,7 @@ SERVICE_LIST = {
         'port': '80',
         'path': WEBROOT,
         'admin_path': '%sadmin' % WEBROOT},
+    'sahara': {'password_field': 'OVERCLOUD_SAHARA_PASSWORD'}
 }
 
 
@@ -86,6 +87,7 @@ def generate_overcloud_passwords(output_file="tripleo-overcloud-passwords"):
         "OVERCLOUD_NOVA_PASSWORD",
         "OVERCLOUD_SWIFT_HASH",
         "OVERCLOUD_SWIFT_PASSWORD",
+        "OVERCLOUD_SAHARA_PASSWORD"
     )
 
     passwords = dict((p, _generate_password()) for p in password_names)
