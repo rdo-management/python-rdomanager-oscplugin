@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_93c0232c",
+        "filename": "rdomanager_oscplugin/v1/overcloud_image.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-08-27T12:45:22Z",
+      "side": 1,
+      "message": "Yeah, ugh. Where does this come from, is that Glance?",
+      "range": {
+        "startLine": 441,
+        "startChar": 35,
+        "endLine": 441,
+        "endChar": 36
+      },
+      "revId": "7b71d33b837d883cf97a8d95aafbbe73aef9b6b8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
