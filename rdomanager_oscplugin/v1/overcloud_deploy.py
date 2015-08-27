@@ -82,6 +82,7 @@ PARAMETERS = {
     'OvercloudSwiftStorageFlavor': 'baremetal',
     'OvercloudCephStorageFlavor': 'baremetal',
     'NeutronNetworkVLANRanges': 'datacentre:1:1000',
+    'SaharaPassword': None
 }
 
 NEW_STACK_PARAMETERS = {
@@ -133,6 +134,7 @@ class DeployOvercloud(command.Command):
             parameters['SwiftPassword'] = passwords['OVERCLOUD_SWIFT_PASSWORD']
             parameters['SnmpdReadonlyUserPassword'] = (
                 undercloud_ceilometer_snmpd_password)
+            parameters['SaharaPassword'] = passwords['OVERCLOUD_SAHARA_PASSWORD']
         else:
             parameters['Controller-1::AdminPassword'] = passwords[
                 'OVERCLOUD_ADMIN_PASSWORD']
@@ -174,6 +176,8 @@ class DeployOvercloud(command.Command):
                 passwords['OVERCLOUD_SWIFT_HASH'])
             parameters['Controller-1::SwiftPassword'] = (
                 passwords['OVERCLOUD_SWIFT_PASSWORD'])
+            parameters['Controller-1::SaharaPassword'] = (
+                passwords['OVERCLOUD_SAHARA_PASSWORD'])
 
     def _get_stack(self, orchestration_client, stack_name):
         """Get the ID for the current deployed overcloud stack if it exists."""
