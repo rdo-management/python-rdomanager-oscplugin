@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ad9bd40_2217faa4",
+        "filename": "rdomanager_oscplugin/v1/overcloud_validate.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-08-28T13:13:59Z",
+      "side": 1,
+      "message": "The comment no longer makes sense AFAICT",
+      "revId": "d40af353a9eae043b43b028624a95a4c12a5f744",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad9bd40_30e2f203",
         "filename": "setup.cfg",
         "patchSetId": 6
@@ -31,6 +48,24 @@
       "side": 1,
       "message": "yeah, I agree. I am happy to rename it if someone comes up with a better one.",
       "parentUuid": "9ad9bd40_30e2f203",
+      "revId": "d40af353a9eae043b43b028624a95a4c12a5f744",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_a2222aff",
+        "filename": "setup.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1004021
+      },
+      "writtenOn": "2015-08-28T13:13:59Z",
+      "side": 1,
+      "message": "Yeah, this name is super confusing. I have no idea what that means.",
+      "parentUuid": "9ad9bd40_90573e26",
       "revId": "d40af353a9eae043b43b028624a95a4c12a5f744",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
