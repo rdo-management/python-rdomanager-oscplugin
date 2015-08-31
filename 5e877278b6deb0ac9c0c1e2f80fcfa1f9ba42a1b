@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_57e91419",
+        "filename": "doc/source/command-objects/overcloud.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-08-31T17:29:35Z",
+      "side": 1,
+      "message": "Somewhat off-topic: We don\u0027t actually support anything besides kvm and qemu, do we?",
+      "revId": "5e877278b6deb0ac9c0c1e2f80fcfa1f9ba42a1b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
