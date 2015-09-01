@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_eb2401c8",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1000585
+      },
+      "writtenOn": "2015-09-01T13:59:30Z",
+      "side": 1,
+      "message": "This should be changed to a choices\u003d[]",
+      "revId": "23ab65e70cc8158db260bb06bc892f098034ce4c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
