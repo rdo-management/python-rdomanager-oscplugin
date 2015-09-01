@@ -22,6 +22,30 @@
       "revId": "a8c069c6e794f0846bafa348defe48500701da56",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_6b8f1124",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1003793
+      },
+      "writtenOn": "2015-09-01T12:48:32Z",
+      "side": 1,
+      "message": "The description of the bug says: \"Should be swiftoperator\", so this is correct.\n\nAlso the patch for the bug changes SwiftOperator -\u003e swiftoperator",
+      "parentUuid": "9ad9bd40_4bc32d57",
+      "range": {
+        "startLine": 618,
+        "startChar": 0,
+        "endLine": 618,
+        "endChar": 70
+      },
+      "revId": "a8c069c6e794f0846bafa348defe48500701da56",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
