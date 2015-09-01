@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad9bd40_d1236ca5",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-09-01T17:33:11Z",
+      "side": 1,
+      "message": "Femto-nit: I think openstackclient still qualifies as third-party in this case, even though we\u0027re a plugin to it.\n\nThat may be the nittiest import nit I ever picked though. :-)",
+      "revId": "3cc04a4bf6bdcff191a3b2643e790a3a41bc8e2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_311d7867",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-09-01T17:33:11Z",
+      "side": 1,
+      "message": "This TODO has been done?",
+      "revId": "3cc04a4bf6bdcff191a3b2643e790a3a41bc8e2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_864d2c9c",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-09-01T17:33:11Z",
+      "side": 1,
+      "message": "This is not really an error.  Instances boot just fine without localboot, they just need pxe connectivity to do it.  I\u0027d personally consider this a warning.",
+      "revId": "3cc04a4bf6bdcff191a3b2643e790a3a41bc8e2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_d10c4c3e",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-09-01T17:33:11Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure printing and logging is redundant.  An error message will always be printed by the client.",
+      "revId": "3cc04a4bf6bdcff191a3b2643e790a3a41bc8e2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_c6473476",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-09-01T17:33:11Z",
+      "side": 1,
+      "message": "This is evil. :-)\n\nPlease just raise an exception.  That will cause the client to exit non-zero.",
+      "revId": "3cc04a4bf6bdcff191a3b2643e790a3a41bc8e2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_71ff0002",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-09-01T17:33:11Z",
+      "side": 1,
+      "message": "Passing e is redundant here, log.exception already includes the exception details.  The argument should be a human-readable message explaining what went wrong.",
+      "revId": "3cc04a4bf6bdcff191a3b2643e790a3a41bc8e2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_26062021",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-09-01T17:33:11Z",
+      "side": 1,
+      "message": "Actually, I take that back.  We should just raise a new exception here with a comprehensible message and skip the logging.",
+      "revId": "3cc04a4bf6bdcff191a3b2643e790a3a41bc8e2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad9bd40_b109882e",
+        "filename": "rdomanager_oscplugin/v1/undercloud.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1003493
+      },
+      "writtenOn": "2015-09-01T17:33:11Z",
+      "side": 1,
+      "message": "RFE: We should add a check for baremetal if all of the flavors aren\u0027t otherwise assigned.  That\u0027s the flavor issue that has bitten people the most in my experience.",
+      "revId": "3cc04a4bf6bdcff191a3b2643e790a3a41bc8e2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
