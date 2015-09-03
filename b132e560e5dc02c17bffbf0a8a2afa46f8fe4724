@@ -22,6 +22,30 @@
       "revId": "b132e560e5dc02c17bffbf0a8a2afa46f8fe4724",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ae8d1ca_7c88f9e7",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1003295
+      },
+      "writtenOn": "2015-09-03T14:13:28Z",
+      "side": 1,
+      "message": "What would you want to see raised? A CommandError",
+      "parentUuid": "3ae8d1ca_7cb0f9f4",
+      "range": {
+        "startLine": 1144,
+        "startChar": 16,
+        "endLine": 1144,
+        "endChar": 22
+      },
+      "revId": "b132e560e5dc02c17bffbf0a8a2afa46f8fe4724",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
