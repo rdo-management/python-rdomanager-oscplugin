@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ae8d1ca_429a7615",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1002548
+      },
+      "writtenOn": "2015-09-03T19:12:00Z",
+      "side": 1,
+      "message": "mkstemp opens the file for you, not using it just leaves it open.",
+      "revId": "7ec0345296553d594ea70b53dae38548355de3a0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
