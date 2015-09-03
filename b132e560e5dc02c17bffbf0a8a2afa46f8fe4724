@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ae8d1ca_7cb0f9f4",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1003910
+      },
+      "writtenOn": "2015-09-03T13:49:39Z",
+      "side": 1,
+      "message": "I would consider raise error here if fatal\u003d\u003d1 and self.log.error if not fatal.",
+      "range": {
+        "startLine": 1144,
+        "startChar": 16,
+        "endLine": 1144,
+        "endChar": 22
+      },
+      "revId": "b132e560e5dc02c17bffbf0a8a2afa46f8fe4724",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
