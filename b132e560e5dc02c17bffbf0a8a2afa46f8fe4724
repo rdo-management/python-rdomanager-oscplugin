@@ -70,6 +70,30 @@
       "revId": "b132e560e5dc02c17bffbf0a8a2afa46f8fe4724",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ae8d1ca_1f0527c2",
+        "filename": "rdomanager_oscplugin/v1/overcloud_deploy.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1003514
+      },
+      "writtenOn": "2015-09-03T15:29:34Z",
+      "side": 1,
+      "message": "Looking at cliff, run_subcommand() will assume the command succeeded successfully if it returns. The correct thing seems to be to raise an error.",
+      "parentUuid": "3ae8d1ca_7faaabd5",
+      "range": {
+        "startLine": 1144,
+        "startChar": 16,
+        "endLine": 1144,
+        "endChar": 22
+      },
+      "revId": "b132e560e5dc02c17bffbf0a8a2afa46f8fe4724",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
