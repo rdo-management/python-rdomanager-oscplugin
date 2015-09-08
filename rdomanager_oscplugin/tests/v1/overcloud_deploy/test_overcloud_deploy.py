@@ -181,6 +181,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
         mock_create_tempest_deployer_input.assert_called_with(self.cmd)
 
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
+                '_validate_args')
+    @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_deploy_postconfig')
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_create_tempest_deployer_input', autospec=True)
@@ -217,7 +219,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                         mock_create_overcloudrc,
                         mock_generate_overcloud_passwords,
                         mock_create_tempest_deployer_input,
-                        mock_deploy_postconfig):
+                        mock_deploy_postconfig, mock_validate_args):
 
         arglist = ['--templates', '--ceph-storage-scale', '3']
         verifylist = [
@@ -329,6 +331,8 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
              'mergepy.yaml'))
 
         mock_create_tempest_deployer_input.assert_called_with(self.cmd)
+
+        mock_validate_args.assert_called_once_with(parsed_args)
 
     @mock.patch('rdomanager_oscplugin.v1.overcloud_deploy.DeployOvercloud.'
                 '_deploy_postconfig')
